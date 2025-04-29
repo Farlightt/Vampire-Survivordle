@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Vampire Survivors Wordle</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            margin: 40px;
+            background: url('images/background.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+        #uploadContainer { margin-bottom: 20px; }
+
+        #searchContainer {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        #searchInput {
+            padding: 10px;
+            width: 300px;
+            background: #3a3f73;
+            border: 3px solid #c7953b;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(199, 149, 59, 0.5);
+        }
+        #validateButton {
+            padding: 10px 20px;
+            margin-left: 10px;
+            background: #3a3f73;
+            border: 3px solid #c7953b;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(199, 149, 59, 0.5);
+        }
+        #validateButton:hover {
+            background: #50568c;
+        }
+        #suggestions {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: 1px solid #555;
+            border-radius: 10px;
+            width: 300px;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+            text-align: left;
+            z-index: 3;
+        }
+        #suggestions div {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #suggestions div:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        #gameArea {
+            margin-top: 20px;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .tableArea { display: flex; flex-direction: column; align-items: center; }
+        .row { display: flex; justify-content: center; margin: 2px 0; }
+        .row div {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 8px;
+    margin: 2px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    font-size: 14px;
+    opacity: 0;
+    animation: appear 0.8s ease forwards;
+}
+
+/* Ajout automatique d'un délai entre chaque case */
+.row div:nth-child(1) { animation-delay: 0s; }
+.row div:nth-child(2) { animation-delay: 0.2s; }
+.row div:nth-child(3) { animation-delay: 0.4s; }
+.row div:nth-child(4) { animation-delay: 0.6s; }
+.row div:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes appear {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+        #specHeader { margin-bottom: 2px; font-weight: bolder; }
+        #specHeader div {
+            width: 100px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bolder;
+            margin: 2px;
+            font-size: 14px;
+        }
+        .correct {
+            background-image: url('images/Green.png');
+            color: white;
+        }
+        .wrong {
+            background-image: url('images/Red.png');
+            color: white;
+        }
+        #victory {
+            margin-top: 20px;
+            font-size: 24px;
+            color: gold;
+        }
+        #logoContainer {
+            position: relative;
+            display: inline-block;
+        }
+        #logoContainer::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0) 70%);
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(10px);
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="logoContainer">
+        <img src="images/logo.png" alt="Vampire Survivordle" style="max-width: 400px;">
+    </div>
+
+    <div id="uploadContainer">
+        <input type="file" id="fileInput" accept=".csv">
+    </div>
+
+    <div id="searchContainer" style="display:none;">
+        <input type="text" id="searchInput" placeholder="Entrez le nom d'une arme..." oninput="showSuggestions()">
+        <button id="validateButton" onclick="searchItem()">Valider</button>
+        <div id="suggestions"></div>
+    </div>
+
+    <div id="gameArea">
+        <div class="tableArea">
+            <div id="specHeader" class="row"></div>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <div id="victory"></div>
+
+    <script>
+        let data = [];
+        let secretItem = null;
+        let headerCreated = false;
+        let proposedItems = [];
+
+        const specs = ['Nom', 'Direction', 'Evolution', 'Base Damage', 'Source'];
+
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const lines = text.trim().split('\n');
+                const headers = parseCSVLine(lines[0]);
+                data = lines.slice(1).map(line => {
+                    const values = parseCSVLine(line);
+                    const obj = {};
+                    headers.forEach((h, i) => obj[h.trim()] = values[i] ? values[i].trim() : '');
+                    return obj;
+                });
+                secretItem = data[Math.floor(Math.random() * data.length)];
+                console.log('Item secret :', secretItem);
+                document.getElementById('searchContainer').style.display = 'block';
+            };
+            reader.readAsText(file);
+        });
+
+        function createHeader() {
+            const specHeader = document.getElementById('specHeader');
+            specHeader.innerHTML = '';
+            specs.forEach(spec => {
+                const div = document.createElement('div');
+                div.textContent = spec;
+                specHeader.appendChild(div);
+            });
+        }
+
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let insideQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+
+                if (char === '"' && (i === 0 || line[i-1] !== '\\')) {
+                    insideQuotes = !insideQuotes;
+                } else if (char === ',' && !insideQuotes) {
+                    result.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current);
+            return result;
+        }
+
+        function compareSpec(itemValue, secretValue) {
+            if (!itemValue || !secretValue) return false;
+            const itemParts = itemValue.split(',').map(v => v.trim().toLowerCase());
+            const secretParts = secretValue.split(',').map(v => v.trim().toLowerCase());
+            return secretParts.every(part => itemParts.includes(part));
+        }
+
+        function searchItem() {
+            const inputField = document.getElementById('searchInput');
+            const validateButton = document.getElementById('validateButton');
+            const suggestions = document.getElementById('suggestions');
+            suggestions.style.display = 'none';
+
+            if (!headerCreated) {
+                createHeader();
+                headerCreated = true;
+            }
+
+            const input = inputField.value.trim().toLowerCase();
+            if (proposedItems.includes(input)) {
+                alert('Vous avez déjà proposé cet item !');
+                return;
+            }
+
+            const item = data.find(d => d['Nom'].toLowerCase() === input);
+            const results = document.getElementById('results');
+            const victory = document.getElementById('victory');
+            victory.innerHTML = '';
+
+            if (!item) {
+                const errorDiv = document.createElement('div');
+                errorDiv.innerHTML = '<p>Item non trouvé.</p>';
+                results.prepend(errorDiv);
+                return;
+            }
+
+            proposedItems.push(input);
+
+            const specDiv = document.createElement('div');
+            specDiv.classList.add('row');
+
+            specs.forEach(spec => {
+                const value = item[spec];
+                const correct = compareSpec(value, secretItem[spec]);
+
+                const div = document.createElement('div');
+                div.classList.add(correct ? 'correct' : 'wrong');
+                div.textContent = value;
+                specDiv.appendChild(div);
+            });
+
+            results.prepend(specDiv);
+
+            const allCorrect = specs.every(spec => compareSpec(item[spec], secretItem[spec]));
+
+            if (allCorrect) {
+                victory.innerHTML = '🎉 Bravo, vous avez trouvé l\'arme secrète !';
+                inputField.disabled = true;
+                validateButton.disabled = true;
+            }
+        }
+
+        function showSuggestions() {
+            const input = document.getElementById('searchInput').value.trim().toLowerCase();
+            const suggestions = document.getElementById('suggestions');
+            suggestions.innerHTML = '';
+
+            if (input.length === 0) {
+                suggestions.style.display = 'none';
+                return;
+            }
+
+            const matches = data.filter(d => d['Nom'].toLowerCase().startsWith(input) && !proposedItems.includes(d['Nom'].toLowerCase()));
+
+            matches.forEach(match => {
+                const div = document.createElement('div');
+                div.textContent = match['Nom'];
+                div.onclick = () => {
+                    document.getElementById('searchInput').value = match['Nom'];
+                    suggestions.style.display = 'none';
+                };
+                suggestions.appendChild(div);
+            });
+
+            suggestions.style.display = matches.length ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
