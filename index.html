@@ -24,7 +24,7 @@
             --mid: #e88c28;
             --bad: #e23434;
             --font: 'Pixelify Sans', 'Courier New', Courier, monospace;
-            --tile: clamp(66px, 20.5vw, 112px);
+            --tile: 100px;
         }
         * { box-sizing: border-box; }
         html, body { margin: 0; }
@@ -77,12 +77,30 @@
             border: 3px solid var(--gold);
             border-radius: 8px;
             box-shadow: inset 0 0 0 3px var(--panel-solid), inset 0 0 0 4px var(--gold-dark), 0 6px 24px rgba(0,0,0,0.6);
-            padding: 16px;
+            padding: clamp(10px, 3vw, 16px);
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
+        .category { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .cat {
+            padding: 10px 8px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid var(--gold-dark);
+            border-radius: 6px;
+            color: var(--ink-dim);
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+        }
+        .cat:hover { color: var(--ink); border-color: var(--gold); }
+        .cat.active { color: var(--gold-light); border-color: var(--gold); background: var(--navy); box-shadow: 0 3px 0 var(--gold-dark), inset 0 0 12px rgba(243,211,138,0.15); }
+        .stats-label { text-align: center; font-size: 12px !important; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+        .abbr { font-size: 12px !important; color: var(--ink-dim); line-height: 1.6 !important; }
+        .credit { font-size: 13px !important; color: var(--ink-dim); }
+        .credit a { color: var(--gold-light); }
         .tabs { display: grid; grid-template-columns: 1fr 1fr; background: rgba(0,0,0,0.35); border-radius: 6px; padding: 4px; gap: 4px; }
         .tab {
             padding: 8px 6px;
@@ -196,8 +214,8 @@
         #specHeader div {
             width: var(--tile);
             text-align: center;
-            font-size: 13px;
-            letter-spacing: 0.08em;
+            font-size: clamp(10px, calc(var(--tile) * 0.12), 13px);
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--gold-light);
             text-shadow: 0 1px 4px #000;
@@ -212,11 +230,11 @@
             align-items: center;
             justify-content: center;
             gap: 2px;
-            padding: clamp(6px, 1.6vw, 10px);
+            padding: calc(var(--tile) * 0.08);
             background-size: 100% 100%;
             image-rendering: pixelated;
             text-align: center;
-            font-size: clamp(11px, 2.9vw, 15px);
+            font-size: clamp(9px, calc(var(--tile) * 0.135), 15px);
             font-weight: 500;
             line-height: 1.1;
             text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 0 0 3px #000;
@@ -228,6 +246,8 @@
         .row .tile:nth-child(3) { animation-delay: 0.24s; }
         .row .tile:nth-child(4) { animation-delay: 0.36s; }
         .row.instant .tile { animation: none; }
+        .tile.dense { font-size: clamp(8px, calc(var(--tile) * 0.105), 12px); }
+        #results { display: flex; flex-direction: column; gap: 4px; }
         .tile .arrow { font-size: 1.7em; line-height: 1; }
         @keyframes flip {
             0% { transform: rotateX(90deg); opacity: 0; }
@@ -326,23 +346,28 @@
     </header>
 
     <main class="panel">
-        <div class="tabs" role="tablist">
-            <button class="tab" id="modeDaily" role="tab" onclick="startGame('daily')">Arme du jour</button>
+        <div class="category" role="tablist" aria-label="Catégorie">
+            <button class="cat" id="catWeapons" role="tab" onclick="switchCategory('weapons')">Armes</button>
+            <button class="cat" id="catCharacters" role="tab" onclick="switchCategory('characters')">Personnages</button>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Mode">
+            <button class="tab" id="modeDaily" role="tab" onclick="startGame('daily')">Défi du jour</button>
             <button class="tab" id="modeFree" role="tab" onclick="startGame('free')">Partie libre</button>
         </div>
 
         <div class="meta">
-            <span id="modeLabel">Chargement des armes…</span>
+            <span id="modeLabel">Chargement…</span>
             <span id="guessCount"></span>
         </div>
 
         <div id="uploadContainer">
-            <p>Impossible de charger <code>data.csv</code> automatiquement (page ouverte en local ?). Sélectionne le fichier :</p>
+            <p id="uploadText"></p>
             <input type="file" id="fileInput" accept=".csv">
         </div>
 
         <div class="search" id="searchContainer">
-            <input type="text" id="searchInput" placeholder="Nom d'une arme…" autocomplete="off" spellcheck="false" disabled>
+            <input type="text" id="searchInput" placeholder="" autocomplete="off" spellcheck="false" disabled>
             <button class="btn primary" id="validateButton" onclick="searchItem()" disabled>Valider</button>
             <div id="suggestions" role="listbox"></div>
         </div>
@@ -361,8 +386,8 @@
 
         <div id="board">
             <div id="specHeader" class="row"></div>
-            <div id="results" style="display:flex;flex-direction:column;gap:4px"></div>
-            <p class="empty" id="emptyState">Propose une arme pour révéler les premiers indices.</p>
+            <div id="results"></div>
+            <p class="empty" id="emptyState"></p>
         </div>
     </main>
 </div>
@@ -372,13 +397,16 @@
     <div class="panel modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
         <button class="icon-btn close" onclick="closeModal('helpModal')" aria-label="Fermer">×</button>
         <h2 id="helpTitle">Comment jouer</h2>
-        <p>Trouve l'arme secrète de Vampire Survivors. Chaque proposition révèle des indices sur 4 caractéristiques : nom, tags, dégâts de base et source (jeu de base ou DLC).</p>
+        <p>Trouve l'arme ou le personnage secret de Vampire Survivors. Chaque proposition révèle des indices sur ses caractéristiques.</p>
         <div class="rule"><div class="sw correct"></div><span>Correct</span></div>
-        <div class="rule"><div class="sw partial"></div><span>Tags : au moins un tag en commun, mais pas tous</span></div>
+        <div class="rule"><div class="sw partial"></div><span>Partiel : au moins un élément en commun (tags d'une arme, arme de départ ou stats d'un personnage)</span></div>
         <div class="rule"><div class="sw wrong"></div><span>Faux</span></div>
-        <div class="rule"><div class="sw wrong">▲</div><span>Dégâts : l'arme secrète en fait <b>plus</b> (▼ : moins)</span></div>
-        <p>Après <b id="hintThreshold"></b> essais, tu peux révéler la description de l'arme en indice.</p>
-        <p><b>Arme du jour</b> : la même pour tout le monde, nouvelle arme à minuit. <b>Partie libre</b> : une arme au hasard, autant de fois que tu veux.</p>
+        <div class="rule"><div class="sw wrong">▲</div><span>Nombre (dégâts, PV max) : la réponse a une valeur <b>plus haute</b> (▼ : plus basse)</span></div>
+        <p><b>Personnages</b> : la colonne Stats liste les statistiques que le personnage modifie au départ (en plus ou en moins). Survole une case pour voir les noms complets.</p>
+        <p class="abbr">Rec Recovery · Arm Armor · MS Move Speed · Mgt Might · Spd Speed · Dur Duration · Area · CD Cooldown · Amt Amount · Rev Revival · Mag Magnet · Lck Luck · Grw Growth · Grd Greed · Crs Curse · Rrl Reroll · Skp Skip · Ban Banish</p>
+        <p>Après <b id="hintThreshold"></b> essais, tu peux révéler la description en indice.</p>
+        <p><b>Défi du jour</b> : le même pour tout le monde, renouvelé à minuit. <b>Partie libre</b> : au hasard, autant de fois que tu veux.</p>
+        <p class="credit">Données des personnages : <a href="https://vampire.survivors.wiki/" target="_blank" rel="noopener">Vampire Survivors Wiki</a>.</p>
         <button class="btn primary" onclick="closeModal('helpModal')">Jouer</button>
     </div>
 </div>
@@ -389,6 +417,7 @@
         <button class="icon-btn close" onclick="closeModal('endModal')" aria-label="Fermer">×</button>
         <h2 id="endTitle">Statistiques</h2>
         <div id="endWeapon"></div>
+        <p class="stats-label" id="statsLabel"></p>
         <div class="stats">
             <div><b id="stPlayed">0</b><span>Jouées</span></div>
             <div><b id="stWinPct">0</b><span>% victoires</span></div>
@@ -408,13 +437,48 @@
 
 <script>
     const HINT_AFTER = 6;
-    const COLUMNS = [
-        { key: 'Nom', label: 'Nom' },
-        { key: 'Tags', label: 'Tags' },
-        { key: 'Base Damage', label: 'Dégâts' },
-        { key: 'Source', label: 'Source' },
-    ];
 
+    // Chaque catégorie : son fichier, ses colonnes et la façon de les comparer.
+    //   exact : identique ou non · set : liste, orange si un élément en commun · number : flèches ▲/▼
+    const CATEGORIES = {
+        weapons: {
+            file: 'data.csv',
+            noun: 'arme', the: "l'arme", nounDaily: 'Arme du jour', placeholder: "Nom d'une arme…",
+            seed: 'vsdle-', dailyKey: 'vsdle-daily', statsKey: 'vsdle-stats',
+            shareTitle: 'Vampire Survivordle · Armes',
+            columns: [
+                { key: 'Nom', label: 'Nom', type: 'exact' },
+                { key: 'Tags', label: 'Tags', type: 'set' },
+                { key: 'Base Damage', label: 'Dégâts', type: 'number' },
+                { key: 'Source', label: 'Source', type: 'exact' },
+            ],
+        },
+        characters: {
+            file: 'characters.csv',
+            noun: 'personnage', the: 'le personnage', nounDaily: 'Personnage du jour', placeholder: "Nom d'un personnage…",
+            seed: 'vsdle-char-', dailyKey: 'vsdle-daily-characters', statsKey: 'vsdle-stats-characters',
+            shareTitle: 'Vampire Survivordle · Personnages',
+            columns: [
+                { key: 'Nom', label: 'Nom', type: 'exact' },
+                { key: 'Arme', label: 'Arme', type: 'set' },
+                { key: 'Source', label: 'Source', type: 'exact' },
+                { key: 'Secret', label: 'Secret', type: 'exact' },
+                { key: 'Max Health', label: 'PV max', type: 'number' },
+                { key: 'Bonus', label: 'Stats', type: 'set', abbr: true },
+            ],
+        },
+    };
+
+    // Abréviations des stats, pour que la case Stats reste lisible
+    const STAT_ABBR = {
+        'Recovery': 'Rec', 'Armor': 'Arm', 'Move Speed': 'MS', 'Might': 'Mgt', 'Speed': 'Spd', 'Duration': 'Dur',
+        'Area': 'Area', 'Cooldown': 'CD', 'Amount': 'Amt', 'Revival': 'Rev', 'Magnet': 'Mag', 'Luck': 'Lck',
+        'Growth': 'Grw', 'Greed': 'Grd', 'Curse': 'Crs', 'Reroll': 'Rrl', 'Skip': 'Skp', 'Banish': 'Ban',
+    };
+
+    const datasets = {};          // données chargées par catégorie
+    let category = 'weapons';
+    let cfg = CATEGORIES.weapons;
     let data = [];
     let secretItem = null;
     let mode = 'daily';
@@ -430,8 +494,9 @@
 
     // ---------- Utilitaires ----------
     const normalize = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
-    const splitTags = s => s.split(',').map(t => normalize(t)).filter(Boolean);
+    const splitList = s => s.split(',').map(t => normalize(t)).filter(Boolean);
     const plural = (n, word) => `${n} ${word}${n > 1 ? 's' : ''}`;
+    const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
     const storage = {
         get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
         set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
@@ -443,7 +508,7 @@
     const todayKey = () => dateKey();
     function yesterdayKey() { const d = new Date(); d.setDate(d.getDate() - 1); return dateKey(d); }
 
-    // Hash déterministe (FNV-1a) pour choisir l'arme du jour.
+    // Hash déterministe (FNV-1a) pour choisir le défi du jour.
     function hash(str) {
         let h = 2166136261;
         for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
@@ -465,6 +530,15 @@
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') document.querySelectorAll('.overlay.open').forEach(o => closeModal(o.id));
     });
+
+    // Taille des cases : la grille remplit toujours la largeur du panneau, quel que soit le nombre de colonnes.
+    function sizeTiles() {
+        const n = cfg.columns.length;
+        const w = $('board').clientWidth;
+        const tile = Math.max(46, Math.min(112, Math.floor((w - (n - 1) * 4) / n)));
+        document.documentElement.style.setProperty('--tile', tile + 'px');
+    }
+    window.addEventListener('resize', sizeTiles);
 
     // ---------- Chargement des données ----------
     function parseCSV(text) {
@@ -493,35 +567,69 @@
             const obj = {};
             headers.forEach((h, i) => obj[h] = (values[i] || '').trim());
             return obj;
-        });
+        }).filter(d => d['Nom']);
     }
 
-    function onDataLoaded(text) {
-        data = parseCSV(text).filter(d => d['Nom']);
-        $('uploadContainer').style.display = 'none';
-        $('searchContainer').style.display = 'flex';
-        $('gameActions').style.display = 'flex';
-        startGame('daily');
-        if (!storage.get('vsdle-seen-help')) { openModal('helpModal'); storage.set('vsdle-seen-help', true); }
+    function loadCategory(cat) {
+        if (datasets[cat]) return Promise.resolve(datasets[cat]);
+        const inline = window.VSDLE_INLINE_CSV && window.VSDLE_INLINE_CSV[CATEGORIES[cat].file];
+        if (inline) return Promise.resolve(datasets[cat] = parseCSV(inline));
+        return fetch(CATEGORIES[cat].file)
+            .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+            .then(text => (datasets[cat] = parseCSV(text)));
     }
 
-    fetch('data.csv')
-        .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
-        .then(onDataLoaded)
-        .catch(() => {
-            $('modeLabel').textContent = '';
-            $('uploadContainer').style.display = 'block';
-            $('searchContainer').style.display = 'none';
-            $('gameActions').style.display = 'none';
-        });
+    function showUpload() {
+        $('uploadText').innerHTML = '';
+        $('uploadText').append(
+            'Impossible de charger ', Object.assign(document.createElement('code'), { textContent: cfg.file }),
+            ' automatiquement (page ouverte en local ?). Sélectionne le fichier :'
+        );
+        $('uploadContainer').style.display = 'block';
+        $('searchContainer').style.display = 'none';
+        $('gameActions').style.display = 'none';
+        $('modeLabel').textContent = '';
+        $('guessCount').textContent = '';
+        $('results').innerHTML = '';
+        $('specHeader').style.display = 'none';
+        $('emptyState').style.display = 'none';
+        $('resultBar').style.display = 'none';
+        $('hint').style.display = 'none';
+    }
 
     $('fileInput').addEventListener('change', e => {
         const file = e.target.files[0];
         if (!file) return;
         const reader = new FileReader();
-        reader.onload = ev => onDataLoaded(ev.target.result);
+        reader.onload = ev => {
+            datasets[category] = parseCSV(ev.target.result);
+            e.target.value = '';
+            switchCategory(category);
+        };
         reader.readAsText(file);
     });
+
+    function switchCategory(cat) {
+        category = cat;
+        cfg = CATEGORIES[cat];
+        storage.set('vsdle-category', cat);
+        $('catWeapons').classList.toggle('active', cat === 'weapons');
+        $('catCharacters').classList.toggle('active', cat === 'characters');
+        $('catWeapons').setAttribute('aria-selected', cat === 'weapons');
+        $('catCharacters').setAttribute('aria-selected', cat === 'characters');
+        $('modeLabel').textContent = 'Chargement…';
+        sizeTiles();
+        loadCategory(cat)
+            .then(rows => {
+                if (category !== cat) return;
+                data = rows;
+                $('uploadContainer').style.display = 'none';
+                $('searchContainer').style.display = 'flex';
+                secretItem = null;
+                startGame('daily');
+            })
+            .catch(() => { if (category === cat) showUpload(); });
+    }
 
     // ---------- Partie ----------
     function startGame(newMode) {
@@ -533,7 +641,7 @@
         won = false;
 
         if (mode === 'daily') {
-            secretItem = data[hash('vsdle-' + todayKey()) % data.length];
+            secretItem = data[hash(cfg.seed + todayKey()) % data.length];
         } else {
             let next;
             do { next = data[Math.floor(Math.random() * data.length)]; }
@@ -541,12 +649,14 @@
             secretItem = next;
         }
 
+        $('modeDaily').textContent = cfg.nounDaily;
         $('modeDaily').classList.toggle('active', mode === 'daily');
         $('modeFree').classList.toggle('active', mode === 'free');
         $('modeDaily').setAttribute('aria-selected', mode === 'daily');
         $('modeFree').setAttribute('aria-selected', mode === 'free');
         $('results').innerHTML = '';
         $('specHeader').style.display = 'none';
+        $('emptyState').textContent = `Propose un ${cfg.noun} pour révéler les premiers indices.`.replace('un arme', 'une arme');
         $('emptyState').style.display = 'block';
         $('resultBar').style.display = 'none';
         $('hint').style.display = 'none';
@@ -554,9 +664,10 @@
         $('searchInput').value = '';
         setInputEnabled(true);
         hideSuggestions();
+        sizeTiles();
 
         if (mode === 'daily') {
-            const saved = storage.get('vsdle-daily');
+            const saved = storage.get(cfg.dailyKey);
             if (saved && saved.date === todayKey()) {
                 saved.guesses.forEach(name => {
                     const item = data.find(d => d['Nom'] === name);
@@ -572,19 +683,20 @@
 
     function saveDaily(extra = {}) {
         if (mode !== 'daily') return;
-        const prev = storage.get('vsdle-daily');
+        const prev = storage.get(cfg.dailyKey);
         const hintShown = prev && prev.date === todayKey() && prev.hintShown;
-        storage.set('vsdle-daily', { date: todayKey(), guesses, gaveUp: false, hintShown, ...extra });
+        storage.set(cfg.dailyKey, { date: todayKey(), guesses, gaveUp: false, hintShown, ...extra });
     }
 
     function updateStatus() {
         $('modeLabel').innerHTML = mode === 'daily'
-            ? `Arme du jour · <b>${new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</b>`
-            : 'Partie libre';
+            ? `${cfg.nounDaily} · <b>${new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</b>`
+            : `Partie libre · <b>${data.length} ${cfg.noun}s</b>`;
         $('guessCount').innerHTML = `<b>${guesses.length}</b> essai${guesses.length > 1 ? 's' : ''}`;
-        const hintReady = guesses.length >= HINT_AFTER && !finished;
+        const left = HINT_AFTER - guesses.length;
+        const hintReady = left <= 0 && !finished;
         $('hintButton').disabled = !hintReady;
-        $('hintButton').textContent = hintReady || finished ? 'Révéler un indice' : `Indice dans ${HINT_AFTER - guesses.length} essai${HINT_AFTER - guesses.length > 1 ? 's' : ''}`;
+        $('hintButton').textContent = hintReady || finished ? 'Révéler un indice' : `Indice dans ${plural(left, 'essai')}`;
         $('giveUpButton').disabled = finished || guesses.length === 0;
         $('gameActions').style.display = finished ? 'none' : 'flex';
     }
@@ -592,32 +704,33 @@
     function setInputEnabled(on) {
         $('searchInput').disabled = !on;
         $('validateButton').disabled = !on;
-        $('searchInput').placeholder = on ? 'Nom d\'une arme…' : 'Partie terminée';
+        $('searchInput').placeholder = on ? cfg.placeholder : 'Partie terminée';
     }
 
     // ---------- Comparaison ----------
-    function compareTags(guess, secret) {
-        const g = new Set(splitTags(guess));
-        const s = new Set(splitTags(secret));
+    function compareSet(guess, secret) {
+        const g = new Set(splitList(guess));
+        const s = new Set(splitList(secret));
         const common = [...g].filter(t => s.has(t)).length;
-        if (common === s.size && common === g.size) return 'correct';
-        return common > 0 ? 'partial' : 'wrong';
+        if (common === s.size && common === g.size) return { state: 'correct' };
+        return { state: common > 0 ? 'partial' : 'wrong' };
     }
 
-    function compareDamage(guess, secret) {
+    function compareNumber(guess, secret) {
         const g = parseFloat(guess), s = parseFloat(secret);
-        if (isNaN(g) || isNaN(s)) return { state: normalize(guess) === normalize(secret) ? 'correct' : 'wrong', arrow: '' };
-        if (g === s) return { state: 'correct', arrow: '' };
+        if (isNaN(g) || isNaN(s)) return { state: normalize(guess) === normalize(secret) ? 'correct' : 'wrong' };
+        if (g === s) return { state: 'correct' };
         return { state: 'wrong', arrow: s > g ? '▲' : '▼' };
     }
 
     function evaluate(item) {
-        return COLUMNS.map(col => {
+        return cfg.columns.map(col => {
             const value = item[col.key];
             const target = secretItem[col.key];
-            if (col.key === 'Tags') return { value, state: compareTags(value, target) };
-            if (col.key === 'Base Damage') return { value, ...compareDamage(value, target) };
-            return { value, state: normalize(value) === normalize(target) ? 'correct' : 'wrong' };
+            const res = col.type === 'set' ? compareSet(value, target)
+                : col.type === 'number' ? compareNumber(value, target)
+                : { state: normalize(value) === normalize(target) ? 'correct' : 'wrong' };
+            return { value, abbr: col.abbr, ...res };
         });
     }
 
@@ -629,8 +742,8 @@
         if (!input) return;
 
         const item = data.find(d => normalize(d['Nom']) === input);
-        if (!item) { toast('Aucune arme ne porte ce nom.'); shake($('searchInput')); return; }
-        if (guesses.includes(item['Nom'])) { toast('Tu as déjà proposé cette arme.'); shake($('searchInput')); return; }
+        if (!item) { toast(`Aucun${cfg.noun === 'arme' ? 'e arme ne porte' : ' personnage ne porte'} ce nom.`); shake($('searchInput')); return; }
+        if (guesses.includes(item['Nom'])) { toast(`Tu as déjà proposé ce${cfg.noun === 'arme' ? 'tte arme' : ' personnage'}.`); shake($('searchInput')); return; }
 
         addGuess(item, true);
         $('searchInput').value = '';
@@ -642,7 +755,8 @@
 
         const header = $('specHeader');
         if (header.style.display === 'none') {
-            header.innerHTML = COLUMNS.map(c => `<div>${c.label}</div>`).join('');
+            header.innerHTML = '';
+            cfg.columns.forEach(c => header.appendChild(Object.assign(document.createElement('div'), { textContent: c.label })));
             header.style.display = 'flex';
         }
 
@@ -655,12 +769,21 @@
             const span = document.createElement('span');
             span.lang = 'en';
             span.textContent = cell.value;
+            if (cell.abbr && cell.value !== 'Aucun') {
+                const items = cell.value.split(',').map(s => s.trim());
+                const tile = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tile'));
+                span.textContent = items.length > (tile < 70 ? 4 : 9)
+                    ? `${items.length} stats`
+                    : items.map(s => STAT_ABBR[s] || s).join(' ');
+                div.title = cell.value;
+            }
+            if (span.textContent.length > 28) div.classList.add('dense');
             div.appendChild(span);
             if (cell.arrow) {
                 const a = document.createElement('span');
                 a.className = 'arrow';
                 a.textContent = cell.arrow;
-                a.setAttribute('aria-label', cell.arrow === '▲' ? 'plus' : 'moins');
+                a.setAttribute('aria-label', cell.arrow === '▲' ? 'plus haut' : 'plus bas');
                 div.appendChild(a);
             }
             row.appendChild(div);
@@ -676,7 +799,7 @@
     }
 
     function recordStats(didWin) {
-        const s = storage.get('vsdle-stats') || { played: 0, won: 0, streak: 0, best: 0, lastWin: null };
+        const s = storage.get(cfg.statsKey) || { played: 0, won: 0, streak: 0, best: 0, lastWin: null };
         s.played++;
         if (didWin) {
             s.won++;
@@ -686,7 +809,7 @@
         } else {
             s.streak = 0;
         }
-        storage.set('vsdle-stats', s);
+        storage.set(cfg.statsKey, s);
     }
 
     function endGame(didWin, live) {
@@ -726,22 +849,21 @@
     function showHint(revealed = false) {
         if (!secretItem['Description']) return;
         if (!revealed && guesses.length < HINT_AFTER) return;
-        $('hint').innerHTML = `<span class="label">${revealed && finished ? 'Description' : 'Indice'}</span>`;
-        const t = document.createElement('span');
-        t.lang = 'en';
-        t.textContent = secretItem['Description'];
-        $('hint').appendChild(t);
+        $('hint').innerHTML = '';
+        $('hint').appendChild(Object.assign(document.createElement('span'), { className: 'label', textContent: revealed && finished ? 'Description' : 'Indice' }));
+        $('hint').appendChild(Object.assign(document.createElement('span'), { lang: 'en', textContent: secretItem['Description'] }));
         $('hint').style.display = 'block';
         if (!revealed && mode === 'daily') saveDaily({ hintShown: true });
     }
 
     // ---------- Fenêtre de résultat ----------
     function openEndModal() {
-        const s = storage.get('vsdle-stats') || { played: 0, won: 0, streak: 0, best: 0 };
+        const s = storage.get(cfg.statsKey) || { played: 0, won: 0, streak: 0, best: 0 };
         $('stPlayed').textContent = s.played;
         $('stWinPct').textContent = s.played ? Math.round(100 * s.won / s.played) : 0;
         $('stStreak').textContent = s.streak;
         $('stBest').textContent = s.best;
+        $('statsLabel').textContent = `Statistiques du ${cfg.nounDaily.toLowerCase()}`;
 
         const title = $('endTitle');
         title.classList.remove('lost');
@@ -752,7 +874,7 @@
             const name = document.createElement('div');
             name.textContent = secretItem['Nom'];
             const sub = document.createElement('small');
-            sub.textContent = won ? `trouvée en ${plural(guesses.length, 'essai')}` : `après ${plural(guesses.length, 'essai')}`;
+            sub.textContent = won ? `trouvé en ${plural(guesses.length, 'essai')}` : `après ${plural(guesses.length, 'essai')}`;
             name.appendChild(sub);
             $('endWeapon').appendChild(name);
             $('endWeapon').style.display = 'block';
@@ -772,7 +894,7 @@
             const h = String(Math.floor(diff / 3.6e6)).padStart(2, '0');
             const m = String(Math.floor(diff / 6e4) % 60).padStart(2, '0');
             const sec = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
-            $('countdown').innerHTML = `Prochaine arme du jour dans <b>${h}:${m}:${sec}</b>`;
+            $('countdown').innerHTML = `Prochain défi du jour dans <b>${h}:${m}:${sec}</b>`;
         };
         tick();
         countdownTimer = setInterval(tick, 1000);
@@ -782,7 +904,7 @@
     function shareResult() {
         const emoji = { correct: '🟩', partial: '🟧', wrong: '🟥' };
         const grid = rowStates.map(r => r.map(s => emoji[s]).join('')).join('\n');
-        const title = mode === 'daily' ? `Vampire Survivordle ${todayKey()}` : 'Vampire Survivordle (partie libre)';
+        const title = mode === 'daily' ? `${cfg.shareTitle} ${todayKey()}` : `${cfg.shareTitle} (partie libre)`;
         const text = `${title} : ${won ? plural(guesses.length, 'essai') : 'perdu'}\n${grid}`;
         const fallback = () => {
             const box = $('shareFallback');
@@ -804,8 +926,7 @@
     }
 
     function showSuggestions() {
-        const raw = $('searchInput').value;
-        const input = normalize(raw);
+        const input = normalize($('searchInput').value);
         const box = $('suggestions');
         box.innerHTML = '';
         suggestionIndex = -1;
@@ -822,7 +943,6 @@
             div.dataset.name = match['Nom'];
             const name = document.createElement('span');
             const start = normalize(match['Nom']).indexOf(input);
-            // surligne la partie tapée (les noms normalisés gardent la même longueur pour ce jeu de données)
             name.append(match['Nom'].slice(0, start));
             const mark = document.createElement('mark');
             mark.textContent = match['Nom'].slice(start, start + input.length);
@@ -866,6 +986,10 @@
             searchItem();
         }
     });
+
+    // ---------- Démarrage ----------
+    switchCategory(storage.get('vsdle-category') === 'characters' ? 'characters' : 'weapons');
+    if (!storage.get('vsdle-seen-help')) { openModal('helpModal'); storage.set('vsdle-seen-help', true); }
 </script>
 </body>
 </html>
