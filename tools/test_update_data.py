@@ -101,6 +101,7 @@ NEW_GUN = """{{Infobox Weapon
 |evolution-item = Armor (item)
 |evolution-item2 = Bracer
 |damage = 12
+|max-level = 8
 }}
 Introduced in [[Patch 1.3.0]]."""
 
@@ -137,6 +138,7 @@ class ParsingTests(unittest.TestCase):
         self.assertEqual(weapons['Pako Battiliar']['Release'], '2024')
         self.assertEqual(weapons['New Gun']['Evolution Item'], 'Armor, Bracer')
         self.assertEqual(weapons['New Gun']['Source'], 'Operation Guns')
+        self.assertEqual(weapons['New Gun']['Max Level'], '8')
         self.assertNotIn('Holy Wand', weapons)
         evos = ud.wiki_evolutions(RAW)
         self.assertEqual(evos, [{'Nom': 'Holy Wand', 'Type': 'Évolution', 'Armes': 'Magic Wand',
@@ -166,6 +168,7 @@ class EndToEndTest(unittest.TestCase):
             self.assertIn('+ arme ajouté : New Gun', out)
             self.assertIn('+ personnage ajouté : Newcomer', out)
             self.assertIn('Tags à compléter dans data.csv : New Gun', out)
+            self.assertIn('Couleurs à compléter dans data.csv : New Gun', out)
             weapons = {r['Nom']: r for r in csv.DictReader(open(os.path.join(tmp, 'data.csv'), encoding='utf-8'))}
             self.assertEqual(weapons['Bone']['Tags'], 'Bouncing, Projectile')  # tags rédigés conservés
             self.assertEqual(weapons['New Gun']['Tags'], 'À compléter')

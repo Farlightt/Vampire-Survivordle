@@ -11,7 +11,7 @@ Règles :
 - Les armes et personnages déjà présents gardent leurs champs rédigés à la main
   (Tags, Description, Unlock, années corrigées…). Les écarts avec le wiki sont listés
   dans le rapport ; --overwrite remplace les champs factuels par ceux du wiki.
-- Les nouvelles armes reçoivent le tag « À compléter » : remplir leurs Tags à la main.
+- Les nouvelles armes reçoivent « À compléter » dans Tags, Colors et Unlock Time : les remplir à la main.
 - evolutions.csv est entièrement reconstruit à partir du wiki.
 - Colonnes déduites, recalculées à chaque fois : Unlock Type, Weapon Tags (personnages),
   Base Tags et Release (évolutions).
@@ -256,9 +256,11 @@ def wiki_weapons(raw, char_years):
         year = added_year(text) or patch_years.get(intro_patch(text)) or char_years.get(name) or dlc_years.get(box.get('dlc', ''))
         items = [clean(box.get(k)).replace('Armor (item)', 'Armor') for k in ('evolution-item', 'evolution-item2')]
         out[name] = {
-            'Nom': name, 'Tags': 'À compléter',
+            'Nom': name, 'Tags': 'À compléter', 'Colors': 'À compléter',
             'Evolution Item': ', '.join(i for i in items if i) or 'Aucun',
             'Base Damage': clean(box.get('damage')) or 'N/A',
+            'Max Level': clean(box.get('max-level')) or 'N/A',
+            'Unlock Time': 'À compléter',
             'Release': str(year) if year else 'N/A',
             'Source': SOURCES.get(box.get('dlc', ''), box.get('dlc', '')),
             'Evolution': clean(box.get('evolution')).replace(' (weapon)', '') or 'Aucune',
@@ -391,18 +393,20 @@ def main():
                 if y and (w not in char_years or y < char_years[w]):
                     char_years[w] = y
         merge(weapons, wiki_weapons(raw, char_years),
-              ['Evolution Item', 'Base Damage', 'Release', 'Source', 'Evolution'], args.overwrite, 'arme', report)
+              ['Evolution Item', 'Base Damage', 'Max Level', 'Release', 'Source', 'Evolution'], args.overwrite, 'arme', report)
         merge(characters, fresh_chars,
               ['Arme', 'Source', 'Secret', 'Max Health', 'Bonus', 'Release'], args.overwrite, 'personnage', report)
         evolutions = wiki_evolutions(raw)
         report.append(f'= {len(evolutions)} évolutions et unions reconstruites')
 
     derive(weapons, characters, evolutions)
-    todo = [w['Nom'] for w in weapons if w['Tags'] == 'À compléter']
-    if todo:
-        report.append('! Tags à compléter dans data.csv : ' + ', '.join(todo))
+    for col, label in (('Tags', 'Tags'), ('Colors', 'Couleurs'), ('Unlock Time', 'Unlock Time (Early / Mid / Late)')):
+        todo = [w['Nom'] for w in weapons if w.get(col) == 'À compléter']
+        if todo:
+            report.append(f'! {label} à compléter dans data.csv : ' + ', '.join(todo))
 
-    w_fields = w_fields or ['Nom', 'Tags', 'Evolution Item', 'Base Damage', 'Release', 'Source', 'Evolution', 'Description']
+    w_fields = w_fields or ['Nom', 'Tags', 'Colors', 'Evolution Item', 'Base Damage', 'Max Level', 'Unlock Time',
+                            'Release', 'Source', 'Evolution', 'Description']
     c_fields = [f for f in (c_fields or []) if f not in ('Unlock Type', 'Weapon Tags')] or \
         ['Nom', 'Arme', 'Source', 'Secret', 'Max Health', 'Bonus', 'Release', 'Description', 'Unlock']
     if not args.dry_run:
