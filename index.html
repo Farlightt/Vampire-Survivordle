@@ -624,7 +624,7 @@
 
     // ---------- Utilitaires ----------
     const $ = id => document.getElementById(id);
-    const normalize = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+    const normalize = s => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
     const slug = s => normalize(s).replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
     const splitList = s => (s || '').split(',').map(t => t.trim()).filter(Boolean);
     const el = (tag, props = {}, ...children) => { const e = Object.assign(document.createElement(tag), props); e.append(...children); return e; };
