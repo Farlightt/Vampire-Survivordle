@@ -5,7 +5,7 @@ Thousand Edge,Évolution,Knife,Bracer,Jeu de base,"Directional, Fast",2021
 Death Spiral,Évolution,Axe,Candelabrador,Jeu de base,"Area, High Damage",2021
 Heaven Sword,Évolution,Cross,Clover,Jeu de base,"Boomerang, Homing",2021
 Unholy Vespers,Évolution,King Bible,Spellbinder,Jeu de base,"Area, Orbit",2021
-Hellfire,Évolution,Fire Wand,Spinach,Jeu de base,"Heavy, Random",2021
+Hellfire,Évolution,Fire Wand,Spinach,Jeu de base,"High Damage, Random",2021
 Soul Eater,Évolution,Garlic,Pummarola,Jeu de base,"Area, Aura",2021
 Vandalier,Union,"Peachone, Ebony Wings",Aucun,Jeu de base,"Circular, Orbit",2021
 La Borra,Évolution,Santa Water,Attractorb,Jeu de base,Area,2021
@@ -61,7 +61,7 @@ The RPG,Évolution,Hand Grenade,Candelabrador,Ode to Castlevania,"Explosive, Pro
 Cross Crasher Tip,Évolution,Platinum Whip,Clover,Ode to Castlevania,"Fixed, Projectile",2024
 Salamender,Évolution,Raging Fire,Spinach,Ode to Castlevania,"Area, Explosive",2024
 Gemma Torpor,Évolution,Rock Riot,Stone Mask,Ode to Castlevania,"Fixed, Projectile",2024
-Cocytus,Évolution,Ice Fang,Spellbinder,Ode to Castlevania,"Area, Straight",2024
+Cocytus,Évolution,Ice Fang,Spellbinder,Ode to Castlevania,"Area, Linear",2024
 Pneuma Tempestas,Évolution,Gale Force,Bracer,Ode to Castlevania,"Backward, Projectile",2024
 Tenebris Tonitrus,Évolution,Fulgur,Duplicator,Ode to Castlevania,"Fixed, Strike",2024
 Alucard Swords,Évolution,Alucart Sworb,Aucun,Ode to Castlevania,"Homing, Melee",2024
@@ -72,13 +72,13 @@ Vol Confodere,Évolution,Confodere,Aucun,Ode to Castlevania,"Melee, Speed",2024
 Melio Confodere,Évolution,Vol Confodere,Aucun,Ode to Castlevania,"Melee, Speed",2024
 Power of Sire,Union,"Dominus Anger, Dominus Agony, Dominus Hatred",Aucun,Ode to Castlevania,"Buff, Drain, Falling, Pierce",2024
 Yagyu Shuriken,Évolution,Shuriken,Empty Tome,Ode to Castlevania,"Directional, Projectile",2024
-Vol Umbra,Évolution,Umbra,Attractorb,Ode to Castlevania,"Darkness, Spin",2024
+Vol Umbra,Évolution,Umbra,Attractorb,Ode to Castlevania,"Shadow, Spin",2024
 Vol Luminatio,Évolution,Luminatio,Crown,Ode to Castlevania,"Light, Spin",2024
-Acerbatus,Évolution,Optical Shot,Karoma's Mana,Ode to Castlevania,"Double, Pierce",2024
+Acerbatus,Évolution,Optical Shot,Karoma's Mana,Ode to Castlevania,"Multi-shot, Pierce",2024
 Rune Sword,Évolution,Tyrfing,Spinach,Ode to Castlevania,"Boomerang, Critical",2024
-Jewel Gun,Évolution,Silver Revolver,Karoma's Mana,Ode to Castlevania,"Multi-shot, Powerful",2024
+Jewel Gun,Évolution,Silver Revolver,Karoma's Mana,Ode to Castlevania,"High Damage, Multi-shot",2024
 Rapidus Fio,Évolution,Sonic Dash,Wings,Ode to Castlevania,"Damage, Movement",2024
-Trinum Custodem,Union,"Dextro Custos, Sinestro Custos, Centralis Custos",Aucun,Ode to Castlevania,"Buff, Fire, Ice, Summon",2024
+Trinum Custodem,Union,"Dextro Custos, Sinestro Custos, Centralis Custos",Aucun,Ode to Castlevania,"Buff, Fire, Freeze, Summon",2024
 Nitesco,Évolution,Globus,Empty Tome,Ode to Castlevania,"Bouncing, Duration",2024
 Gungnir-Souris,Évolution,Trident,Duplicator,Ode to Castlevania,"Fixed, Strike",2024
 Keremet Morbus,Évolution,Keremet Bubbles,Armor,Ode to Castlevania,"Area, Slow",2024
@@ -98,7 +98,7 @@ Hydra Cannon,Évolution,Super Missile,Ballistic Missiles tech,Emerald Diorama,"E
 Gekkabijin,Évolution,Twin Dragon,"Karoma's Mana, Gravedigger tech",Emerald Diorama,"Glimmer, Horizontal",2025
 Pressure Point,Évolution,Punch,Raksha tech,Emerald Diorama,"Melee, Sideways",2025
 Gilded Hand,Évolution,Pressure Point,Shenlong Firefist tech,Emerald Diorama,"Melee, Sideways",2025
-Triangle Kick,Évolution,Kick,"Pummarola, Thunder Kick tech",Emerald Diorama,"Boost, Full Health",2025
+Triangle Kick,Évolution,Kick,"Pummarola, Thunder Kick tech",Emerald Diorama,"Buff, Full Health",2025
 Rings of Calamity,Évolution,Spirit Rings,Aucun,Emerald Diorama,"Bonus, Trigger",2025
 Hecaton Machine Gun,Évolution,Saber Machine Gun,Shockwave tech,Emerald Diorama,"Directional, Glimmer",2025
 Divergence,Évolution,Hecaton Machine Gun,Bombarding Fire tech,Emerald Diorama,"Directional, Glimmer",2025
@@ -124,7 +124,7 @@ Dark Frogamorphosis,Union,"Anura, Soul Eater",Aucun,Ode to Castlevania,"Area, Au
 Darkness Illusion,Union,"Svarog Statue, Valkyrie Turner",Aucun,Ode to Castlevania,"Area, Movement",2024
 Dies Irae,Union,"Arrow of Goth, Mannajja",Aucun,Ode to Castlevania,"Critical, Pierce, Projectile, Vertical",2024
 Hydro Pump Climax,Union,"Hydro Storm, La Borra",Aucun,Ode to Castlevania,"Area, Projectile, Wave",2024
-Kardía Phlegeton,Union,"Aura Blast, Hellfire",Aucun,Ode to Castlevania,"Explosive, Heavy, Random, Sideways",2024
+Kardía Phlegeton,Union,"Aura Blast, Hellfire",Aucun,Ode to Castlevania,"Explosive, High Damage, Random, Sideways",2024
 Lapiste Tepisto,Union,"Kaiser Knuckle, Tri-Bracelet",Aucun,Ode to Castlevania,"Melee, Multi-hit, Multi-shot, Random",2025
 Legacy of Death: Soul River,Union,"Dark Rift, Death Spiral",Aucun,Ode to Castlevania,"Area, High Damage, Vertical",2024
 Million Cut,Union,"Valmanway, Thousand Edge",Aucun,Ode to Castlevania,"Directional, Fast, Projectile, Speed",2024
