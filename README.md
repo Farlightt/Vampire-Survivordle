@@ -28,8 +28,8 @@ Deux catégories : **Armes** et **Personnages**.
 | Stats | stats modifiées au départ : 🟩 identiques · 🟧 au moins une en commun · 🟥 aucune |
 
 - **Défi du jour** : le même pour tout le monde, change à minuit, un par catégorie. La progression et les statistiques sont sauvegardées dans le navigateur.
-- **Partie libre** : une arme au hasard, rejouable à volonté.
-- Après 6 essais, un **indice** (la description de l'arme) se débloque.
+- **Partie libre** : une arme ou un personnage au hasard, rejouable à volonté.
+- Après 6 essais, un **indice** (la description) se débloque.
 - Bouton **Partager** : copie une grille d'emojis sans spoiler.
 
 ## Données
