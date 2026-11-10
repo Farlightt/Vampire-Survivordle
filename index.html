@@ -1429,7 +1429,7 @@
             $('endWeapon').style.display = 'block';
             $('shareButton').style.display = '';
             $('shareXButton').style.display = '';
-            $('shareXButton').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText());
+            $('shareXButton').href = 'https://x.com/intent/post?text=' + encodeURIComponent(shareText(true));
         } else {
             title.textContent = t('end.stats');
             $('endWeapon').style.display = 'none';
@@ -1453,9 +1453,17 @@
         openModal('endModal');
     }
 
-    function shareText() {
+    // forX = true : grille raccourcie pour tenir dans un post X (280 caractères, un emoji en compte 2)
+    function shareText(forX = false) {
         const emoji = options.cb ? { correct: '🟦', partial: '🟧', wrong: '⬛' } : { correct: '🟩', partial: '🟧', wrong: '🟥' };
-        const grid = rowStates.map(r => r.map(s => emoji[s]).join('')).join('\n');
+        let lines = rowStates.map(r => r.map(s => emoji[s]).join(''));
+        if (forX) {
+            const cols = (rowStates[0] || []).length || 1;
+            const budget = 280 - 70;   // place laissée au titre et au score
+            const maxRows = Math.max(1, Math.floor(budget / (cols * 2 + 1)));
+            if (lines.length > maxRows) lines = [...lines.slice(0, maxRows - 1), `… +${lines.length - maxRows + 1}`];
+        }
+        const grid = lines.join('\n');
         const name = `Vampire Survivordle · ${t('share.' + category)}`;
         const title = mode === 'daily' ? `${name} ${todayKey()}`
             : mode === 'archive' ? `${name} ${archiveDate} (${t('share.archive')})`
