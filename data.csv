@@ -1,157 +1,187 @@
-Nom,Tags,Base Damage,Source,Description
-Carréllo,"Bouncing, Projectile",10,Jeu de base,Throws a bouncing projectile. Number of bounces affected by Amount.
-La Robba,"Bouncing, Projectile",10,Jeu de base,Generates bouncing projectiles. Scales with all stat bonuses.
-Greatest Jubilee,"Area, Random",10,Jeu de base,Has a chance to summon light sources. Ignores Speed.
-Candybox,Choice,N/A,Jeu de base,Allows you to choose any unlocked base weapon.
-Victory Sword,"Melee, Retaliation",5,Jeu de base,Strikes with a combo attack at the nearest enemy. Retaliates.
-Arma Dio,Choice,N/A,Jeu de base,Allows you to choose an extra passive weapon.
-108 Bocce,"Bouncing, Projectile",12,Legacy of Moonspell,Actually it's just 8. Damage affected by the difference between Curse and Luck.
-Party Popper,"Bouncing, Projectile",5,Tides of the Foscari,Throws bouncing projectiles. Scales with all stat bonuses.
-Hats,"Bouncing, Random",10,Emergency Meeting,Throws cute bouncing projectiles with random properties.
-Morning Star,Choice,N/A,Ode to Castlevania,Allows you to choose from a selection of magic whips.
-Coat of Arms,Choice,N/A,Ode to Castlevania,Allows you to choose from a selection of vampire-killing tools.
-Spectral Sword,Choice,N/A,Ode to Castlevania,Allows you to choose from a selection of magic weapons.
-Belnades' Spellbook,Choice,N/A,Ode to Castlevania,Allows you to choose from a selection of spells.
-Ebony Diabologue,Choice,N/A,Ode to Castlevania,Allows you to choose from a selection of ambiguous powers.
-Familiar Forge,Summon,N/A,Ode to Castlevania,Allows you to summon a familiar.
-Valmanway,"Projectile, Speed",10,Ode to Castlevania,Fires faster when moving. Best with Move Speed.
-Icebrand,"Lingering, Projectile",10,Ode to Castlevania,Fires lingering projectiles. Might freeze enemies.
-Arrow of Goth,"Critical, Projectile",10,Ode to Castlevania,Critical hits maximise amount of projectiles. Ignores Duration.
-Svarog Statue,"Area, Movement",5,Ode to Castlevania,Generates damaging zones when moving. Ignores Speed.
-Troll Bomb,"Projectile, Explosive",1000,Ode to Castlevania,This one doesn't bounce. Best with Cooldown and Amount.
-Hydro Storm,"Wave, Projectile",3,Ode to Castlevania,Generates damaging waves based on Projectile Speed and Duration.
-Grand Cross,"Area, Light",30,Ode to Castlevania,Summons holy light. Best with Cooldown and Revival.
-Summon Spirit,"Homing, Projectile",10,Ode to Castlevania,Fires a homing projectile. Best with Duration.
-Soul Steal,"Fullscreen, Area",6,Ode to Castlevania,Damages all enemies in sight and attempts to turn them into hearts.
-Dark Rift,"Vertical, Area",10,Ode to Castlevania,Generates vertical damaging zones.
-Sword Brothers,"Invulnerability, Wave",30,Ode to Castlevania,Grants a brief moment of Invulnerability and generates a damaging wave.
-Summon Spirit Tornado,"Homing, Pickup",10,Ode to Castlevania,Summons spirits that will occasionally pick up XP gems for you.
-Intuition,Choice,N/A,Emerald Diorama,Allows you to choose from a selection of weapons from Emerald Diorama.
-Whip,"Horizontal, Pierce",10,Jeu de base,"Attacks horizontally, passes through enemies. Ignores Speed and Duration."
-Magic Wand,"Homing, Projectile",10,Jeu de base,Fires at the nearest enemy. Ignores Duration.
-Knife,"Directional, Fast",6.5,Jeu de base,Fires quickly in the faced direction. Ignores Duration.
-Axe,"High Damage, Area",20,Jeu de base,"High damage, high area scaling. Ignores Duration."
-Cross,"Boomerang, Homing",5,Jeu de base,"Aims at the nearest enemy, has a boomerang effect. Ignores Duration."
-King Bible,"Orbit, Area",10,Jeu de base,Orbits around the character. Scales with all stat bonuses.
-Fire Wand,"Random, Heavy",20,Jeu de base,"Fires at a random enemy, deals heavy damage. Ignores Duration."
-Garlic,"Aura, Area",5,Jeu de base,Damages nearby enemies. Reduces resistance to knockback and freeze.
-Santa Water,Area,10,Jeu de base,Generates damaging zones. Ignores Speed.
-Runetracer,"Bouncing, Pierce",10,Jeu de base,"Passes through enemies, bounces around. Scales with all stat bonuses."
-Lightning Ring,"Random, Strike",15,Jeu de base,Strikes at random enemies. Ignores Speed and Duration.
-Pentagram,"Fullscreen, Erase",N/A,Jeu de base,Erases everything in sight. Ignores everything but Cooldown and Luck.
-Peachone,"Circular, Orbit",10,Jeu de base,Bombards in a circular area. Area orbits clockwise around the player.
-Ebony Wings,"Circular, Orbit",10,Jeu de base,Bombards in a circular area. Area orbits counterclockwise around the player.
-Phiera Der Tuphello,"Fixed, Directional",5,Jeu de base,Fires quickly in four fixed directions. Ignores Duration.
-Eight The Sparrow,"Fixed, Directional",5,Jeu de base,Fires quickly in four fixed directions. Ignores Duration.
-Gatti Amari,"Summon, Random",10,Jeu de base,Summons capricious projectiles. Might interact with pickups.
-Song of Mana,"Vertical, Pierce",10,Jeu de base,"Attacks vertically, passes through enemies. Ignores Speed and Amount."
-Shadow Pinion,"Movement, Area",10,Jeu de base,"Generating damaging zones when moving, strikes when stopping."
-Clock Lancet,"Freeze, Time",N/A,Jeu de base,"Chance to freeze enemies in time. Ignores Might, Speed, Amount, and Area."
-Laurel,"Shield, Cooldown",N/A,Jeu de base,Shields from damage while active. Ignores everything but Cooldown.
-Vento Sacro,"Movement, Critical",2,Jeu de base,Stronger with continuous movement. Can deal critical damage.
-Bone,"Bouncing, Projectile",5,Jeu de base,Throws a bouncing projectile. Scales with all stat bonuses.
-Cherry Bomb,"Bouncing, Explosive",10,Jeu de base,Throws a bouncing projectile that explodes after some time.
-Celestial Dusting,"Bouncing, Movement",5,Jeu de base,Throws a bouncing projectile. Cooldown reduces when moving.
-Bracelet,"Random, Multi-shot",10,Jeu de base,Fires three projectiles at a random enemy. Scales with all stat bonuses.
-Pako Battiliar,Retaliation,20,Jeu de base,May retaliate when losing health. Ignores Duration.
-Flames of Misspell,"Cone, Fire",10,Jeu de base,Emits cones of flames. Scales with all stat bonuses.
-Glass Fandango,"Movement, Freeze",10,Jeu de base,"Stronger with movement, Orologions, and against frozen enemies."
-Gaze of Gaea,"Debuff, Defang",5,Jeu de base,Might Defang enemies. Ignores Speed.
-Santa Javelin,"Critical, Projectile",20,Jeu de base,Duration affects Amount. Can deal critical damage.
-Phas3r,"Area, Thin",5,Jeu de base,Generates thin damaging zones. High Amount scaling.
-Silver Wind,"Heart Drop, Projectile",10,Legacy of Moonspell,Defeated enemies might drop hearts. Scales with all stat bonuses and Luck.
-Four Seasons,Explosive,5,Legacy of Moonspell,Generates 4 explosions. Amount and Duration affect damage instead.
-Summon Night,"Area, Above",10,Legacy of Moonspell,Generates damaging zones above the character. Ignores Speed.
-Mirage Robe,"Freeze, Explosive",10,Legacy of Moonspell,Generates freezing static projectiles with a chance to explode.
-Night Sword,"Retaliation, Lifesteal",5,Legacy of Moonspell,Retaliates with a bonus damage affected by Greed. Might steal hearts.
-Mille Bolle Blu,"Lingering, Random",5,Legacy of Moonspell,Fires lingering projectiles with random properties.
-SpellString,"Melee, Speed",5,Tides of the Foscari,Strikes at nearby enemies. Damage multiplied by Speed.
-SpellStream,"Expanding, Area",5,Tides of the Foscari,Generates an expanding damaging zone. Damage multiplied by Area.
-SpellStrike,"Melee, Might",20,Tides of the Foscari,Strikes at the nearest enemy. Damage further multiplied by Might.
-Eskizzibur,"Retaliation, Melee",10,Tides of the Foscari,Attacks nearby enemies. Retaliates. Ignores Duration and Speed.
-Flash Arrow,"Critical, Damage",10,Tides of the Foscari,Can deal critical damage. Amount affects damage instead.
-Prismatic Missile,"Explosive, Arcana",10,Tides of the Foscari,Generates explosions around the character. Affected by the first chosen Arcana.
-Shadow Servant,"Debuff, Luck",10,Tides of the Foscari,Has a chance to slow enemies down. Scales with all stat bonuses and Luck.
-Report!,"Knockback, Area",6.5,Emergency Meeting,Damages enemies and pushes them away. Ignores Duration.
-Lucky Swipe,"Luck, Amount",10,Emergency Meeting,The amount of Luck is affected by Amount and by low Luck.
-Lifesign Scan,"Heal, Recovery",N/A,Emergency Meeting,"Restores HP based on Amount and Recovery. Ignores Might, Duration, and Speed."
-Just Vent,"Destroy, Amount",200,Emergency Meeting,Destroys or heavily damages enemies. Amount affects how many times it can trigger.
-Clear Debris,"Area, Spawn",10,Emergency Meeting,Generates projectile spawning zones that follow the player.
-Sharp Tongue,"Frontal, Recovery",10,Emergency Meeting,Strikes enemies in front of you. Damage multiplied by Recovery.
-Science Rocks,"Explosive, Touch",10,Emergency Meeting,Generates zones that explode when touched by a player.
-Long Gun,"Directional, Constant",5,Operation Guns,Fires constantly in the faced direction. Ignores Duration.
-Short Gun,"Burst, Horizontal",20,Operation Guns,Fires bursts of decaying projectiles horizontally. Ignores Duration.
-Spread Shot,"Spread, Directional",10,Operation Guns,Fires in a wide spread in the faced direction. Ignores Duration.
-C-U-Laser,"Pierce, Directional",5,Operation Guns,Fires a piercing projectile in the faced direction. Best with Duration.
-Firearm,"Homing, Spin",8,Operation Guns,Fires spinning projectiles at the nearest enemy. Best with Duration and Speed.
-Sonic Bloom,"Growth, Directional",7.5,Operation Guns,Fires growing projectiles in the faced direction. Best with Might.
-Homing Miss,"Homing, Explosive",20,Operation Guns,Fires exploding projectiles that home in on enemies. Ignores Duration.
-Diver Mines,"Wall, Explosive",10,Operation Guns,Fires explosive projectiles that travel along walls. Best with Duration and Speed.
-Blade Crossbow,"Homing, Spin",4,Operation Guns,Fires homing projectiles that spin in place when they hit. Best with Area and Duration.
-Prism Lass,"Freeze, Area",8,Operation Guns,Has a small chance to freeze enemies. Best with Area.
-Metal Claw,"Cooldown, Health",40,Operation Guns,Cooldown is affected by missing health. Ignores Speed and Duration.
-Alchemy Whip,"Boss, Damage",10,Ode to Castlevania,Grows stronger every time a boss enemy is defeated. Ignores Speed and Duration.
-Wind Whip,"Growth, Damage",10,Ode to Castlevania,Damage affected by growth. Scales with Growth.
-Platinum Whip,"Fixed, Projectile",10,Ode to Castlevania,Every 3rd activation fires projectiles in fixed directions.
-Dragon Water Whip,"Dragon, Snaking",10,Ode to Castlevania,Every 7th activation fires a snaking dragon projectile.
-Sonic Whip,"Curse, Luck",10,Ode to Castlevania,Chance to instant kill based on curse. Scales with Curse and Luck.
-Jet Black Whip,"Linear, Area",10,Ode to Castlevania,Strikes at the nearest enemy and generates a linear damaging zone.
-Vibhuti Whip,"Cluster, Explosive",10,Ode to Castlevania,Strikes at the nearest enemy and generates a cluster of explosions.
-Vanitas Whip,"Perpendicular, Area",10,Ode to Castlevania,Strikes at the nearest enemy and generates a perpendicular damaging zone.
-Shuriken,"Directional, Projectile",10,Ode to Castlevania,Fires projectiles in the faced direction.
-Curved Knife,"Random, Spin",8,Ode to Castlevania,Fires a spinning projectile at random enemy.
-Javelin,"Pierce, Fixed",10,Ode to Castlevania,Fires a penetrating projectile in a fixed direction.
-Discus,"Defensive, Projectile",10,Ode to Castlevania,Fires a defensive projectile.
-Iron Ball,"Armor, Projectile",20,Ode to Castlevania,Damage affected by Armor. Scales with Armor.
-Silver Revolver,"Powerful, Multi-shot",30,Ode to Castlevania,"Fires a powerful projectiles, six times."
-Hand Grenade,"Explosive, Projectile",10,Ode to Castlevania,Fires an exploding projectile.
-Wine Glass,"Explosive, Projectile",10,Ode to Castlevania,Throws an exploding projectile.
-Raging Fire,"Area, Explosive",10,Ode to Castlevania,Generates an exploding damaging zone. Best with Cooldown and Duration.
-Ice Fang,"Straight, Area",10,Ode to Castlevania,Generates damaging zones in a straight line. Best with Cooldown and Duration.
-Gale Force,"Backward, Projectile",3,Ode to Castlevania,Fires light-hitting projectiles backwards. Best with Cooldown and Duration.
-Rock Riot,"Fixed, Projectile",10,Ode to Castlevania,Fires projectiles from a fixed location. Best with Cooldown and Duration.
-Fulgur,"Strike, Fixed",10,Ode to Castlevania,Strikes at fixed locations. Best with Cooldown and Duration.
-Keremet Bubbles,"Slow, Area",10,Ode to Castlevania,Fires slow moving damaging zones. Best with Cooldown and Duration.
-Hex,"Moving, Area",10,Ode to Castlevania,Generates a moving damaging zone. Damage affected by Curse.
-Refectio,"Heal, Area",3,Ode to Castlevania,Generates a damaging zone that also provides light healing.
-Mace,Multi-hit,30,Ode to Castlevania,Amount affects number of hits.
-Star Flail,"Lingering, Recovery",10,Ode to Castlevania,Fires lingering projectiles. Damage multiplied by Recovery.
-Alucard Spear,"Spin, Direction Change",10,Ode to Castlevania,Executes a spinning attack when changing horizontal direction.
-Trident,"Strike, Fixed",10,Ode to Castlevania,Strikes at fixed locations.
-Iron Shield,"Retaliation, Lingering",5,Ode to Castlevania,Retaliates by shooting lingering projectiles.
-Guardian's Targe,"Summon, Defensive",10,Ode to Castlevania,Summons defensive followers. Overhealing triggers additional follower's attacks.
-Tyrfing,"Boomerang, Critical",10,Ode to Castlevania,"Has boomerang effect, can deal critical damage."
-Alucart Sworb,"Homing, Melee",5,Ode to Castlevania,Allegedly strikes at the nearest enemy.
-Confodere,"Melee, Speed",6,Ode to Castlevania,Attack nearby enemies. Speed affects damage.
-Globus,"Bouncing, Duration",5,Ode to Castlevania,Fires two bouncing projectiles. Amount affects Duration.
-Optical Shot,"Pierce, Double",10,Ode to Castlevania,Fires two penetrating projectiles. Ignores Duration.
-Dextro Custos,"Summon, Fire",20,Ode to Castlevania,Summons Cerberus' fiery head in faced direction.
-Sinestro Custos,"Summon, Ice",20,Ode to Castlevania,Summons Cerberus' icy head in faced direction.
-Centralis Custos,"Summon, Buff",8,Ode to Castlevania,"Summons Cerberus' vengeful head. Boosts Armor, Recovery and Cooldown when damaged."
-Dominus Anger,"Pierce, Drain",10,Ode to Castlevania,Fires a penetrating projectile. Drains health.
-Dominus Hatred,"Falling, Drain",10,Ode to Castlevania,Fires projectiles from above. Drains health.
-Dominus Agony,"Buff, Drain",N/A,Ode to Castlevania,"Increases Might, Speed, Duration, and Area. Drains Health."
-Sonic Dash,"Movement, Damage",5,Ode to Castlevania,Increases Move Speed by 10% per level and damages nearby enemies.
-Luminatio,"Spin, Light",10,Ode to Castlevania,Fires spinning projectiles made of light.
-Umbra,"Spin, Darkness",10,Ode to Castlevania,Fires spinning projectiles made of darkness.
-Aura Blast,"Sideways, Explosive",10,Ode to Castlevania,Generates explosive sideways. Ignores Speed and Duration.
-Endo Gears,"Clockwork, Amount",10,Ode to Castlevania,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
-Peri Pendulum,"Clockwork, Amount",10,Ode to Castlevania,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
-Myo Lift,"Clockwork, Amount",10,Ode to Castlevania,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
-Epi Head,"Clockwork, Amount",10,Ode to Castlevania,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
-Fleuret,"Speed, Glimmer",6,Emerald Diorama,Speed affects damage. Can glimmer the 'Crystalline Carve' tech.
-Town Sword,"Directional, Glimmer",6.5,Emerald Diorama,Strikes in the faced direction. Can glimmer the 'Swallow Slice' tech.
-Splashers,"Duration, Glimmer",20,Emerald Diorama,Duration affects damage. Can glimmer the 'Dual Whirlwind' tech.
-Flamberge,"Upward, Spin",20,Emerald Diorama,Throws spinning swords upwards. Can glimmer the 'Bull Crush' tech.
-Punch,"Sideways, Melee",6.5,Emerald Diorama,Attacks sideways. Can glimmer the 'Raksha' tech.
-Kick,"Full Health, Boost",10,Emerald Diorama,Deal more damage when at full health. Can glimmer the 'Thunder Kick' tech.
-Saber Machine Gun,"Directional, Glimmer",0.5,Emerald Diorama,Fires in the faced direction. Can glimmer the 'Shockwave' tech.
-Super Missile,"Explosive, Glimmer",10,Emerald Diorama,Fires exploding projectiles. Can glimmer the 'Ballistic Missiles' tech.
-Eagle Gun,"Homing, Glimmer",5,Emerald Diorama,Fires at nearby enemies. Can glimmer the 'Falconfire' tech.
-Khukuri,"Shadow, Clone",6.5,Emerald Diorama,Shadow clones strike nearby enemies. Can glimmer the 'Moonfall Slash' tech.
-Twin Dragon,"Horizontal, Glimmer",10,Emerald Diorama,Attacks horizontally. Can glimmer the 'Gravedigger' tech.
-Bullova,"Pierce, Glimmer",10,Emerald Diorama,Passes through enemies. Can glimmer the 'Hell's Fury' tech.
-Sanguine Star,"Nearest, Blood",8,Emerald Diorama,Strikes at the nearest enemies. Can glimmer the 'Blood Rage' tech.
-Glaive,"Directional, Stab",6,Emerald Diorama,Stabs in the faced direction. Can glimmer the 'Divine Lancer' tech.
-Spirit Rings,"Bonus, Trigger",10,Emerald Diorama,"Triggers additional techs when Area, Speed, Duration, and/or Growth bonuses are at or above 155%."
-Emerald Rapture,"Teleport, Random",N/A,Emerald Diorama,"Picks random enemies to teleport away, but they might not drop XP gems."
+Nom,Tags,Evolution Item,Base Damage,Release,Source,Evolution,Description
+Carréllo,"Bouncing, Projectile",Chaos Lazulia,10,2022,Jeu de base,Carrozza!,Throws a bouncing projectile. Number of bounces affected by Amount.
+La Robba,"Bouncing, Projectile",Aucun,10,2022,Jeu de base,Aucune,Generates bouncing projectiles. Scales with all stat bonuses.
+Greatest Jubilee,"Area, Random",Aucun,10,2022,Jeu de base,Aucune,Has a chance to summon light sources. Ignores Speed.
+Candybox,Choice,Aucun,N/A,2022,Jeu de base,Aucune,Allows you to choose any unlocked base weapon.
+Victory Sword,"Melee, Retaliation",Aucun,5,2022,Jeu de base,Aucune,Strikes with a combo attack at the nearest enemy. Retaliates.
+Arma Dio,Choice,Aucun,N/A,2021,Jeu de base,Aucune,Allows you to choose an extra passive weapon.
+108 Bocce,"Bouncing, Projectile",Aucun,12,2022,Legacy of Moonspell,Aucune,Actually it's just 8. Damage affected by the difference between Curse and Luck.
+Party Popper,"Bouncing, Projectile",Aucun,5,2023,Tides of the Foscari,Aucune,Throws bouncing projectiles. Scales with all stat bonuses.
+Hats,"Bouncing, Random",Aucun,10,2023,Emergency Meeting,Aucune,Throws cute bouncing projectiles with random properties.
+Morning Star,Choice,Aucun,N/A,2024,Ode to Castlevania,Aucune,Allows you to choose from a selection of magic whips.
+Coat of Arms,Choice,Aucun,N/A,2024,Ode to Castlevania,Aucune,Allows you to choose from a selection of vampire-killing tools.
+Spectral Sword,Choice,Aucun,N/A,2024,Ode to Castlevania,Aucune,Allows you to choose from a selection of magic weapons.
+Belnades' Spellbook,Choice,Aucun,N/A,2024,Ode to Castlevania,Aucune,Allows you to choose from a selection of spells.
+Ebony Diabologue,Choice,Aucun,N/A,2024,Ode to Castlevania,Aucune,Allows you to choose from a selection of ambiguous powers.
+Familiar Forge,Summon,Aucun,N/A,2024,Ode to Castlevania,Aucune,Allows you to summon a familiar.
+Valmanway,"Projectile, Speed",Aucun,10,2024,Ode to Castlevania,Aucune,Fires faster when moving. Best with Move Speed.
+Icebrand,"Lingering, Projectile",Aucun,10,2024,Ode to Castlevania,Aucune,Fires lingering projectiles. Might freeze enemies.
+Arrow of Goth,"Critical, Projectile",Aucun,10,2024,Ode to Castlevania,Aucune,Critical hits maximise amount of projectiles. Ignores Duration.
+Svarog Statue,"Area, Movement",Aucun,5,2024,Ode to Castlevania,Aucune,Generates damaging zones when moving. Ignores Speed.
+Troll Bomb,"Projectile, Explosive",Aucun,1000,2024,Ode to Castlevania,Aucune,This one doesn't bounce. Best with Cooldown and Amount.
+Hydro Storm,"Wave, Projectile",Aucun,3,2024,Ode to Castlevania,Aucune,Generates damaging waves based on Projectile Speed and Duration.
+Grand Cross,"Area, Light",Aucun,30,2024,Ode to Castlevania,Aucune,Summons holy light. Best with Cooldown and Revival.
+Summon Spirit,"Homing, Projectile",Aucun,10,2024,Ode to Castlevania,Aucune,Fires a homing projectile. Best with Duration.
+Soul Steal,"Fullscreen, Area",Aucun,6,2024,Ode to Castlevania,Aucune,Damages all enemies in sight and attempts to turn them into hearts.
+Dark Rift,"Vertical, Area",Aucun,10,2024,Ode to Castlevania,Aucune,Generates vertical damaging zones.
+Sword Brothers,"Invulnerability, Wave",Aucun,30,2024,Ode to Castlevania,Aucune,Grants a brief moment of Invulnerability and generates a damaging wave.
+Summon Spirit Tornado,"Homing, Pickup",Aucun,10,2024,Ode to Castlevania,Aucune,Summons spirits that will occasionally pick up XP gems for you.
+Intuition,Choice,Aucun,N/A,2025,Emerald Diorama,Aucune,Allows you to choose from a selection of weapons from Emerald Diorama.
+Whip,"Horizontal, Pierce",Hollow Heart,10,2021,Jeu de base,Bloody Tear,"Attacks horizontally, passes through enemies. Ignores Speed and Duration."
+Magic Wand,"Homing, Projectile",Empty Tome,10,2021,Jeu de base,Holy Wand,Fires at the nearest enemy. Ignores Duration.
+Knife,"Directional, Fast",Bracer,6.5,2021,Jeu de base,Thousand Edge,Fires quickly in the faced direction. Ignores Duration.
+Axe,"High Damage, Area",Candelabrador,20,2021,Jeu de base,Death Spiral,"High damage, high area scaling. Ignores Duration."
+Cross,"Boomerang, Homing",Clover,5,2021,Jeu de base,Heaven Sword,"Aims at the nearest enemy, has a boomerang effect. Ignores Duration."
+King Bible,"Orbit, Area",Spellbinder,10,2021,Jeu de base,Unholy Vespers,Orbits around the character. Scales with all stat bonuses.
+Fire Wand,"Random, Heavy",Spinach,20,2021,Jeu de base,Hellfire,"Fires at a random enemy, deals heavy damage. Ignores Duration."
+Garlic,"Aura, Area",Pummarola,5,2021,Jeu de base,Soul Eater,Damages nearby enemies. Reduces resistance to knockback and freeze.
+Santa Water,Area,Attractorb,10,2021,Jeu de base,La Borra,Generates damaging zones. Ignores Speed.
+Runetracer,"Bouncing, Pierce",Armor,10,2021,Jeu de base,NO FUTURE,"Passes through enemies, bounces around. Scales with all stat bonuses."
+Lightning Ring,"Random, Strike",Duplicator,15,2021,Jeu de base,Thunder Loop,Strikes at random enemies. Ignores Speed and Duration.
+Pentagram,"Fullscreen, Erase",Crown,N/A,2021,Jeu de base,Gorgeous Moon,Erases everything in sight. Ignores everything but Cooldown and Luck.
+Peachone,"Circular, Orbit",Aucun,10,2021,Jeu de base,Aucune,Bombards in a circular area. Area orbits clockwise around the player.
+Ebony Wings,"Circular, Orbit",Aucun,10,2021,Jeu de base,Aucune,Bombards in a circular area. Area orbits counterclockwise around the player.
+Phiera Der Tuphello,"Fixed, Directional",Aucun,5,2022,Jeu de base,Aucune,Fires quickly in four fixed directions. Ignores Duration.
+Eight The Sparrow,"Fixed, Directional",Aucun,5,2022,Jeu de base,Aucune,Fires quickly in four fixed directions. Ignores Duration.
+Gatti Amari,"Summon, Random",Stone Mask,10,2022,Jeu de base,Vicious Hunger,Summons capricious projectiles. Might interact with pickups.
+Song of Mana,"Vertical, Pierce",Skull O'Maniac,10,2022,Jeu de base,Mannajja,"Attacks vertically, passes through enemies. Ignores Speed and Amount."
+Shadow Pinion,"Movement, Area",Wings,10,2022,Jeu de base,Valkyrie Turner,"Generating damaging zones when moving, strikes when stopping."
+Clock Lancet,"Freeze, Time","Silver Ring, Gold Ring",N/A,2021,Jeu de base,Infinite Corridor,"Chance to freeze enemies in time. Ignores Might, Speed, Amount, and Area."
+Laurel,"Shield, Cooldown","Metaglio Left, Metaglio Right",N/A,2021,Jeu de base,Crimson Shroud,Shields from damage while active. Ignores everything but Cooldown.
+Vento Sacro,"Movement, Critical",Aucun,2,2022,Jeu de base,Aucune,Stronger with continuous movement. Can deal critical damage.
+Bone,"Bouncing, Projectile",Chaos Malachite,5,2021,Jeu de base,Anima of Mortaccio,Throws a bouncing projectile. Scales with all stat bonuses.
+Cherry Bomb,"Bouncing, Explosive",Chaos Rosalia,10,2022,Jeu de base,Yatta Daikarin,Throws a bouncing projectile that explodes after some time.
+Celestial Dusting,"Bouncing, Movement",Chaos Altemanna,5,2022,Jeu de base,Profusione D'Amore,Throws a bouncing projectile. Cooldown reduces when moving.
+Bracelet,"Random, Multi-shot",Aucun,10,2022,Jeu de base,Bi-Bracelet,Fires three projectiles at a random enemy. Scales with all stat bonuses.
+Pako Battiliar,Retaliation,Hollow Heart,20,2024,Jeu de base,Mazo Familiar,May retaliate when losing health. Ignores Duration.
+Flames of Misspell,"Cone, Fire",Torrona's Box,10,2022,Jeu de base,Ashes of Muspell,Emits cones of flames. Scales with all stat bonuses.
+Glass Fandango,"Movement, Freeze",Wings,10,2023,Jeu de base,Celestial Voulge,"Stronger with movement, Orologions, and against frozen enemies."
+Gaze of Gaea,"Debuff, Defang",Parm Aegis,5,2025,Jeu de base,Embrace of Gaea,Might Defang enemies. Ignores Speed.
+Santa Javelin,"Critical, Projectile",Clover,20,2024,Jeu de base,Seraphic Cry,Duration affects Amount. Can deal critical damage.
+Phas3r,"Area, Thin",Empty Tome,5,2024,Jeu de base,Photonstorm,Generates thin damaging zones. High Amount scaling.
+Silver Wind,"Heart Drop, Projectile",Pummarola,10,2022,Legacy of Moonspell,Festive Winds,Defeated enemies might drop hearts. Scales with all stat bonuses and Luck.
+Four Seasons,Explosive,Candelabrador,5,2022,Legacy of Moonspell,Godai Shuffle,Generates 4 explosions. Amount and Duration affect damage instead.
+Summon Night,"Area, Above",Duplicator,10,2022,Legacy of Moonspell,Echo Night,Generates damaging zones above the character. Ignores Speed.
+Mirage Robe,"Freeze, Explosive",Attractorb,10,2022,Legacy of Moonspell,J'Odore,Generates freezing static projectiles with a chance to explode.
+Night Sword,"Retaliation, Lifesteal",Stone Mask,5,2022,Legacy of Moonspell,Muramasa,Retaliates with a bonus damage affected by Greed. Might steal hearts.
+Mille Bolle Blu,"Lingering, Random",Spellbinder,5,2022,Legacy of Moonspell,Boo Roo Boolle,Fires lingering projectiles with random properties.
+SpellString,"Melee, Speed",Aucun,5,2023,Tides of the Foscari,Aucune,Strikes at nearby enemies. Damage multiplied by Speed.
+SpellStream,"Expanding, Area",Aucun,5,2023,Tides of the Foscari,Aucune,Generates an expanding damaging zone. Damage multiplied by Area.
+SpellStrike,"Melee, Might",Aucun,20,2023,Tides of the Foscari,Aucune,Strikes at the nearest enemy. Damage further multiplied by Might.
+Eskizzibur,"Retaliation, Melee",Armor,10,2023,Tides of the Foscari,Legionnaire,Attacks nearby enemies. Retaliates. Ignores Duration and Speed.
+Flash Arrow,"Critical, Damage",Bracer,10,2023,Tides of the Foscari,Millionaire,Can deal critical damage. Amount affects damage instead.
+Prismatic Missile,"Explosive, Arcana",Crown,10,2023,Tides of the Foscari,Luminaire,Generates explosions around the character. Affected by the first chosen Arcana.
+Shadow Servant,"Debuff, Luck",Skull O'Maniac,10,2023,Tides of the Foscari,Ophion,Has a chance to slow enemies down. Scales with all stat bonuses and Luck.
+Report!,"Knockback, Area",Mini Crewmate,6.5,2023,Emergency Meeting,Emergency Meeting,Damages enemies and pushes them away. Ignores Duration.
+Lucky Swipe,"Luck, Amount",Mini Engineer,10,2023,Emergency Meeting,Crossed Wires,The amount of Luck is affected by Amount and by low Luck.
+Lifesign Scan,"Heal, Recovery",Mini Ghost,N/A,2023,Emergency Meeting,Paranormal Scan,"Restores HP based on Amount and Recovery. Ignores Might, Duration, and Speed."
+Just Vent,"Destroy, Amount",Mini Shapeshifter,200,2023,Emergency Meeting,Unjust Ejection,Destroys or heavily damages enemies. Amount affects how many times it can trigger.
+Clear Debris,"Area, Spawn",Mini Guardian,10,2023,Emergency Meeting,Clear Asteroids,Generates projectile spawning zones that follow the player.
+Sharp Tongue,"Frontal, Recovery",Mini Impostor,10,2023,Emergency Meeting,Impostongue,Strikes enemies in front of you. Damage multiplied by Recovery.
+Science Rocks,"Explosive, Touch",Mini Scientist,10,2023,Emergency Meeting,Rocket Science,Generates zones that explode when touched by a player.
+Long Gun,"Directional, Constant",Weapon Power-Up,5,2024,Operation Guns,Prototype A,Fires constantly in the faced direction. Ignores Duration.
+Short Gun,"Burst, Horizontal","Weapon Power-Up, Bracer",20,2024,Operation Guns,Prototype B,Fires bursts of decaying projectiles horizontally. Ignores Duration.
+Spread Shot,"Spread, Directional","Weapon Power-Up, Empty Tome",10,2024,Operation Guns,Prototype C,Fires in a wide spread in the faced direction. Ignores Duration.
+C-U-Laser,"Pierce, Directional","Weapon Power-Up, Tirajisú",5,2024,Operation Guns,Pronto Beam,Fires a piercing projectile in the faced direction. Best with Duration.
+Firearm,"Homing, Spin","Weapon Power-Up, Candelabrador",8,2024,Operation Guns,Fire-L3GS,Fires spinning projectiles at the nearest enemy. Best with Duration and Speed.
+Sonic Bloom,"Growth, Directional","Weapon Power-Up, Armor",7.5,2024,Operation Guns,Wave Beam,Fires growing projectiles in the faced direction. Best with Might.
+Homing Miss,"Homing, Explosive","Weapon Power-Up, Duplicator",20,2024,Operation Guns,Multistage Missiles,Fires exploding projectiles that home in on enemies. Ignores Duration.
+Diver Mines,"Wall, Explosive","Weapon Power-Up, Attractorb",10,2024,Operation Guns,Atmo-Torpedo,Fires explosive projectiles that travel along walls. Best with Duration and Speed.
+Blade Crossbow,"Homing, Spin","Weapon Power-Up, Clover",4,2024,Operation Guns,BFC2000-AD,Fires homing projectiles that spin in place when they hit. Best with Area and Duration.
+Prism Lass,"Freeze, Area","Weapon Power-Up, Wings",8,2024,Operation Guns,Time Warp,Has a small chance to freeze enemies. Best with Area.
+Metal Claw,"Cooldown, Health","Weapon Power-Up, Hollow Heart",40,2024,Operation Guns,Big Fuzzy Fist,Cooldown is affected by missing health. Ignores Speed and Duration.
+Alchemy Whip,"Boss, Damage",Tirajisú,10,2024,Ode to Castlevania,Vampire Killer,Grows stronger every time a boss enemy is defeated. Ignores Speed and Duration.
+Wind Whip,"Growth, Damage",Crown,10,2024,Ode to Castlevania,Spirit Tornado Tip,Damage affected by growth. Scales with Growth.
+Platinum Whip,"Fixed, Projectile",Clover,10,2024,Ode to Castlevania,Cross Crasher Tip,Every 3rd activation fires projectiles in fixed directions.
+Dragon Water Whip,"Dragon, Snaking",Attractorb,10,2024,Ode to Castlevania,Hydrostormer Tip,Every 7th activation fires a snaking dragon projectile.
+Sonic Whip,"Curse, Luck",Skull O'Maniac,10,2024,Ode to Castlevania,Crissaegrim Tip,Chance to instant kill based on curse. Scales with Curse and Luck.
+Jet Black Whip,"Linear, Area",Stone Mask,10,2024,Ode to Castlevania,Mormegil Tip,Strikes at the nearest enemy and generates a linear damaging zone.
+Vibhuti Whip,"Cluster, Explosive",Candelabrador,10,2024,Ode to Castlevania,Daybreaker Tip,Strikes at the nearest enemy and generates a cluster of explosions.
+Vanitas Whip,"Perpendicular, Area",Hollow Heart,10,2024,Ode to Castlevania,Aurablaster Tip,Strikes at the nearest enemy and generates a perpendicular damaging zone.
+Shuriken,"Directional, Projectile",Empty Tome,10,2024,Ode to Castlevania,Yagyu Shuriken,Fires projectiles in the faced direction.
+Curved Knife,"Random, Spin",Bracer,8,2024,Ode to Castlevania,Bwaka Knife,Fires a spinning projectile at random enemy.
+Javelin,"Pierce, Fixed",Spellbinder,10,2024,Ode to Castlevania,Long Inus,Fires a penetrating projectile in a fixed direction.
+Discus,"Defensive, Projectile",Parm Aegis,10,2024,Ode to Castlevania,Stellar Blade,Fires a defensive projectile.
+Iron Ball,"Armor, Projectile",Armor,20,2024,Ode to Castlevania,Wrecking Ball,Damage affected by Armor. Scales with Armor.
+Silver Revolver,"Powerful, Multi-shot",Karoma's Mana,30,2024,Ode to Castlevania,Jewel Gun,"Fires a powerful projectiles, six times."
+Hand Grenade,"Explosive, Projectile",Candelabrador,10,2024,Ode to Castlevania,The RPG,Fires an exploding projectile.
+Wine Glass,"Explosive, Projectile",Tirajisú,10,2024,Ode to Castlevania,Meal Ticket,Throws an exploding projectile.
+Raging Fire,"Area, Explosive",Spinach,10,2024,Ode to Castlevania,Salamender,Generates an exploding damaging zone. Best with Cooldown and Duration.
+Ice Fang,"Straight, Area",Spellbinder,10,2024,Ode to Castlevania,Cocytus,Generates damaging zones in a straight line. Best with Cooldown and Duration.
+Gale Force,"Backward, Projectile",Bracer,3,2024,Ode to Castlevania,Pneuma Tempestas,Fires light-hitting projectiles backwards. Best with Cooldown and Duration.
+Rock Riot,"Fixed, Projectile",Stone Mask,10,2024,Ode to Castlevania,Gemma Torpor,Fires projectiles from a fixed location. Best with Cooldown and Duration.
+Fulgur,"Strike, Fixed",Duplicator,10,2024,Ode to Castlevania,Tenebris Tonitrus,Strikes at fixed locations. Best with Cooldown and Duration.
+Keremet Bubbles,"Slow, Area",Armor,10,2024,Ode to Castlevania,Keremet Morbus,Fires slow moving damaging zones. Best with Cooldown and Duration.
+Hex,"Moving, Area",Skull O'Maniac,10,2024,Ode to Castlevania,Nightmare,Generates a moving damaging zone. Damage affected by Curse.
+Refectio,"Heal, Area",Clover,3,2024,Ode to Castlevania,Sanctuary,Generates a damaging zone that also provides light healing.
+Mace,Multi-hit,Hollow Heart,30,2024,Ode to Castlevania,Stamazza,Amount affects number of hits.
+Star Flail,"Lingering, Recovery",Pummarola,10,2024,Ode to Castlevania,Moon Rod,Fires lingering projectiles. Damage multiplied by Recovery.
+Alucard Spear,"Spin, Direction Change",Wings,10,2024,Ode to Castlevania,Thunderbolt Spear,Executes a spinning attack when changing horizontal direction.
+Trident,"Strike, Fixed",Duplicator,10,2024,Ode to Castlevania,Gungnir-Souris,Strikes at fixed locations.
+Iron Shield,"Retaliation, Lingering",Parm Aegis,5,2024,Ode to Castlevania,Dark Iron Shield,Retaliates by shooting lingering projectiles.
+Guardian's Targe,"Summon, Defensive",Pummarola,10,2024,Ode to Castlevania,Sacred Beasts Tower Shield,Summons defensive followers. Overhealing triggers additional follower's attacks.
+Tyrfing,"Boomerang, Critical",Spinach,10,2024,Ode to Castlevania,Rune Sword,"Has boomerang effect, can deal critical damage."
+Alucart Sworb,"Homing, Melee",Aucun,5,2024,Ode to Castlevania,Alucard Swords,Allegedly strikes at the nearest enemy.
+Confodere,"Melee, Speed",Aucun,6,2024,Ode to Castlevania,Vol Confodere,Attack nearby enemies. Speed affects damage.
+Globus,"Bouncing, Duration",Empty Tome,5,2024,Ode to Castlevania,Nitesco,Fires two bouncing projectiles. Amount affects Duration.
+Optical Shot,"Pierce, Double",Karoma's Mana,10,2024,Ode to Castlevania,Acerbatus,Fires two penetrating projectiles. Ignores Duration.
+Dextro Custos,"Summon, Fire",Aucun,20,2024,Ode to Castlevania,Aucune,Summons Cerberus' fiery head in faced direction.
+Sinestro Custos,"Summon, Ice",Aucun,20,2024,Ode to Castlevania,Aucune,Summons Cerberus' icy head in faced direction.
+Centralis Custos,"Summon, Buff",Aucun,8,2024,Ode to Castlevania,Aucune,"Summons Cerberus' vengeful head. Boosts Armor, Recovery and Cooldown when damaged."
+Dominus Anger,"Pierce, Drain",Aucun,10,2024,Ode to Castlevania,Aucune,Fires a penetrating projectile. Drains health.
+Dominus Hatred,"Falling, Drain",Aucun,10,2024,Ode to Castlevania,Aucune,Fires projectiles from above. Drains health.
+Dominus Agony,"Buff, Drain",Aucun,N/A,2024,Ode to Castlevania,Aucune,"Increases Might, Speed, Duration, and Area. Drains Health."
+Sonic Dash,"Movement, Damage",Wings,5,2024,Ode to Castlevania,Rapidus Fio,Increases Move Speed by 10% per level and damages nearby enemies.
+Luminatio,"Spin, Light",Crown,10,2024,Ode to Castlevania,Vol Luminatio,Fires spinning projectiles made of light.
+Umbra,"Spin, Darkness",Attractorb,10,2024,Ode to Castlevania,Vol Umbra,Fires spinning projectiles made of darkness.
+Aura Blast,"Sideways, Explosive",Aucun,10,2024,Ode to Castlevania,Aucune,Generates explosive sideways. Ignores Speed and Duration.
+Endo Gears,"Clockwork, Amount",Aucun,10,2025,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
+Peri Pendulum,"Clockwork, Amount",Aucun,10,2024,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
+Myo Lift,"Clockwork, Amount",Aucun,10,2024,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
+Epi Head,"Clockwork, Amount",Aucun,10,2024,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
+Fleuret,"Speed, Glimmer",Crystalline Carve tech,6,2025,Emerald Diorama,Dress Sword,Speed affects damage. Can glimmer the 'Crystalline Carve' tech.
+Town Sword,"Directional, Glimmer",Swallow Slice tech,6.5,2025,Emerald Diorama,Lordstar,Strikes in the faced direction. Can glimmer the 'Swallow Slice' tech.
+Splashers,"Duration, Glimmer","Spellbinder, Dual Whirlwind tech",20,2025,Emerald Diorama,Pursuant Blades,Duration affects damage. Can glimmer the 'Dual Whirlwind' tech.
+Flamberge,"Upward, Spin",Bull Crush tech,20,2025,Emerald Diorama,Zweihander,Throws spinning swords upwards. Can glimmer the 'Bull Crush' tech.
+Punch,"Sideways, Melee",Raksha tech,6.5,2025,Emerald Diorama,Pressure Point,Attacks sideways. Can glimmer the 'Raksha' tech.
+Kick,"Full Health, Boost","Pummarola, Thunder Kick tech",10,2025,Emerald Diorama,Triangle Kick,Deal more damage when at full health. Can glimmer the 'Thunder Kick' tech.
+Saber Machine Gun,"Directional, Glimmer",Shockwave tech,0.5,2025,Emerald Diorama,Hecaton Machine Gun,Fires in the faced direction. Can glimmer the 'Shockwave' tech.
+Super Missile,"Explosive, Glimmer",Ballistic Missiles tech,10,2025,Emerald Diorama,Hydra Cannon,Fires exploding projectiles. Can glimmer the 'Ballistic Missiles' tech.
+Eagle Gun,"Homing, Glimmer","Spinach, Falconfire tech",5,2025,Emerald Diorama,Pendragon,Fires at nearby enemies. Can glimmer the 'Falconfire' tech.
+Khukuri,"Shadow, Clone","Parm Aegis, Moonfall Slash tech",6.5,2025,Emerald Diorama,Jetstream,Shadow clones strike nearby enemies. Can glimmer the 'Moonfall Slash' tech.
+Twin Dragon,"Horizontal, Glimmer","Karoma's Mana, Gravedigger tech",10,2025,Emerald Diorama,Gekkabijin,Attacks horizontally. Can glimmer the 'Gravedigger' tech.
+Bullova,"Pierce, Glimmer","Skull O'Maniac, Hell's Fury tech",10,2025,Emerald Diorama,Falconwind,Passes through enemies. Can glimmer the 'Hell's Fury' tech.
+Sanguine Star,"Nearest, Blood","Stone Mask, Blood Rage tech",8,2025,Emerald Diorama,Blood Chalice,Strikes at the nearest enemies. Can glimmer the 'Blood Rage' tech.
+Glaive,"Directional, Stab",Divine Lancer tech,6,2025,Emerald Diorama,Feather Spear,Stabs in the faced direction. Can glimmer the 'Divine Lancer' tech.
+Spirit Rings,"Bonus, Trigger",Aucun,10,2025,Emerald Diorama,Rings of Calamity,"Triggers additional techs when Area, Speed, Duration, and/or Growth bonuses are at or above 155%."
+Emerald Rapture,"Teleport, Random",Crown,N/A,2025,Emerald Diorama,Emerald Wave,"Picks random enemies to teleport away, but they might not drop XP gems."
+Ammo Appalate,"Directional, Projectile",Bracer,5,2025,Jeu de base,Gunastrophe,Aims at an enemy in the faced direction. Stockpiles projectiles when enemies are out of range.
+Magi-Stone,Damage,Karoma's Mana,10,2025,Jeu de base,Kyra-Stones,Deals fixed damage based on Weapon Level.
+Anura,Summon,Aucun,10,2025,Ode to Castlevania,Aucune,Summons frogs that damage enemies as they jump.
+Celestial Booster,"Orbit, Damage",Outer Saboteur,10,2025,Ante Chamber,Negative Space,Planets orbit around you. Damage increases by amount of coins collected this run.
+Fibonacci Spritz,"Spin, Trigger",Outer Saboteur,15,2025,Ante Chamber,Royal Flush,Creates a spiral spray of fizzy water. Has a chance to fire another equipped weapon.
+Gros Michel,"Projectile, Critical, Explosive",Outer Saboteur,10,2025,Ante Chamber,Cavendish,Flings curving bananas. 1 in 6 chance to critically hit and explode.
+Infernolatro,"Directional, Area, Fire",Outer Saboteur,15,2025,Ante Chamber,NaneInferno,Creates a zone of flames in the faced direction. Empowered by enemy kills.
+Kaiser Knuckle,"Melee, Multi-hit",Aucun,20,2025,Ode to Castlevania,Aucune,Throws a flurry of close-range punches.
+Pocket Knife,"Directional, Projectile",Torrona's Box,6.5,2025,Ode to Castlevania,Claimh Solais,Throws a short-lived knife in the faced direction.
+Chaos Rune,"Speed, Duration",Spellbinder,10,2025,Jeu de base,Wicked Ruler,Speed and Duration affect the number of hit boxes instead.
+Tonno Subito,"Tuna, Speed",Aucun,10,2026,Jeu de base,Penshin Fatcha,Basic tuna. Level up bonuses focus on Speed.
+Tonnado,"Tuna, Duration",Aucun,10,2026,Jeu de base,Penshin Fatcha,Whipped tuna. Level up bonuses focus on Duration.
+Tonn'omoto,"Tuna, Cooldown",Aucun,10,2026,Jeu de base,Penshin Fatcha,Freshwater tuna. Level up bonuses focus on Cooldown.
+Tonn'oddeeo,"Tuna, Amount",Aucun,10,2026,Jeu de base,Penshin Fatcha,Heavenly tuna. Level up bonuses focus on Amount.
+Tonne,"Tuna, Area",Aucun,15,2026,Jeu de base,Penshin Fatcha,King-sized tuna. Level up bonuses focus on Area. Amount affects hit box frequency instead.
+Unsurpassed,"Tuna, Might",Aucun,10,2026,Jeu de base,Penshin Fatcha,Premium tuna. Level up bonuses focus on Might.
+Unearthly Bolt,"Critical, Area",Tirajisú,10,2026,Jeu de base,Spirit Disturbance,Critical hits generate damaging zones. Revivals affect damage of consecutive critical hits.
+Scarlet Needle,"Nearest, Projectile",Pummarola,1.5,2026,Legacy of the Bloodmoon,Cardinal Rain,Damaging needles pin the nearest enemy in place.
+Incineration,"Directional, Erase",Candelabrador,100,2026,Legacy of the Bloodmoon,Dust to Dust,Erases enemies in the faced direction.
+Ashella,Critical,Duplicator,10,2026,Legacy of the Bloodmoon,Bloodlust,Can deal critical hits.
+Screams from the Void,"Knockback, Retaliation",Attractorb,10,2026,Legacy of the Bloodmoon,Forbidden Siren,Unleash screams with high knockback. Retaliates.
+Blacken Firmament,"Random, Erase",Torrona's Box,10,2026,Legacy of the Bloodmoon,Damnation,"Erases a random enemy, occasionally leaving a damaging tear in reality."
+FireFall,"Strike, Might",Aucun,20,2026,Legacy of the Bloodmoon,Aucune,Strikes at the furthest enemy. Damage further multiplied by Might.
+FireBall,"Expanding, Area",Aucun,10,2026,Legacy of the Bloodmoon,Aucune,Generates an expanding damaging zone. Damage multiplied by Area.
+FireWall,"Directional, Area, Amount",Aucun,5,2026,Legacy of the Bloodmoon,Aucune,Generates a directional damaging zone. Greatly affected by Amount.
+LunarMight,"Area, Might",Aucun,5,2026,Legacy of Moonspell,Aucune,Generates a damaging zone that slightly increases Might.
+LunarBight,"Slow, Debuff",Aucun,10,2026,Legacy of Moonspell,Aucune,Has a chance to slow down enemies hit.
+LunarSight,"Area, Moving",Aucun,10,2026,Legacy of Moonspell,Aucune,Generates damaging zones that occasionally follow the character.
+Descent Into Misery,"Curse, Critical, Movement",Aucun,10,2026,Legacy of the Bloodmoon,Aucune,Cursed item. Amount affects Damage. Critical hits or changing movement direction ensure extra attacks.
+108 Responsive Prayers,"Bouncing, Projectile, Curse",Aucun,10,2026,Legacy of the Bloodmoon,Aucune,Actually it's just 16. Damage affected by the difference between Curse and Luck.

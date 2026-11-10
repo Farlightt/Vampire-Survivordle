@@ -83,16 +83,17 @@
             gap: 12px;
         }
 
-        .category { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .category { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        @media (max-width: 520px) { .category { grid-template-columns: 1fr 1fr; } }
         .cat {
             padding: 10px 8px;
             background: rgba(0,0,0,0.3);
             border: 2px solid var(--gold-dark);
             border-radius: 6px;
             color: var(--ink-dim);
-            font-size: 18px;
+            font-size: clamp(14px, 3.8vw, 17px);
             font-weight: 700;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.02em;
             cursor: pointer;
         }
         .cat:hover { color: var(--ink); border-color: var(--gold); }
@@ -101,14 +102,15 @@
         .abbr { font-size: 12px !important; color: var(--ink-dim); line-height: 1.6 !important; }
         .credit { font-size: 13px !important; color: var(--ink-dim); }
         .credit a { color: var(--gold-light); }
-        .tabs { display: grid; grid-template-columns: 1fr 1fr; background: rgba(0,0,0,0.35); border-radius: 6px; padding: 4px; gap: 4px; }
+        .tabs { display: grid; grid-template-columns: 1fr 1fr 1fr; background: rgba(0,0,0,0.35); border-radius: 6px; padding: 4px; gap: 4px; }
         .tab {
-            padding: 8px 6px;
+            padding: 8px 4px;
+            white-space: nowrap;
             border: 0;
             border-radius: 4px;
             background: transparent;
             color: var(--ink-dim);
-            font-size: 16px;
+            font-size: clamp(13px, 3.6vw, 16px);
             font-weight: 500;
             cursor: pointer;
         }
@@ -181,8 +183,56 @@
 
         .actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 
-        #hint {
+        #archiveBar { display: none; align-items: center; justify-content: center; gap: 8px; font-size: 15px; }
+        #archiveDate {
+            background: rgba(0,0,0,0.45); color: var(--ink); border: 2px solid var(--gold-dark); border-radius: 6px;
+            padding: 6px 8px; font-family: inherit; font-size: 15px;
+        }
+        .options { font-size: 14px; color: var(--ink-dim); }
+        .options summary { cursor: pointer; text-align: center; padding: 2px; }
+        .options summary:hover { color: var(--ink); }
+        .options[open] { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; background: rgba(0,0,0,0.3); border-radius: 6px; }
+        .opt { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .opt input { accent-color: var(--gold); width: 16px; height: 16px; flex-shrink: 0; }
+        .opt small { font-size: 12px; }
+        #candidates { display: none; padding: 10px 12px; background: rgba(0,0,0,0.3); border-radius: 6px; }
+        #candidates .label { display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 6px; }
+        .chips { display: flex; flex-wrap: wrap; gap: 4px; max-height: 150px; overflow-y: auto; }
+        .chip { font-family: inherit; font-size: 13px; color: var(--ink); background: var(--navy); border: 1px solid var(--gold-dark); border-radius: 4px; padding: 3px 7px; cursor: pointer; }
+        .chip:hover { border-color: var(--gold); }
+        .chips .more { font-size: 13px; color: var(--ink-dim); align-self: center; }
+        .tile .shared { display: block; font-size: 0.8em; text-decoration: underline; color: #fff6c8; margin-top: 2px; }
+        .hard { display: none; align-items: center; justify-content: center; gap: 8px; font-size: 14px; color: var(--ink-dim); cursor: pointer; }
+        .hard input { accent-color: var(--gold); width: 16px; height: 16px; }
+        .hard small { font-size: 12px; }
+        #prompt, #bonus {
             display: none;
+            padding: 12px 14px;
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+        #prompt { background: rgba(0,0,0,0.4); border: 2px solid var(--gold); font-size: 17px; text-align: center; }
+        #bonus { background: rgba(82,160,70,0.15); border: 1px solid var(--good); font-size: 15px; }
+        #prompt .label, #bonus .label, .hint .label { display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 2px; }
+        #hints { display: none; flex-direction: column; gap: 6px; }
+        .hint.revealed { opacity: 0.75; border-style: dotted; }
+        .hit { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; color: #fff6c8; }
+        .hitcount { display: block; font-size: 0.85em; }
+        .guess { display: flex; flex-direction: column; gap: 2px; }
+        .guess-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            text-align: left;
+            padding: 2px 4px;
+            border-left: 3px solid var(--bad);
+            text-shadow: 0 1px 3px #000;
+        }
+        .guess-name.correct-name { border-left-color: var(--good); color: #b8f0a8; }
+        .guess.instant .tile { animation: none; }
+        .guess.win .tile { animation: flip 0.5s ease both, bounce 0.45s ease 0.9s; }
+        .hint {
+            display: block;
             padding: 10px 14px;
             background: rgba(243, 211, 138, 0.08);
             border: 1px dashed var(--gold);
@@ -191,7 +241,6 @@
             line-height: 1.4;
             color: var(--ink);
         }
-        #hint .label { display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 2px; }
 
         #resultBar {
             display: none;
@@ -214,8 +263,9 @@
         #specHeader div {
             width: var(--tile);
             text-align: center;
-            font-size: clamp(10px, calc(var(--tile) * 0.12), 13px);
-            letter-spacing: 0.06em;
+            font-size: clamp(8px, calc(var(--tile) * 0.115), 13px);
+            letter-spacing: 0.02em;
+            overflow-wrap: anywhere;
             text-transform: uppercase;
             color: var(--gold-light);
             text-shadow: 0 1px 4px #000;
@@ -245,16 +295,16 @@
         .row .tile:nth-child(2) { animation-delay: 0.12s; }
         .row .tile:nth-child(3) { animation-delay: 0.24s; }
         .row .tile:nth-child(4) { animation-delay: 0.36s; }
-        .row.instant .tile { animation: none; }
+
         .tile.dense { font-size: clamp(8px, calc(var(--tile) * 0.105), 12px); }
-        #results { display: flex; flex-direction: column; gap: 4px; }
+        #results { display: flex; flex-direction: column; gap: 8px; }
         .tile .arrow { font-size: 1.7em; line-height: 1; }
         @keyframes flip {
             0% { transform: rotateX(90deg); opacity: 0; }
             60% { transform: rotateX(-12deg); opacity: 1; }
             100% { transform: rotateX(0); opacity: 1; }
         }
-        .row.win .tile { animation: flip 0.5s ease both, bounce 0.45s ease 0.9s; }
+
         @keyframes bounce { 50% { transform: translateY(-8px); } }
         .correct { background-image: url('images/Green.png'); }
         .partial { background-image: url('images/Orange.png'); }
@@ -280,7 +330,10 @@
         }
         .overlay.open { display: flex; animation: fade 0.2s ease; }
         @keyframes fade { from { opacity: 0; } }
-        .modal { background: var(--panel-solid); width: min(440px, 100%); max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal { background: var(--panel-solid); width: min(440px, 100%); max-height: 88vh; position: relative; }
+        .modal-body { overflow-y: auto; display: flex; flex-direction: column; gap: 10px; min-height: 0; padding-right: 4px; }
+        #helpModal .modal > .btn { flex-shrink: 0; }
+        #endModal .modal { overflow-y: auto; }
         .modal h2 { margin: 0; font-size: 24px; color: var(--gold-light); text-align: center; letter-spacing: 0.04em; }
         .modal p { margin: 0; line-height: 1.45; font-size: 15px; }
         .modal .close { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; font-size: 18px; }
@@ -347,19 +400,37 @@
 
     <main class="panel">
         <div class="category" role="tablist" aria-label="Catégorie">
-            <button class="cat" id="catWeapons" role="tab" onclick="switchCategory('weapons')">Armes</button>
-            <button class="cat" id="catCharacters" role="tab" onclick="switchCategory('characters')">Personnages</button>
+            <button class="cat" data-cat="weapons" role="tab" onclick="switchCategory('weapons')">Armes</button>
+            <button class="cat" data-cat="characters" role="tab" onclick="switchCategory('characters')">Personnages</button>
+            <button class="cat" data-cat="evolutions" role="tab" onclick="switchCategory('evolutions')">Évolutions</button>
+            <button class="cat" data-cat="descriptions" role="tab" onclick="switchCategory('descriptions')">Descriptions</button>
         </div>
 
         <div class="tabs" role="tablist" aria-label="Mode">
             <button class="tab" id="modeDaily" role="tab" onclick="startGame('daily')">Défi du jour</button>
             <button class="tab" id="modeFree" role="tab" onclick="startGame('free')">Partie libre</button>
+            <button class="tab" id="modeArchive" role="tab" onclick="startGame('archive')">Archives</button>
         </div>
+
+        <div id="archiveBar">
+            <label for="archiveDate">Défi du</label>
+            <select id="archiveDate" onchange="startGame('archive')"></select>
+        </div>
+
+        <details class="options" id="optionsBox">
+            <summary>Options</summary>
+            <label class="opt"><input type="checkbox" id="hardMode" onchange="setHardMode(this.checked)"><span>Mode difficile en partie libre <small id="hardDetail"></small></span></label>
+            <label class="opt"><input type="checkbox" id="limitMode" onchange="setOption('limit', this.checked)"><span>Essais limités (<span id="maxGuesses"></span>)</span></label>
+            <label class="opt"><input type="checkbox" id="candMode" onchange="setOption('cands', this.checked)"><span>Afficher les réponses encore possibles</span></label>
+        </details>
 
         <div class="meta">
             <span id="modeLabel">Chargement…</span>
             <span id="guessCount"></span>
         </div>
+
+        <div id="prompt"><span class="label" id="promptLabel"></span><span id="promptText" lang="en"></span></div>
+        <div id="bonus"></div>
 
         <div id="uploadContainer">
             <p id="uploadText"></p>
@@ -373,11 +444,12 @@
         </div>
 
         <div class="actions" id="gameActions">
-            <button class="btn ghost" id="hintButton" onclick="showHint()" disabled>Indice</button>
+            <button class="btn ghost" id="hintButton" onclick="useHint()" disabled>Indice</button>
             <button class="btn ghost" id="giveUpButton" onclick="giveUp()" disabled>Abandonner</button>
         </div>
 
-        <div id="hint"></div>
+        <div id="hints"></div>
+        <div id="candidates"></div>
 
         <div id="resultBar">
             <span id="resultText"></span>
@@ -397,16 +469,18 @@
     <div class="panel modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
         <button class="icon-btn close" onclick="closeModal('helpModal')" aria-label="Fermer">×</button>
         <h2 id="helpTitle">Comment jouer</h2>
-        <p>Trouve l'arme ou le personnage secret de Vampire Survivors. Chaque proposition révèle des indices sur ses caractéristiques.</p>
-        <div class="rule"><div class="sw correct"></div><span>Correct</span></div>
-        <div class="rule"><div class="sw partial"></div><span>Partiel : au moins un élément en commun (tags d'une arme, arme de départ ou stats d'un personnage)</span></div>
-        <div class="rule"><div class="sw wrong"></div><span>Faux</span></div>
-        <div class="rule"><div class="sw wrong">▲</div><span>Nombre (dégâts, PV max) : la réponse a une valeur <b>plus haute</b> (▼ : plus basse)</span></div>
-        <p><b>Personnages</b> : la colonne Stats liste les statistiques que le personnage modifie au départ (en plus ou en moins). Survole une case pour voir les noms complets.</p>
-        <p class="abbr">Rec Recovery · Arm Armor · MS Move Speed · Mgt Might · Spd Speed · Dur Duration · Area · CD Cooldown · Amt Amount · Rev Revival · Mag Magnet · Lck Luck · Grw Growth · Grd Greed · Crs Curse · Rrl Reroll · Skp Skip · Ban Banish</p>
-        <p>Après <b id="hintThreshold"></b> essais, tu peux révéler la description en indice.</p>
-        <p><b>Défi du jour</b> : le même pour tout le monde, renouvelé à minuit. <b>Partie libre</b> : au hasard, autant de fois que tu veux.</p>
-        <p class="credit">Données des personnages : <a href="https://vampire.survivors.wiki/" target="_blank" rel="noopener">Vampire Survivors Wiki</a>.</p>
+        <div class="modal-body">
+            <p>Trouve l'élément secret. Chaque proposition affiche son nom et une case par caractéristique.</p>
+            <div class="rule"><div class="sw correct"></div><span>Correct</span></div>
+            <div class="rule"><div class="sw partial"></div><span>Partiel : un élément en commun, <span class="hit">souligné</span> (pour une arme de départ : un tag en commun).</span></div>
+            <div class="rule"><div class="sw wrong"></div><span>Faux</span></div>
+            <div class="rule"><div class="sw wrong">▲</div><span>La réponse est plus haute ou plus récente (▼ : l'inverse).</span></div>
+            <p><b>Évolutions</b> : l'objet requis est donné. <b>Descriptions</b> : le texte du jeu est donné.</p>
+            <p>Un indice se débloque après <span id="hintSteps"></span> essais (compté 💡 dans le partage). Trouver l'arme du jour donne un bonus pour le personnage du jour, et inversement.</p>
+            <p><b>Défi du jour</b> : le même pour tous, sans les éléments obscurs. <b>Archives</b> : les 30 derniers jours. <b>Options</b> : mode difficile, essais limités, liste des réponses encore possibles.</p>
+            <p class="abbr">Stats : Rec Recovery · Arm Armor · MS Move Speed · Mgt Might · Spd Speed · Dur Duration · CD Cooldown · Amt Amount · Rev Revival · Mag Magnet · Lck Luck · Grw Growth · Grd Greed · Crs Curse · Rrl Reroll · Skp Skip · Ban Banish</p>
+            <p class="credit">Données : <a href="https://vampire.survivors.wiki/" target="_blank" rel="noopener">Vampire Survivors Wiki</a>. Certaines années de sortie d'armes sont déduites de leur personnage ou de leur DLC.</p>
+        </div>
         <button class="btn primary" onclick="closeModal('helpModal')">Jouer</button>
     </div>
 </div>
@@ -436,83 +510,174 @@
 <div id="toast" role="status"></div>
 
 <script>
-    const HINT_AFTER = 6;
+    const HINT_STEPS = [3, 5, 7];   // nombre d'essais qui débloque chaque indice
 
-    // Chaque catégorie : son fichier, ses colonnes et la façon de les comparer.
-    //   exact : identique ou non · set : liste, orange si un élément en commun · number : flèches ▲/▼
-    const CATEGORIES = {
-        weapons: {
-            file: 'data.csv',
-            noun: 'arme', the: "l'arme", nounDaily: 'Arme du jour', placeholder: "Nom d'une arme…",
-            seed: 'vsdle-', dailyKey: 'vsdle-daily', statsKey: 'vsdle-stats',
-            shareTitle: 'Vampire Survivordle · Armes',
-            columns: [
-                { key: 'Nom', label: 'Nom', type: 'exact' },
-                { key: 'Tags', label: 'Tags', type: 'set' },
-                { key: 'Base Damage', label: 'Dégâts', type: 'number' },
-                { key: 'Source', label: 'Source', type: 'exact' },
-            ],
-        },
-        characters: {
-            file: 'characters.csv',
-            noun: 'personnage', the: 'le personnage', nounDaily: 'Personnage du jour', placeholder: "Nom d'un personnage…",
-            seed: 'vsdle-char-', dailyKey: 'vsdle-daily-characters', statsKey: 'vsdle-stats-characters',
-            shareTitle: 'Vampire Survivordle · Personnages',
-            columns: [
-                { key: 'Nom', label: 'Nom', type: 'exact' },
-                { key: 'Arme', label: 'Arme', type: 'set' },
-                { key: 'Source', label: 'Source', type: 'exact' },
-                { key: 'Secret', label: 'Secret', type: 'exact' },
-                { key: 'Max Health', label: 'PV max', type: 'number' },
-                { key: 'Bonus', label: 'Stats', type: 'set', abbr: true },
-            ],
-        },
-    };
-
-    // Abréviations des stats, pour que la case Stats reste lisible
     const STAT_ABBR = {
         'Recovery': 'Rec', 'Armor': 'Arm', 'Move Speed': 'MS', 'Might': 'Mgt', 'Speed': 'Spd', 'Duration': 'Dur',
         'Area': 'Area', 'Cooldown': 'CD', 'Amount': 'Amt', 'Revival': 'Rev', 'Magnet': 'Mag', 'Luck': 'Lck',
         'Growth': 'Grw', 'Greed': 'Grd', 'Curse': 'Crs', 'Reroll': 'Rrl', 'Skip': 'Skp', 'Banish': 'Ban',
     };
 
-    const datasets = {};          // données chargées par catégorie
-    let category = 'weapons';
-    let cfg = CATEGORIES.weapons;
-    let data = [];
-    let secretItem = null;
-    let mode = 'daily';
-    let guesses = [];
-    let rowStates = [];
-    let finished = false;
-    let won = false;
-    let suggestionIndex = -1;
-    let countdownTimer = null;
-
-    const $ = id => document.getElementById(id);
-    $('hintThreshold').textContent = HINT_AFTER;
-
     // ---------- Utilitaires ----------
-    const normalize = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
-    const splitList = s => s.split(',').map(t => normalize(t)).filter(Boolean);
+    const $ = id => document.getElementById(id);
+    const normalize = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+    const splitList = s => (s || '').split(',').map(t => t.trim()).filter(Boolean);
     const plural = (n, word) => `${n} ${word}${n > 1 ? 's' : ''}`;
-    const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
+    const el = (tag, props = {}, ...children) => { const e = Object.assign(document.createElement(tag), props); e.append(...children); return e; };
     const storage = {
         get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
         set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
     };
-
     function dateKey(d = new Date()) {
         return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     }
     const todayKey = () => dateKey();
     function yesterdayKey() { const d = new Date(); d.setDate(d.getDate() - 1); return dateKey(d); }
-
-    // Hash déterministe (FNV-1a) pour choisir le défi du jour.
-    function hash(str) {
+    function hash(str) {   // FNV-1a, pour choisir le défi du jour
         let h = 2166136261;
         for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
         return h >>> 0;
+    }
+    const MONTHS = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+    const formatDate = iso => { const [y, m] = iso.split('-'); return m ? `${MONTHS[+m - 1]} ${y}` : y; };
+    const namePattern = name => name.split(' ').map(w => w.replace(/[A-Za-zÀ-ÿ0-9]/g, '_')).join('  ');
+    const firstLetter = d => `Le nom commence par « ${d['Nom'].charAt(0)} ».`;
+
+    // ---------- Catégories ----------
+    // Types de colonnes : exact · set (liste, orange si un élément en commun) · number / date (flèches ▲ ▼)
+    const CATEGORIES = {
+        weapons: {
+            files: ['data.csv'],
+            fem: true, noun: 'arme', label: 'Arme du jour', placeholder: "Nom d'une arme…",
+            seed: 'vsdle-w-', dailyKey: 'vsdle-daily-v2-weapons', statsKey: 'vsdle-stats',
+            shareTitle: 'Vampire Survivordle · Armes',
+            build: ([w]) => w,
+            columns: [
+                { key: 'Tags', label: 'Tags', type: 'set' },
+                { key: 'Evolution Item', label: 'Objet évol.', type: 'set' },
+                { key: 'Base Damage', label: 'Dégâts', type: 'number' },
+                { key: 'Release', label: 'Sortie', type: 'number' },
+                { key: 'Source', label: 'Source', type: 'exact' },
+            ],
+            // Défi du jour : pas les armes « sélecteurs » (Candybox, Coat of Arms…)
+            easy: d => !splitList(d['Tags']).includes('Choice'),
+            hints: [
+                firstLetter,
+                d => d['Description'],
+                d => d['Evolution'] === 'Aucune' ? "N'a pas d'évolution classique." : `Évolue en ${d['Evolution']}.`,
+            ],
+        },
+        characters: {
+            files: ['characters.csv'],
+            fem: false, noun: 'personnage', label: 'Personnage du jour', placeholder: "Nom d'un personnage…",
+            seed: 'vsdle-c-', dailyKey: 'vsdle-daily-v2-characters', statsKey: 'vsdle-stats-characters',
+            shareTitle: 'Vampire Survivordle · Personnages',
+            build: ([c]) => c,
+            columns: [
+                { key: 'Arme', label: 'Arme', type: 'linked', tagsKey: 'Weapon Tags' },
+                { key: 'Source', label: 'Source', type: 'exact' },
+                { key: 'Unlock Type', label: 'Déblocage', type: 'exact' },
+                { key: 'Max Health', label: 'PV', type: 'number' },
+                { key: 'Bonus', label: 'Stats', type: 'set', abbr: true },
+                { key: 'Release', label: 'Sortie', type: 'date' },
+            ],
+            easy: d => d['Secret'] === 'Non',
+            hints: [
+                firstLetter,
+                d => d['Description'] || 'Pas de description.',
+                d => `Déblocage : ${d['Unlock']}`,
+            ],
+        },
+        evolutions: {
+            files: ['evolutions.csv'],
+            fem: true, noun: 'évolution', label: 'Évolution du jour', placeholder: "Nom d'une évolution ou union…",
+            seed: 'vsdle-e-', dailyKey: 'vsdle-daily-v2-evolutions', statsKey: 'vsdle-stats-evolutions',
+            shareTitle: 'Vampire Survivordle · Évolutions',
+            build: ([e]) => e,
+            prompt: d => ({
+                label: d['Objets'] === 'Aucun' ? 'Aucun objet requis' : `Objet${splitList(d['Objets']).length > 1 ? 's' : ''} requis`,
+                text: d['Objets'] === 'Aucun' ? 'Obtenue en combinant plusieurs armes.' : d['Objets'],
+            }),
+            columns: [
+                { key: 'Armes', label: 'Armes de base', type: 'set' },
+                { key: 'Base Tags', label: 'Tags', type: 'set' },
+                { key: 'Release', label: 'Sortie', type: 'number' },
+                { key: 'Source', label: 'Source', type: 'exact' },
+            ],
+            easy: d => d['Type'] === 'Évolution' && d['Objets'] !== 'Aucun',
+            hints: [
+                firstLetter,
+                d => `Forme du nom : ${namePattern(d['Nom'])}`,
+                d => `Une des armes de base : ${splitList(d['Armes'])[0]}.`,
+            ],
+        },
+        descriptions: {
+            files: ['data.csv', 'characters.csv'],
+            fem: false, noun: 'élément', label: 'Description du jour', placeholder: "Nom d'une arme ou d'un personnage…",
+            seed: 'vsdle-d-', dailyKey: 'vsdle-daily-v2-descriptions', statsKey: 'vsdle-stats-descriptions',
+            shareTitle: 'Vampire Survivordle · Descriptions',
+            build: ([weapons, chars]) => {
+                const all = [
+                    ...weapons.map(w => ({ 'Nom': w['Nom'], 'Type': 'Arme', 'Source': w['Source'], 'Release': w['Release'], 'Description': w['Description'], 'Extra': w['Evolution'] === 'Aucune' ? "N'a pas d'évolution classique." : `Évolue en ${w['Evolution']}.` })),
+                    ...chars.filter(c => !weapons.some(w => w['Nom'] === c['Nom']))
+                        .map(c => ({ 'Nom': c['Nom'], 'Type': 'Personnage', 'Source': c['Source'], 'Release': (c['Release'] || '').slice(0, 4) || 'N/A', 'Description': c['Description'], 'Secret': c['Secret'], 'Extra': `Arme de départ : ${c['Arme']}.` })),
+                ];
+                // seule une description unique, qui ne cite pas le nom, peut être la réponse
+                const counts = {};
+                all.forEach(d => { const k = normalize(d['Description']); counts[k] = (counts[k] || 0) + 1; });
+                all.forEach(d => {
+                    const desc = normalize(d['Description']);
+                    d.playable = desc.length > 20 && counts[desc] === 1
+                        && !normalize(d['Nom']).split(' ').some(w => w.length > 3 && desc.includes(w));
+                });
+                return all;
+            },
+            prompt: d => ({ label: 'Description', text: d['Description'] }),
+            columns: [
+                { key: 'Type', label: 'Type', type: 'exact' },
+                { key: 'Source', label: 'Source', type: 'exact' },
+                { key: 'Release', label: 'Sortie', type: 'number' },
+            ],
+            canBeSecret: d => d.playable,
+            easy: d => d.playable && d['Secret'] !== 'Oui',
+            hints: [
+                firstLetter,
+                d => `Forme du nom : ${namePattern(d['Nom'])}`,
+                d => d['Extra'],
+            ],
+        },
+    };
+
+    // ---------- État ----------
+    const files = {};          // contenu des CSV déjà chargés
+    let category = 'weapons';
+    let cfg = CATEGORIES.weapons;
+    let data = [];
+    let secretItem = null;
+    let mode = 'daily';
+    let hard = storage.get('vsdle-hard') === true;
+    const MAX_GUESSES = 8;
+    const options = Object.assign({ limit: false, cands: false }, storage.get('vsdle-options') || {});
+    let archiveDate = null;
+    let guesses = [];
+    let rowStates = [];
+    let hintsUsed = 0;
+    let finished = false;
+    let won = false;
+    let suggestionIndex = -1;
+    let countdownTimer = null;
+
+    $('hintSteps').textContent = HINT_STEPS.join(', ');
+    $('hardMode').checked = hard;
+    $('limitMode').checked = options.limit;
+    $('candMode').checked = options.cands;
+    $('maxGuesses').textContent = MAX_GUESSES;
+
+    function setOption(key, value) {
+        options[key] = value;
+        storage.set('vsdle-options', options);
+        renderCandidates();
+        updateStatus();
     }
 
     let toastTimer;
@@ -523,24 +688,24 @@
         clearTimeout(toastTimer);
         toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
     }
-    function shake(el) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
-
+    function shake(e) { e.classList.remove('shake'); void e.offsetWidth; e.classList.add('shake'); }
     function openModal(id) { $(id).classList.add('open'); }
     function closeModal(id) { $(id).classList.remove('open'); if (id === 'endModal') clearInterval(countdownTimer); }
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') document.querySelectorAll('.overlay.open').forEach(o => closeModal(o.id));
     });
 
-    // Taille des cases : la grille remplit toujours la largeur du panneau, quel que soit le nombre de colonnes.
+    // La grille remplit toujours la largeur du panneau, quel que soit le nombre de colonnes.
     function sizeTiles() {
         const n = cfg.columns.length;
         const w = $('board').clientWidth;
         const tile = Math.max(46, Math.min(112, Math.floor((w - (n - 1) * 4) / n)));
         document.documentElement.style.setProperty('--tile', tile + 'px');
+        document.documentElement.style.setProperty('--cols', n);
     }
     window.addEventListener('resize', sizeTiles);
 
-    // ---------- Chargement des données ----------
+    // ---------- Chargement ----------
     function parseCSV(text) {
         const rows = [];
         let row = [], field = '', inQuotes = false;
@@ -561,7 +726,6 @@
         }
         row.push(field);
         if (row.some(v => v !== '')) rows.push(row);
-
         const headers = rows[0].map(h => h.replace(/^﻿/, '').trim());
         return rows.slice(1).map(values => {
             const obj = {};
@@ -570,59 +734,56 @@
         }).filter(d => d['Nom']);
     }
 
-    function loadCategory(cat) {
-        if (datasets[cat]) return Promise.resolve(datasets[cat]);
-        const inline = window.VSDLE_INLINE_CSV && window.VSDLE_INLINE_CSV[CATEGORIES[cat].file];
-        if (inline) return Promise.resolve(datasets[cat] = parseCSV(inline));
-        return fetch(CATEGORIES[cat].file)
+    let pendingFile = null;
+    function loadFile(name) {
+        if (files[name]) return Promise.resolve(files[name]);
+        const inline = window.VSDLE_INLINE_CSV && window.VSDLE_INLINE_CSV[name];
+        if (inline) return Promise.resolve(files[name] = parseCSV(inline));
+        return fetch(name)
             .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
-            .then(text => (datasets[cat] = parseCSV(text)));
+            .then(text => (files[name] = parseCSV(text)))
+            .catch(err => { pendingFile = name; throw err; });
     }
 
     function showUpload() {
         $('uploadText').innerHTML = '';
-        $('uploadText').append(
-            'Impossible de charger ', Object.assign(document.createElement('code'), { textContent: cfg.file }),
-            ' automatiquement (page ouverte en local ?). Sélectionne le fichier :'
-        );
+        $('uploadText').append('Impossible de charger ', el('code', { textContent: pendingFile }),
+            ' automatiquement (page ouverte en local ?). Sélectionne le fichier :');
+        for (const id of ['searchContainer', 'gameActions', 'prompt', 'bonus', 'hints', 'resultBar', 'emptyState']) $(id).style.display = 'none';
         $('uploadContainer').style.display = 'block';
-        $('searchContainer').style.display = 'none';
-        $('gameActions').style.display = 'none';
         $('modeLabel').textContent = '';
         $('guessCount').textContent = '';
         $('results').innerHTML = '';
         $('specHeader').style.display = 'none';
-        $('emptyState').style.display = 'none';
-        $('resultBar').style.display = 'none';
-        $('hint').style.display = 'none';
     }
 
     $('fileInput').addEventListener('change', e => {
         const file = e.target.files[0];
-        if (!file) return;
+        if (!file || !pendingFile) return;
         const reader = new FileReader();
         reader.onload = ev => {
-            datasets[category] = parseCSV(ev.target.result);
+            files[pendingFile] = parseCSV(ev.target.result);
             e.target.value = '';
             switchCategory(category);
         };
         reader.readAsText(file);
     });
 
+    const builtCache = {};
     function switchCategory(cat) {
         category = cat;
         cfg = CATEGORIES[cat];
         storage.set('vsdle-category', cat);
-        $('catWeapons').classList.toggle('active', cat === 'weapons');
-        $('catCharacters').classList.toggle('active', cat === 'characters');
-        $('catWeapons').setAttribute('aria-selected', cat === 'weapons');
-        $('catCharacters').setAttribute('aria-selected', cat === 'characters');
+        document.querySelectorAll('.cat').forEach(b => {
+            b.classList.toggle('active', b.dataset.cat === cat);
+            b.setAttribute('aria-selected', b.dataset.cat === cat);
+        });
         $('modeLabel').textContent = 'Chargement…';
         sizeTiles();
-        loadCategory(cat)
-            .then(rows => {
+        Promise.all(cfg.files.map(loadFile))
+            .then(lists => {
                 if (category !== cat) return;
-                data = rows;
+                data = builtCache[cat] || (builtCache[cat] = cfg.build(lists));
                 $('uploadContainer').style.display = 'none';
                 $('searchContainer').style.display = 'flex';
                 secretItem = null;
@@ -631,72 +792,173 @@
             .catch(() => { if (category === cat) showUpload(); });
     }
 
+    // Réponses possibles : défi du jour = sélection accessible ; partie libre = idem, ou tout en mode difficile.
+    const canBeSecret = d => !cfg.canBeSecret || cfg.canBeSecret(d);
+    const easyPool = () => data.filter(d => canBeSecret(d) && cfg.easy(d));
+    const fullPool = () => data.filter(canBeSecret);
+
+    function setHardMode(on) {
+        hard = on;
+        storage.set('vsdle-hard', on);
+        if (mode === 'free') startGame('free');
+    }
+
     // ---------- Partie ----------
+    function dailySecret(date) {
+        const pool = easyPool();
+        return pool[hash(cfg.seed + date) % pool.length];
+    }
+
+    // Archives : les 30 jours précédents, avec ✓ / ✗ selon le résultat enregistré
+    function fillArchive() {
+        const select = $('archiveDate');
+        const keep = select.value;
+        const saved = storage.get(cfg.dailyKey + '-archive') || {};
+        select.innerHTML = '';
+        for (let i = 1; i <= 30; i++) {
+            const d = new Date(); d.setDate(d.getDate() - i);
+            const key = dateKey(d);
+            const st = saved[key];
+            const mark = !st ? '' : st.won ? ' ✓' : (st.gaveUp || (st.lost)) ? ' ✗' : ' …';
+            select.appendChild(el('option', { value: key, textContent: d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'long' }) + mark }));
+        }
+        if (keep && [...select.options].some(o => o.value === keep)) select.value = keep;
+    }
+
+    function loadState() {
+        if (mode === 'daily') { const s = storage.get(cfg.dailyKey); return s && s.date === todayKey() ? s : null; }
+        if (mode === 'archive') return (storage.get(cfg.dailyKey + '-archive') || {})[archiveDate] || null;
+        return null;
+    }
+
+    function saveState(extra = {}) {
+        if (mode === 'free') return;
+        const st = { date: mode === 'daily' ? todayKey() : archiveDate, guesses, hintsUsed, gaveUp: false, won, ...extra };
+        if (mode === 'daily') storage.set(cfg.dailyKey, st);
+        else {
+            const all = storage.get(cfg.dailyKey + '-archive') || {};
+            all[archiveDate] = st;
+            storage.set(cfg.dailyKey + '-archive', all);
+        }
+    }
+
     function startGame(newMode) {
         if (!data.length) return;
         mode = newMode;
+        if (mode === 'archive') { fillArchive(); archiveDate = $('archiveDate').value; }
         guesses = [];
         rowStates = [];
+        hintsUsed = 0;
         finished = false;
         won = false;
 
-        if (mode === 'daily') {
-            secretItem = data[hash(cfg.seed + todayKey()) % data.length];
-        } else {
+        if (mode === 'daily') secretItem = dailySecret(todayKey());
+        else if (mode === 'archive') secretItem = dailySecret(archiveDate);
+        else {
+            const pool = hard ? fullPool() : easyPool();
             let next;
-            do { next = data[Math.floor(Math.random() * data.length)]; }
-            while (data.length > 1 && secretItem && next === secretItem);
+            do { next = pool[Math.floor(Math.random() * pool.length)]; }
+            while (pool.length > 1 && next === secretItem);
             secretItem = next;
         }
 
-        $('modeDaily').textContent = cfg.nounDaily;
-        $('modeDaily').classList.toggle('active', mode === 'daily');
-        $('modeFree').classList.toggle('active', mode === 'free');
-        $('modeDaily').setAttribute('aria-selected', mode === 'daily');
-        $('modeFree').setAttribute('aria-selected', mode === 'free');
+        for (const [id, m] of [['modeDaily', 'daily'], ['modeFree', 'free'], ['modeArchive', 'archive']]) {
+            $(id).classList.toggle('active', mode === m);
+            $(id).setAttribute('aria-selected', mode === m);
+        }
+        $('archiveBar').style.display = mode === 'archive' ? 'flex' : 'none';
+        $('hardDetail').textContent = `(${fullPool().length} au lieu de ${easyPool().length})`;
+
         $('results').innerHTML = '';
+        $('specHeader').innerHTML = '';
+        cfg.columns.forEach(c => $('specHeader').appendChild(el('div', { textContent: c.label })));
         $('specHeader').style.display = 'none';
-        $('emptyState').textContent = `Propose un ${cfg.noun} pour révéler les premiers indices.`.replace('un arme', 'une arme');
+        $('emptyState').textContent = `Propose ${cfg.fem ? 'une' : 'un'} ${cfg.noun} pour révéler les premiers indices.`;
         $('emptyState').style.display = 'block';
         $('resultBar').style.display = 'none';
-        $('hint').style.display = 'none';
         $('shareFallback').style.display = 'none';
         $('searchInput').value = '';
+        renderPrompt();
+        renderBonus();
+        renderHints();
         setInputEnabled(true);
         hideSuggestions();
         sizeTiles();
 
-        if (mode === 'daily') {
-            const saved = storage.get(cfg.dailyKey);
-            if (saved && saved.date === todayKey()) {
-                saved.guesses.forEach(name => {
-                    const item = data.find(d => d['Nom'] === name);
-                    if (item) addGuess(item, false);
-                });
-                if (saved.gaveUp && !finished) endGame(false, false);
-                if (saved.hintShown && !finished) showHint();
-            }
+        const saved = loadState();
+        if (saved) {
+            hintsUsed = saved.hintsUsed || 0;
+            saved.guesses.forEach(name => {
+                const item = data.find(d => d['Nom'] === name);
+                if (item && !finished) addGuess(item, false);
+            });
+            if ((saved.gaveUp || saved.lost) && !finished) endGame(false, false);
+            renderHints();
         }
+        renderCandidates();
         updateStatus();
         if (!finished && window.matchMedia('(hover: hover)').matches) $('searchInput').focus();
     }
 
-    function saveDaily(extra = {}) {
-        if (mode !== 'daily') return;
-        const prev = storage.get(cfg.dailyKey);
-        const hintShown = prev && prev.date === todayKey() && prev.hintShown;
-        storage.set(cfg.dailyKey, { date: todayKey(), guesses, gaveUp: false, hintShown, ...extra });
+    function renderPrompt() {
+        const p = cfg.prompt && cfg.prompt(secretItem);
+        $('prompt').style.display = p ? 'block' : 'none';
+        if (p) { $('promptLabel').textContent = p.label; $('promptText').textContent = p.text; }
+    }
+
+    // Bonus croisé : trouver l'arme du jour révèle la source du personnage du jour, et inversement.
+    function renderBonus() {
+        const partner = { weapons: 'characters', characters: 'weapons' }[category];
+        const box = $('bonus');
+        box.style.display = 'none';
+        if (mode !== 'daily' || !partner) return;
+        const saved = storage.get(CATEGORIES[partner].dailyKey);
+        if (!saved || saved.date !== todayKey() || !saved.won) return;
+        box.innerHTML = '';
+        box.append(el('span', { className: 'label', textContent: `Bonus · ${CATEGORIES[partner].label.toLowerCase()} trouvé${CATEGORIES[partner].fem ? 'e' : ''}` }),
+            `Source : ${secretItem['Source']}`);
+        box.style.display = 'block';
+    }
+
+    function renderHints() {
+        const box = $('hints');
+        box.innerHTML = '';
+        const shown = finished ? cfg.hints.length : hintsUsed;
+        cfg.hints.slice(0, shown).forEach((h, i) => {
+            box.appendChild(el('div', { className: 'hint' + (i >= hintsUsed ? ' revealed' : '') },
+                el('span', { className: 'label', textContent: i >= hintsUsed ? `Indice ${i + 1} (non utilisé)` : `Indice ${i + 1}` }),
+                el('span', { lang: 'en', textContent: h(secretItem) })));
+        });
+        box.style.display = shown ? 'flex' : 'none';
+    }
+
+    function useHint() {
+        if (finished || hintsUsed >= cfg.hints.length || guesses.length < HINT_STEPS[hintsUsed]) return;
+        hintsUsed++;
+        renderHints();
+        saveState();
+        updateStatus();
     }
 
     function updateStatus() {
-        $('modeLabel').innerHTML = mode === 'daily'
-            ? `${cfg.nounDaily} · <b>${new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</b>`
-            : `Partie libre · <b>${data.length} ${cfg.noun}s</b>`;
-        $('guessCount').innerHTML = `<b>${guesses.length}</b> essai${guesses.length > 1 ? 's' : ''}`;
-        const left = HINT_AFTER - guesses.length;
-        const hintReady = left <= 0 && !finished;
-        $('hintButton').disabled = !hintReady;
-        $('hintButton').textContent = hintReady || finished ? 'Révéler un indice' : `Indice dans ${plural(left, 'essai')}`;
+        $('modeLabel').innerHTML = '';
+        const longDate = d => new Date(d + 'T12:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+        $('modeLabel').append(
+            mode === 'daily' ? `${cfg.label} · ` : mode === 'archive' ? 'Archives · ' : `Partie libre${hard ? ' (difficile)' : ''} · `,
+            el('b', { textContent: mode === 'daily' ? longDate(todayKey())
+                : mode === 'archive' ? longDate(archiveDate)
+                : `${(hard ? fullPool() : easyPool()).length} réponses possibles` }));
+        $('guessCount').innerHTML = `<b>${guesses.length}${options.limit ? '/' + MAX_GUESSES : ''}</b> essai${guesses.length > 1 ? 's' : ''}`;
+
+        const btn = $('hintButton');
+        if (hintsUsed >= cfg.hints.length) { btn.disabled = true; btn.textContent = 'Plus d\'indice'; }
+        else {
+            const need = HINT_STEPS[hintsUsed] - guesses.length;
+            btn.disabled = finished || need > 0;
+            btn.textContent = need > 0
+                ? `Indice ${hintsUsed + 1}/${cfg.hints.length} dans ${plural(need, 'essai')}`
+                : `Révéler l'indice ${hintsUsed + 1}/${cfg.hints.length}`;
+        }
         $('giveUpButton').disabled = finished || guesses.length === 0;
         $('gameActions').style.display = finished ? 'none' : 'flex';
     }
@@ -709,29 +971,78 @@
 
     // ---------- Comparaison ----------
     function compareSet(guess, secret) {
-        const g = new Set(splitList(guess));
-        const s = new Set(splitList(secret));
-        const common = [...g].filter(t => s.has(t)).length;
-        if (common === s.size && common === g.size) return { state: 'correct' };
-        return { state: common > 0 ? 'partial' : 'wrong' };
+        const g = splitList(guess), s = new Set(splitList(secret).map(normalize));
+        const hits = new Set(g.filter(t => s.has(normalize(t))));
+        const state = hits.size === g.length && hits.size === s.size ? 'correct' : hits.size ? 'partial' : 'wrong';
+        return { state, items: g, hits };
     }
-
-    function compareNumber(guess, secret) {
-        const g = parseFloat(guess), s = parseFloat(secret);
-        if (isNaN(g) || isNaN(s)) return { state: normalize(guess) === normalize(secret) ? 'correct' : 'wrong' };
+    // Arme de départ : verte si identique, orange si les armes partagent un tag
+    function compareLinked(guess, secret, gTags, sTags) {
+        const base = compareSet(guess, secret);
+        if (base.state === 'correct') return base;
+        const s = new Set(splitList(sTags).map(normalize));
+        const shared = splitList(gTags).filter(t => t !== 'N/A' && s.has(normalize(t)));
+        return { state: shared.length ? 'partial' : 'wrong', items: base.items, hits: new Set(), shared };
+    }
+    const toNumber = (v, type) => type === 'date' ? Number((v || '').replace(/-/g, '')) : parseFloat(v);
+    function compareNumber(guess, secret, type) {
+        const g = toNumber(guess, type), s = toNumber(secret, type);
+        if (isNaN(g) || isNaN(s) || !g || !s) return { state: normalize(guess) === normalize(secret) ? 'correct' : 'wrong' };
         if (g === s) return { state: 'correct' };
         return { state: 'wrong', arrow: s > g ? '▲' : '▼' };
     }
-
     function evaluate(item) {
         return cfg.columns.map(col => {
-            const value = item[col.key];
-            const target = secretItem[col.key];
+            const value = item[col.key] || 'N/A';
+            const target = secretItem[col.key] || 'N/A';
             const res = col.type === 'set' ? compareSet(value, target)
-                : col.type === 'number' ? compareNumber(value, target)
+                : col.type === 'linked' ? compareLinked(value, target, item[col.tagsKey], secretItem[col.tagsKey])
+                : (col.type === 'number' || col.type === 'date') ? compareNumber(value, target, col.type)
                 : { state: normalize(value) === normalize(target) ? 'correct' : 'wrong' };
-            return { value, abbr: col.abbr, ...res };
+            return { value, col, ...res };
         });
+    }
+
+    function renderTile(cell) {
+        const div = el('div', { className: 'tile ' + cell.state });
+        const content = el('span', { lang: 'en' });
+        let textLength = cell.value.length;
+        if (cell.col.type === 'set' && cell.items[0] !== 'Aucun') {
+            const tile = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tile'));
+            if (cell.col.abbr && cell.items.length > (tile < 70 ? 4 : 9)) {
+                content.append(`${cell.items.length} stats`);
+                if (cell.hits.size) content.append(el('small', { className: 'hitcount', textContent: ` (${cell.hits.size} en commun)` }));
+            } else {
+                cell.items.forEach((item, i) => {
+                    if (i) content.append(cell.col.abbr ? ' ' : ', ');
+                    const label = cell.col.abbr ? (STAT_ABBR[item] || item) : item;
+                    content.append(cell.hits.has(item) && cell.state === 'partial' ? el('span', { className: 'hit', textContent: label }) : label);
+                });
+                textLength = content.textContent.length;
+            }
+            div.title = cell.value;
+        } else if (cell.col.type === 'linked') {
+            content.textContent = cell.value;
+            if (cell.shared && cell.shared.length) {
+                content.append(el('small', { className: 'shared', textContent: cell.shared.join(', ') }));
+                div.title = `Tags en commun : ${cell.shared.join(', ')}`;
+            }
+        } else if (cell.col.type === 'date' && /^\d{4}-\d\d/.test(cell.value)) {
+            content.textContent = formatDate(cell.value);
+            div.title = cell.value;
+        } else {
+            content.textContent = cell.value;
+        }
+        if (textLength > 28) div.classList.add('dense');
+        // Réduit la police si le mot le plus long ne tient pas dans la case (au lieu de le couper)
+        const tile = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tile')) || 100;
+        const longest = Math.max(...content.textContent.split(/[\s,]+/).map(w => w.length), 1);
+        const base = div.classList.contains('dense') ? Math.min(12, Math.max(8, tile * 0.105)) : Math.min(15, Math.max(9, tile * 0.135));
+        const fit = (tile * 0.84) / (longest * 0.62);
+        if (fit < base) div.style.fontSize = Math.max(6.5, fit).toFixed(1) + 'px';
+        div.appendChild(content);
+        if (cell.arrow) div.appendChild(el('span', { className: 'arrow', textContent: cell.arrow, ariaLabel: cell.arrow === '▲' ? 'plus haut' : 'plus bas' }));
+        return div;
     }
 
     // ---------- Proposition ----------
@@ -740,11 +1051,9 @@
         const input = normalize($('searchInput').value);
         hideSuggestions();
         if (!input) return;
-
         const item = data.find(d => normalize(d['Nom']) === input);
-        if (!item) { toast(`Aucun${cfg.noun === 'arme' ? 'e arme ne porte' : ' personnage ne porte'} ce nom.`); shake($('searchInput')); return; }
-        if (guesses.includes(item['Nom'])) { toast(`Tu as déjà proposé ce${cfg.noun === 'arme' ? 'tte arme' : ' personnage'}.`); shake($('searchInput')); return; }
-
+        if (!item) { toast('Aucune réponse possible ne porte ce nom.'); shake($('searchInput')); return; }
+        if (guesses.includes(item['Nom'])) { toast('Tu as déjà fait cette proposition.'); shake($('searchInput')); return; }
         addGuess(item, true);
         $('searchInput').value = '';
     }
@@ -752,50 +1061,60 @@
     function addGuess(item, live) {
         guesses.push(item['Nom']);
         $('emptyState').style.display = 'none';
+        $('specHeader').style.display = 'flex';
 
-        const header = $('specHeader');
-        if (header.style.display === 'none') {
-            header.innerHTML = '';
-            cfg.columns.forEach(c => header.appendChild(Object.assign(document.createElement('div'), { textContent: c.label })));
-            header.style.display = 'flex';
-        }
-
-        const row = document.createElement('div');
-        row.className = 'row' + (live ? '' : ' instant');
         const cells = evaluate(item);
-        cells.forEach(cell => {
-            const div = document.createElement('div');
-            div.className = 'tile ' + cell.state;
-            const span = document.createElement('span');
-            span.lang = 'en';
-            span.textContent = cell.value;
-            if (cell.abbr && cell.value !== 'Aucun') {
-                const items = cell.value.split(',').map(s => s.trim());
-                const tile = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tile'));
-                span.textContent = items.length > (tile < 70 ? 4 : 9)
-                    ? `${items.length} stats`
-                    : items.map(s => STAT_ABBR[s] || s).join(' ');
-                div.title = cell.value;
-            }
-            if (span.textContent.length > 28) div.classList.add('dense');
-            div.appendChild(span);
-            if (cell.arrow) {
-                const a = document.createElement('span');
-                a.className = 'arrow';
-                a.textContent = cell.arrow;
-                a.setAttribute('aria-label', cell.arrow === '▲' ? 'plus haut' : 'plus bas');
-                div.appendChild(a);
-            }
-            row.appendChild(div);
-        });
-        rowStates.push(cells.map(c => c.state));
-        $('results').prepend(row);
+        // Une proposition aux caractéristiques identiques à la réponse est indiscernable : elle gagne aussi.
+        const samePrompt = !cfg.prompt || cfg.prompt(item).text === cfg.prompt(secretItem).text;
+        const isWin = item === secretItem || (samePrompt && cells.every(c => c.state === 'correct'));
+        const row = el('div', { className: 'row' });
+        cells.forEach(cell => row.appendChild(renderTile(cell)));
+        const guess = el('div', { className: 'guess' + (live ? '' : ' instant') + (isWin && live ? ' win' : '') },
+            el('div', { className: 'guess-name' + (isWin ? ' correct-name' : ''), textContent: item['Nom'] }), row);
+        rowStates.push([isWin ? 'correct' : 'wrong', ...cells.map(c => c.state)]);
+        $('results').prepend(guess);
 
-        if (item === secretItem) {
-            if (live) row.classList.add('win');
-            endGame(true, live);
-        } else if (live) saveDaily();
+        if (isWin) endGame(true, live);
+        else if (options.limit && guesses.length >= MAX_GUESSES) endGame(false, live, true);
+        else if (live) saveState();
+        renderCandidates();
         updateStatus();
+    }
+
+    // Réponses encore compatibles avec toutes les cases affichées (option)
+    function consistentCandidates() {
+        const pool = mode === 'free' && hard ? fullPool() : easyPool();
+        const guessed = guesses.map(n => data.find(d => d['Nom'] === n)).filter(Boolean);
+        const sig = it => evaluate(it).map(c => c.state + (c.arrow || '')).join('|');
+        const real = guessed.map(sig);
+        const target = secretItem;
+        const promptText = cfg.prompt ? cfg.prompt(target).text : null;
+        const out = [];
+        for (const c of pool) {
+            if (guesses.includes(c['Nom'])) continue;
+            if (promptText !== null && cfg.prompt(c).text !== promptText) continue;
+            secretItem = c;
+            if (guessed.every((g, i) => sig(g) === real[i])) out.push(c);
+        }
+        secretItem = target;
+        return out;
+    }
+
+    function renderCandidates() {
+        const box = $('candidates');
+        if (!options.cands || finished || !secretItem) { box.style.display = 'none'; return; }
+        const list = consistentCandidates();
+        box.innerHTML = '';
+        box.appendChild(el('span', { className: 'label', textContent: `Réponses encore possibles : ${list.length}` }));
+        const chips = el('div', { className: 'chips' });
+        list.slice(0, 60).forEach(c => {
+            const chip = el('button', { className: 'chip', type: 'button', textContent: c['Nom'] });
+            chip.onclick = () => { $('searchInput').value = c['Nom']; $('searchInput').focus(); };
+            chips.appendChild(chip);
+        });
+        if (list.length > 60) chips.appendChild(el('span', { className: 'more', textContent: `et ${list.length - 60} autres…` }));
+        box.appendChild(chips);
+        box.style.display = 'block';
     }
 
     function recordStats(didWin) {
@@ -806,26 +1125,26 @@
             s.streak = s.lastWin === yesterdayKey() ? s.streak + 1 : 1;
             s.best = Math.max(s.best, s.streak);
             s.lastWin = todayKey();
-        } else {
-            s.streak = 0;
-        }
+        } else s.streak = 0;
         storage.set(cfg.statsKey, s);
     }
 
-    function endGame(didWin, live) {
+    function endGame(didWin, live, outOfGuesses = false) {
         finished = true;
         won = didWin;
         setInputEnabled(false);
         hideSuggestions();
-        const n = guesses.length;
+        const last = guesses[guesses.length - 1];
         $('resultText').textContent = didWin
-            ? `Trouvé en ${plural(n, 'essai')} : ${secretItem['Nom']}`
-            : `C'était ${secretItem['Nom']}`;
+            ? `Trouvé en ${plural(guesses.length, 'essai')} : ${last}` + (last !== secretItem['Nom'] ? ` (indiscernable de ${secretItem['Nom']})` : '')
+            : `${outOfGuesses ? 'Plus d\'essais. ' : ''}C'était ${secretItem['Nom']}`;
         $('resultBar').classList.toggle('lost', !didWin);
         $('resultBar').style.display = 'flex';
-        if (secretItem['Description']) showHint(true);
+        renderHints();
+        renderCandidates();
         if (live) {
-            if (mode === 'daily') { saveDaily({ gaveUp: !didWin }); recordStats(didWin); }
+            saveState({ gaveUp: !didWin && !outOfGuesses, lost: !didWin, won: didWin });
+            if (mode === 'daily') recordStats(didWin);
             setTimeout(openEndModal, didWin ? 1500 : 300);
         }
         updateStatus();
@@ -846,16 +1165,6 @@
         endGame(false, true);
     }
 
-    function showHint(revealed = false) {
-        if (!secretItem['Description']) return;
-        if (!revealed && guesses.length < HINT_AFTER) return;
-        $('hint').innerHTML = '';
-        $('hint').appendChild(Object.assign(document.createElement('span'), { className: 'label', textContent: revealed && finished ? 'Description' : 'Indice' }));
-        $('hint').appendChild(Object.assign(document.createElement('span'), { lang: 'en', textContent: secretItem['Description'] }));
-        $('hint').style.display = 'block';
-        if (!revealed && mode === 'daily') saveDaily({ hintShown: true });
-    }
-
     // ---------- Fenêtre de résultat ----------
     function openEndModal() {
         const s = storage.get(cfg.statsKey) || { played: 0, won: 0, streak: 0, best: 0 };
@@ -863,20 +1172,16 @@
         $('stWinPct').textContent = s.played ? Math.round(100 * s.won / s.played) : 0;
         $('stStreak').textContent = s.streak;
         $('stBest').textContent = s.best;
-        $('statsLabel').textContent = `Statistiques du ${cfg.nounDaily.toLowerCase()}`;
+        $('statsLabel').textContent = `Statistiques · ${cfg.label.toLowerCase()}`;
 
         const title = $('endTitle');
         title.classList.remove('lost');
         if (finished) {
             title.textContent = won ? 'Victoire !' : 'Perdu…';
             title.classList.toggle('lost', !won);
+            const sub = `${won ? 'trouvé' : 'après'} ${plural(guesses.length, 'essai')}${hintsUsed ? ` · ${plural(hintsUsed, 'indice')}` : ''}`;
             $('endWeapon').innerHTML = '';
-            const name = document.createElement('div');
-            name.textContent = secretItem['Nom'];
-            const sub = document.createElement('small');
-            sub.textContent = won ? `trouvé en ${plural(guesses.length, 'essai')}` : `après ${plural(guesses.length, 'essai')}`;
-            name.appendChild(sub);
-            $('endWeapon').appendChild(name);
+            $('endWeapon').appendChild(el('div', { textContent: secretItem['Nom'] }, el('small', { textContent: sub })));
             $('endWeapon').style.display = 'block';
             $('shareButton').style.display = '';
         } else {
@@ -895,6 +1200,7 @@
             const m = String(Math.floor(diff / 6e4) % 60).padStart(2, '0');
             const sec = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
             $('countdown').innerHTML = `Prochain défi du jour dans <b>${h}:${m}:${sec}</b>`;
+            $('countdown').style.display = mode === 'daily' ? 'block' : 'none';
         };
         tick();
         countdownTimer = setInterval(tick, 1000);
@@ -904,8 +1210,11 @@
     function shareResult() {
         const emoji = { correct: '🟩', partial: '🟧', wrong: '🟥' };
         const grid = rowStates.map(r => r.map(s => emoji[s]).join('')).join('\n');
-        const title = mode === 'daily' ? `${cfg.shareTitle} ${todayKey()}` : `${cfg.shareTitle} (partie libre)`;
-        const text = `${title} : ${won ? plural(guesses.length, 'essai') : 'perdu'}\n${grid}`;
+        const title = mode === 'daily' ? `${cfg.shareTitle} ${todayKey()}`
+            : mode === 'archive' ? `${cfg.shareTitle} ${archiveDate} (archive)`
+            : `${cfg.shareTitle} (partie libre${hard ? ', difficile' : ''})`;
+        const score = won ? (options.limit ? `${guesses.length}/${MAX_GUESSES}` : plural(guesses.length, 'essai')) : (options.limit ? `X/${MAX_GUESSES}` : 'perdu');
+        const text = `${title} : ${score}${hintsUsed ? ' · ' + '💡'.repeat(hintsUsed) : ''}\n${grid}`;
         const fallback = () => {
             const box = $('shareFallback');
             box.value = text;
@@ -938,18 +1247,13 @@
                 || a['Nom'].localeCompare(b['Nom']));
 
         matches.forEach(match => {
-            const div = document.createElement('div');
-            div.setAttribute('role', 'option');
-            div.dataset.name = match['Nom'];
-            const name = document.createElement('span');
             const start = normalize(match['Nom']).indexOf(input);
-            name.append(match['Nom'].slice(0, start));
-            const mark = document.createElement('mark');
-            mark.textContent = match['Nom'].slice(start, start + input.length);
-            name.append(mark, match['Nom'].slice(start + input.length));
-            const src = document.createElement('small');
-            src.textContent = match['Source'];
-            div.append(name, src);
+            const name = el('span', {}, match['Nom'].slice(0, start),
+                el('mark', { textContent: match['Nom'].slice(start, start + input.length) }),
+                match['Nom'].slice(start + input.length));
+            const meta = match['Type'] && category === 'descriptions' ? `${match['Type']} · ${match['Source']}` : match['Source'];
+            const div = el('div', { role: 'option' }, name, el('small', { textContent: meta }));
+            div.dataset.name = match['Nom'];
             div.onmousedown = e => {
                 e.preventDefault();
                 $('searchInput').value = match['Nom'];
@@ -988,8 +1292,9 @@
     });
 
     // ---------- Démarrage ----------
-    switchCategory(storage.get('vsdle-category') === 'characters' ? 'characters' : 'weapons');
-    if (!storage.get('vsdle-seen-help')) { openModal('helpModal'); storage.set('vsdle-seen-help', true); }
+    const savedCat = storage.get('vsdle-category');
+    switchCategory(CATEGORIES[savedCat] ? savedCat : 'weapons');
+    if (!storage.get('vsdle-seen-help-v2')) { openModal('helpModal'); storage.set('vsdle-seen-help-v2', true); }
 </script>
 </body>
 </html>

@@ -1,0 +1,150 @@
+Nom,Type,Armes,Objets,Source,Base Tags,Release
+Bloody Tear,Évolution,Whip,Hollow Heart,Jeu de base,"Horizontal, Pierce",2021
+Holy Wand,Évolution,Magic Wand,Empty Tome,Jeu de base,"Homing, Projectile",2021
+Thousand Edge,Évolution,Knife,Bracer,Jeu de base,"Directional, Fast",2021
+Death Spiral,Évolution,Axe,Candelabrador,Jeu de base,"Area, High Damage",2021
+Heaven Sword,Évolution,Cross,Clover,Jeu de base,"Boomerang, Homing",2021
+Unholy Vespers,Évolution,King Bible,Spellbinder,Jeu de base,"Area, Orbit",2021
+Hellfire,Évolution,Fire Wand,Spinach,Jeu de base,"Heavy, Random",2021
+Soul Eater,Évolution,Garlic,Pummarola,Jeu de base,"Area, Aura",2021
+Vandalier,Union,"Peachone, Ebony Wings",Aucun,Jeu de base,"Circular, Orbit",2021
+La Borra,Évolution,Santa Water,Attractorb,Jeu de base,Area,2021
+Thunder Loop,Évolution,Lightning Ring,Duplicator,Jeu de base,"Random, Strike",2021
+Mannajja,Évolution,Song of Mana,Skull O'Maniac,Jeu de base,"Pierce, Vertical",2022
+Gorgeous Moon,Évolution,Pentagram,Crown,Jeu de base,"Erase, Fullscreen",2021
+Phieraggi,Union,"Phiera Der Tuphello, Eight The Sparrow",Tirajisú,Jeu de base,"Directional, Fixed",2022
+NO FUTURE,Évolution,Runetracer,Armor,Jeu de base,"Bouncing, Pierce",2021
+Valkyrie Turner,Évolution,Shadow Pinion,Wings,Jeu de base,"Area, Movement",2022
+Vicious Hunger,Évolution,Gatti Amari,Stone Mask,Jeu de base,"Random, Summon",2022
+Infinite Corridor,Évolution,Clock Lancet,"Silver Ring, Gold Ring",Jeu de base,"Freeze, Time",2021
+Crimson Shroud,Évolution,Laurel,"Metaglio Left, Metaglio Right",Jeu de base,"Cooldown, Shield",2021
+Fuwalafuwaloo,Union,"Vento Sacro, Bloody Tear",Aucun,Jeu de base,"Critical, Horizontal, Movement, Pierce",2022
+Bi-Bracelet,Évolution,Bracelet,Aucun,Jeu de base,"Multi-shot, Random",2022
+Tri-Bracelet,Évolution,Bi-Bracelet,Aucun,Jeu de base,"Multi-shot, Random",2022
+Ashes of Muspell,Évolution,Flames of Misspell,Torrona's Box,Jeu de base,"Cone, Fire",2022
+Muramasa,Évolution,Night Sword,Stone Mask,Legacy of Moonspell,"Lifesteal, Retaliation",2022
+Festive Winds,Évolution,Silver Wind,Pummarola,Legacy of Moonspell,"Heart Drop, Projectile",2022
+Godai Shuffle,Évolution,Four Seasons,Candelabrador,Legacy of Moonspell,Explosive,2022
+Echo Night,Évolution,Summon Night,Duplicator,Legacy of Moonspell,"Above, Area",2022
+J'Odore,Évolution,Mirage Robe,Attractorb,Legacy of Moonspell,"Explosive, Freeze",2022
+Boo Roo Boolle,Évolution,Mille Bolle Blu,Spellbinder,Legacy of Moonspell,"Lingering, Random",2022
+Anima of Mortaccio,Évolution,Bone,Chaos Malachite,Jeu de base,"Bouncing, Projectile",2021
+Ophion,Évolution,Shadow Servant,Skull O'Maniac,Tides of the Foscari,"Debuff, Luck",2023
+SpellStrom,Union,"SpellString, SpellStream, SpellStrike",Aucun,Tides of the Foscari,"Area, Expanding, Melee, Might, Speed",2023
+Legionnaire,Évolution,Eskizzibur,Armor,Tides of the Foscari,"Melee, Retaliation",2023
+Millionaire,Évolution,Flash Arrow,Bracer,Tides of the Foscari,"Critical, Damage",2023
+Luminaire,Évolution,Prismatic Missile,Crown,Tides of the Foscari,"Arcana, Explosive",2023
+Yatta Daikarin,Évolution,Cherry Bomb,Chaos Rosalia,Jeu de base,"Bouncing, Explosive",2022
+Celestial Voulge,Évolution,Glass Fandango,Wings,Jeu de base,"Freeze, Movement",2023
+Rocket Science,Évolution,Science Rocks,Mini Scientist,Emergency Meeting,"Explosive, Touch",2023
+Crossed Wires,Évolution,Lucky Swipe,Mini Engineer,Emergency Meeting,"Amount, Luck",2023
+Mazo Familiar,Évolution,Pako Battiliar,Hollow Heart,Jeu de base,Retaliation,2024
+Unjust Ejection,Évolution,Just Vent,Mini Shapeshifter,Emergency Meeting,"Amount, Destroy",2023
+Emergency Meeting,Évolution,Report!,Mini Crewmate,Emergency Meeting,"Area, Knockback",2023
+Paranormal Scan,Évolution,Lifesign Scan,Mini Ghost,Emergency Meeting,"Heal, Recovery",2023
+Clear Asteroids,Évolution,Clear Debris,Mini Guardian,Emergency Meeting,"Area, Spawn",2023
+Impostongue,Évolution,Sharp Tongue,Mini Impostor,Emergency Meeting,"Frontal, Recovery",2023
+Photonstorm,Évolution,Phas3r,Empty Tome,Jeu de base,"Area, Thin",2024
+Profusione D'Amore,Évolution,Celestial Dusting,Chaos Altemanna,Jeu de base,"Bouncing, Movement",2022
+Seraphic Cry,Évolution,Santa Javelin,Clover,Jeu de base,"Critical, Projectile",2024
+Vampire Killer,Évolution,Alchemy Whip,Tirajisú,Ode to Castlevania,"Boss, Damage",2024
+Crissaegrim Tip,Évolution,Sonic Whip,Skull O'Maniac,Ode to Castlevania,"Curse, Luck",2024
+Hydrostormer Tip,Évolution,Dragon Water Whip,Attractorb,Ode to Castlevania,"Dragon, Snaking",2024
+Mormegil Tip,Évolution,Jet Black Whip,Stone Mask,Ode to Castlevania,"Area, Linear",2024
+Spirit Tornado Tip,Évolution,Wind Whip,Crown,Ode to Castlevania,"Damage, Growth",2024
+Daybreaker Tip,Évolution,Vibhuti Whip,Candelabrador,Ode to Castlevania,"Cluster, Explosive",2024
+Aurablaster Tip,Évolution,Vanitas Whip,Hollow Heart,Ode to Castlevania,"Area, Perpendicular",2024
+Bwaka Knife,Évolution,Curved Knife,Bracer,Ode to Castlevania,"Random, Spin",2024
+Wrecking Ball,Évolution,Iron Ball,Armor,Ode to Castlevania,"Armor, Projectile",2024
+Long Inus,Évolution,Javelin,Spellbinder,Ode to Castlevania,"Fixed, Pierce",2024
+The RPG,Évolution,Hand Grenade,Candelabrador,Ode to Castlevania,"Explosive, Projectile",2024
+Cross Crasher Tip,Évolution,Platinum Whip,Clover,Ode to Castlevania,"Fixed, Projectile",2024
+Salamender,Évolution,Raging Fire,Spinach,Ode to Castlevania,"Area, Explosive",2024
+Gemma Torpor,Évolution,Rock Riot,Stone Mask,Ode to Castlevania,"Fixed, Projectile",2024
+Cocytus,Évolution,Ice Fang,Spellbinder,Ode to Castlevania,"Area, Straight",2024
+Pneuma Tempestas,Évolution,Gale Force,Bracer,Ode to Castlevania,"Backward, Projectile",2024
+Tenebris Tonitrus,Évolution,Fulgur,Duplicator,Ode to Castlevania,"Fixed, Strike",2024
+Alucard Swords,Évolution,Alucart Sworb,Aucun,Ode to Castlevania,"Homing, Melee",2024
+Thunderbolt Spear,Évolution,Alucard Spear,Wings,Ode to Castlevania,"Direction Change, Spin",2024
+Stamazza,Évolution,Mace,Hollow Heart,Ode to Castlevania,Multi-hit,2024
+Sacred Beasts Tower Shield,Évolution,Guardian's Targe,Pummarola,Ode to Castlevania,"Defensive, Summon",2024
+Vol Confodere,Évolution,Confodere,Aucun,Ode to Castlevania,"Melee, Speed",2024
+Melio Confodere,Évolution,Vol Confodere,Aucun,Ode to Castlevania,"Melee, Speed",2024
+Power of Sire,Union,"Dominus Anger, Dominus Agony, Dominus Hatred",Aucun,Ode to Castlevania,"Buff, Drain, Falling, Pierce",2024
+Yagyu Shuriken,Évolution,Shuriken,Empty Tome,Ode to Castlevania,"Directional, Projectile",2024
+Vol Umbra,Évolution,Umbra,Attractorb,Ode to Castlevania,"Darkness, Spin",2024
+Vol Luminatio,Évolution,Luminatio,Crown,Ode to Castlevania,"Light, Spin",2024
+Acerbatus,Évolution,Optical Shot,Karoma's Mana,Ode to Castlevania,"Double, Pierce",2024
+Rune Sword,Évolution,Tyrfing,Spinach,Ode to Castlevania,"Boomerang, Critical",2024
+Jewel Gun,Évolution,Silver Revolver,Karoma's Mana,Ode to Castlevania,"Multi-shot, Powerful",2024
+Rapidus Fio,Évolution,Sonic Dash,Wings,Ode to Castlevania,"Damage, Movement",2024
+Trinum Custodem,Union,"Dextro Custos, Sinestro Custos, Centralis Custos",Aucun,Ode to Castlevania,"Buff, Fire, Ice, Summon",2024
+Nitesco,Évolution,Globus,Empty Tome,Ode to Castlevania,"Bouncing, Duration",2024
+Gungnir-Souris,Évolution,Trident,Duplicator,Ode to Castlevania,"Fixed, Strike",2024
+Keremet Morbus,Évolution,Keremet Bubbles,Armor,Ode to Castlevania,"Area, Slow",2024
+Nightmare,Évolution,Hex,Skull O'Maniac,Ode to Castlevania,"Area, Moving",2024
+Stellar Blade,Évolution,Discus,Parm Aegis,Ode to Castlevania,"Defensive, Projectile",2024
+Meal Ticket,Évolution,Wine Glass,Tirajisú,Ode to Castlevania,"Explosive, Projectile",2024
+Sanctuary,Évolution,Refectio,Clover,Ode to Castlevania,"Area, Heal",2024
+Moon Rod,Évolution,Star Flail,Pummarola,Ode to Castlevania,"Lingering, Recovery",2024
+Dark Iron Shield,Évolution,Iron Shield,Parm Aegis,Ode to Castlevania,"Lingering, Retaliation",2024
+Clock Tower,Union,"Endo Gears, Peri Pendulum, Myo Lift, Epi Head",Aucun,Ode to Castlevania,"Amount, Clockwork",2025
+Power of Lire,Union,"Soul Steal, Vicious Hunger",Aucun,Ode to Castlevania,"Area, Fullscreen, Random, Summon",2024
+Embrace of Gaea,Évolution,Gaze of Gaea,Parm Aegis,Jeu de base,"Debuff, Defang",2025
+Dress Sword,Évolution,Fleuret,Crystalline Carve tech,Emerald Diorama,"Glimmer, Speed",2025
+Espada Ropera,Évolution,Dress Sword,Shocking Rush tech,Emerald Diorama,"Glimmer, Speed",2025
+Pursuant Blades,Évolution,Splashers,"Spellbinder, Dual Whirlwind tech",Emerald Diorama,"Duration, Glimmer",2025
+Hydra Cannon,Évolution,Super Missile,Ballistic Missiles tech,Emerald Diorama,"Explosive, Glimmer",2025
+Gekkabijin,Évolution,Twin Dragon,"Karoma's Mana, Gravedigger tech",Emerald Diorama,"Glimmer, Horizontal",2025
+Pressure Point,Évolution,Punch,Raksha tech,Emerald Diorama,"Melee, Sideways",2025
+Gilded Hand,Évolution,Pressure Point,Shenlong Firefist tech,Emerald Diorama,"Melee, Sideways",2025
+Triangle Kick,Évolution,Kick,"Pummarola, Thunder Kick tech",Emerald Diorama,"Boost, Full Health",2025
+Rings of Calamity,Évolution,Spirit Rings,Aucun,Emerald Diorama,"Bonus, Trigger",2025
+Hecaton Machine Gun,Évolution,Saber Machine Gun,Shockwave tech,Emerald Diorama,"Directional, Glimmer",2025
+Divergence,Évolution,Hecaton Machine Gun,Bombarding Fire tech,Emerald Diorama,"Directional, Glimmer",2025
+Pendragon,Évolution,Eagle Gun,"Spinach, Falconfire tech",Emerald Diorama,"Glimmer, Homing",2025
+Lordstar,Évolution,Town Sword,Swallow Slice tech,Emerald Diorama,"Directional, Glimmer",2025
+Dayblade,Évolution,Lordstar,Airwave tech,Emerald Diorama,"Directional, Glimmer",2025
+Blood Chalice,Évolution,Sanguine Star,"Stone Mask, Blood Rage tech",Emerald Diorama,"Blood, Nearest",2025
+Jetstream,Évolution,Khukuri,"Parm Aegis, Moonfall Slash tech",Emerald Diorama,"Clone, Shadow",2025
+Falconwind,Évolution,Bullova,"Skull O'Maniac, Hell's Fury tech",Emerald Diorama,"Glimmer, Pierce",2025
+Feather Spear,Évolution,Glaive,Divine Lancer tech,Emerald Diorama,"Directional, Stab",2025
+Lohengrin,Évolution,Feather Spear,Stardust tech,Emerald Diorama,"Directional, Stab",2025
+Zweihander,Évolution,Flamberge,Bull Crush tech,Emerald Diorama,"Spin, Upward",2025
+Galatyn,Évolution,Zweihander,Absetzen tech,Emerald Diorama,"Spin, Upward",2025
+Emerald Wave,Évolution,Emerald Rapture,Crown,Emerald Diorama,"Random, Teleport",2025
+Gunastrophe,Évolution,Ammo Appalate,Bracer,Jeu de base,"Directional, Projectile",2025
+Kyra-Stones,Évolution,Magi-Stone,Karoma's Mana,Jeu de base,Damage,2025
+Carrozza!,Évolution,Carréllo,Chaos Lazulia,Jeu de base,"Bouncing, Projectile",2022
+Arch Angle,Union,"Grand Cross, Heaven Sword",Aucun,Ode to Castlevania,"Area, Boomerang, Homing, Light",2024
+Carnage Heart,Union,"Troll Bomb, NO FUTURE",Aucun,Ode to Castlevania,"Bouncing, Explosive, Pierce, Projectile",2024
+Cavendish,Évolution,Gros Michel,Outer Saboteur,Ante Chamber,"Critical, Explosive, Projectile",2025
+Claimh Solais,Évolution,Pocket Knife,Torrona's Box,Ode to Castlevania,"Directional, Projectile",2025
+Dark Frogamorphosis,Union,"Anura, Soul Eater",Aucun,Ode to Castlevania,"Area, Aura, Summon",2025
+Darkness Illusion,Union,"Svarog Statue, Valkyrie Turner",Aucun,Ode to Castlevania,"Area, Movement",2024
+Dies Irae,Union,"Arrow of Goth, Mannajja",Aucun,Ode to Castlevania,"Critical, Pierce, Projectile, Vertical",2024
+Hydro Pump Climax,Union,"Hydro Storm, La Borra",Aucun,Ode to Castlevania,"Area, Projectile, Wave",2024
+Kardía Phlegeton,Union,"Aura Blast, Hellfire",Aucun,Ode to Castlevania,"Explosive, Heavy, Random, Sideways",2024
+Lapiste Tepisto,Union,"Kaiser Knuckle, Tri-Bracelet",Aucun,Ode to Castlevania,"Melee, Multi-hit, Multi-shot, Random",2025
+Legacy of Death: Soul River,Union,"Dark Rift, Death Spiral",Aucun,Ode to Castlevania,"Area, High Damage, Vertical",2024
+Million Cut,Union,"Valmanway, Thousand Edge",Aucun,Ode to Castlevania,"Directional, Fast, Projectile, Speed",2024
+NaneInferno,Évolution,Infernolatro,Outer Saboteur,Ante Chamber,"Area, Directional, Fire",2025
+Negative Space,Évolution,Celestial Booster,Outer Saboteur,Ante Chamber,"Damage, Orbit",2025
+Ninth Circle,Union,"Icebrand, Unholy Vespers",Aucun,Ode to Castlevania,"Area, Lingering, Orbit, Projectile",2024
+Royal Flush,Évolution,Fibonacci Spritz,Outer Saboteur,Ante Chamber,"Spin, Trigger",2025
+Spirit of Light,Union,"Summon Spirit, Holy Wand",Aucun,Ode to Castlevania,"Homing, Projectile",2024
+Venus Crescent,Union,"Summon Spirit Tornado, Gorgeous Moon",Aucun,Ode to Castlevania,"Erase, Fullscreen, Homing, Pickup",2024
+Vjaya Sisters,Union,"Sword Brothers, Thunder Loop",Aucun,Ode to Castlevania,"Invulnerability, Random, Strike, Wave",2024
+Wicked Ruler,Évolution,Chaos Rune,Spellbinder,Jeu de base,"Duration, Speed",2025
+Spirit Disturbance,Évolution,Unearthly Bolt,Tirajisú,Jeu de base,"Area, Critical",2026
+Cardinal Rain,Évolution,Scarlet Needle,Pummarola,Legacy of the Bloodmoon,"Nearest, Projectile",2026
+Dust to Dust,Évolution,Incineration,Candelabrador,Legacy of the Bloodmoon,"Directional, Erase",2026
+Bloodlust,Évolution,Ashella,Duplicator,Legacy of the Bloodmoon,Critical,2026
+Forbidden Siren,Évolution,Screams from the Void,Attractorb,Legacy of the Bloodmoon,"Knockback, Retaliation",2026
+Damnation,Évolution,Blacken Firmament,Torrona's Box,Legacy of the Bloodmoon,"Erase, Random",2026
+FireStall,Union,"FireFall, FireBall, FireWall",Aucun,Legacy of the Bloodmoon,"Amount, Area, Directional, Expanding, Might, Strike",2026
+LunarFlight,Union,"LunarMight, LunarSight, LunarBight",Aucun,Legacy of Moonspell,"Area, Debuff, Might, Moving, Slow",2026
+Argent Flow,Évolution,Festive Winds,Torrona's Box,Legacy of Moonspell,"Heart Drop, Projectile",2022
+Shimmering Sands,Union,"Kyra-Stones, Descent Into Misery",Aucun,Legacy of the Bloodmoon,"Critical, Curse, Damage, Movement",2026
+Road to Heaven,Union,"108 Bocce, 108 Responsive Prayers",Aucun,Legacy of the Bloodmoon,"Bouncing, Curse, Projectile",2026
+Hammer-Dah,Évolution,Mart-Hello,Parm Aegis,Jeu de base,N/A,N/A
