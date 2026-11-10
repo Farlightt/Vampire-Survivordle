@@ -4,606 +4,868 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vampire Survivordle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;700&display=swap">
     <style>
+        /* Menu de jeu : panneau central bleu nuit à double liseré or, comme les menus de Vampire Survivors */
         :root {
+            color-scheme: dark;
             --gold: #c7953b;
-            --navy: #3a3f73;
-            --navy-hover: #50568c;
-            --tile: clamp(68px, 21vw, 120px);
+            --gold-light: #f3d38a;
+            --gold-dark: #7a5518;
+            --panel: rgba(20, 16, 40, 0.88);
+            --panel-solid: #191433;
+            --navy: #2f3468;
+            --navy-hover: #444a8c;
+            --ink: #f6ead2;
+            --ink-dim: #b9ad95;
+            --good: #52a046;
+            --mid: #e88c28;
+            --bad: #e23434;
+            --font: 'Pixelify Sans', 'Courier New', Courier, monospace;
+            --tile: clamp(66px, 20.5vw, 112px);
         }
         * { box-sizing: border-box; }
-        html {
-            background: #120808 url('images/background.png') no-repeat center center fixed;
-            background-size: cover;
-            overflow-x: hidden;
-        }
+        html, body { margin: 0; }
         body {
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            margin: 0;
-            padding: 24px 12px 60px;
+            font-family: var(--font);
+            color: var(--ink);
+            background: #120808 url('images/background.png') no-repeat center top fixed;
+            background-size: cover;
             min-height: 100vh;
             overflow-x: hidden;
-            color: white;
-            text-align: center;
+            padding-block: 16px 48px;
+            padding-left: max(12px, env(safe-area-inset-left, 0px));
+            padding-right: max(12px, env(safe-area-inset-right, 0px));
         }
-        button, input { font-family: inherit; font-weight: bold; }
-
-        #logoContainer { position: relative; display: inline-block; }
-        #logoContainer img { max-width: min(400px, 90vw); }
-        #logoContainer::after {
+        body::after {
+            /* vignette pour détacher le panneau du fond */
             content: "";
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 150%; height: 150%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0) 70%);
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.7) 100%);
+            pointer-events: none;
             z-index: -1;
-            border-radius: 50%;
-            filter: blur(10px);
-            animation: pulse 3s infinite;
         }
-        @keyframes pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
+        button, input, textarea { font-family: inherit; }
+        :focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+
+        .wrap { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+
+        /* ---------- En-tête ---------- */
+        header { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 8px; }
+        header img { width: 100%; max-width: 340px; justify-self: center; filter: drop-shadow(0 0 14px rgba(255, 200, 80, 0.35)); }
+        .icon-btn {
+            width: 44px; height: 44px;
+            display: grid; place-items: center;
+            background: var(--panel);
+            border: 2px solid var(--gold);
+            border-radius: 6px;
+            color: var(--gold-light);
+            font-size: 22px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: inset 0 0 0 2px var(--panel-solid), 0 2px 0 var(--gold-dark);
         }
+        .icon-btn:hover { background: var(--navy); }
+        .icon-btn svg { width: 22px; height: 22px; fill: currentColor; }
+
+        /* ---------- Panneau ---------- */
+        .panel {
+            background: var(--panel);
+            border: 3px solid var(--gold);
+            border-radius: 8px;
+            box-shadow: inset 0 0 0 3px var(--panel-solid), inset 0 0 0 4px var(--gold-dark), 0 6px 24px rgba(0,0,0,0.6);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tabs { display: grid; grid-template-columns: 1fr 1fr; background: rgba(0,0,0,0.35); border-radius: 6px; padding: 4px; gap: 4px; }
+        .tab {
+            padding: 8px 6px;
+            border: 0;
+            border-radius: 4px;
+            background: transparent;
+            color: var(--ink-dim);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .tab:hover { color: var(--ink); }
+        .tab.active { background: var(--gold); color: #1d1020; font-weight: 700; box-shadow: 0 2px 0 var(--gold-dark); }
+
+        .meta { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--ink-dim); gap: 8px; flex-wrap: wrap; }
+        .meta b { color: var(--gold-light); font-weight: 500; }
+
+        .search { position: relative; display: flex; gap: 8px; }
+        #searchInput {
+            flex: 1;
+            min-width: 0;
+            padding: 12px 14px;
+            background: rgba(0,0,0,0.45);
+            border: 2px solid var(--gold-dark);
+            border-radius: 6px;
+            color: var(--ink);
+            font-size: 18px;
+        }
+        #searchInput::placeholder { color: #8c8270; }
+        #searchInput:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 0 3px rgba(199,149,59,0.25); }
+        #searchInput:disabled { opacity: 0.45; }
 
         .btn {
-            padding: 10px 18px;
+            padding: 10px 16px;
             background: var(--navy);
-            border: 3px solid var(--gold);
-            border-radius: 10px;
-            color: white;
+            border: 2px solid var(--gold);
+            border-radius: 6px;
+            color: var(--ink);
             font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(199, 149, 59, 0.5);
+            box-shadow: 0 3px 0 var(--gold-dark);
+            transition: transform 0.05s;
         }
         .btn:hover:not(:disabled) { background: var(--navy-hover); }
-        .btn:disabled { opacity: 0.5; cursor: default; }
-        .btn.small { padding: 6px 12px; font-size: 14px; }
-        .btn.active { background: var(--gold); color: #1d1020; }
+        .btn:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 var(--gold-dark); }
+        .btn:disabled { opacity: 0.4; cursor: default; }
+        .btn.primary { background: var(--gold); color: #1d1020; }
+        .btn.primary:hover:not(:disabled) { background: var(--gold-light); }
+        .btn.ghost { background: transparent; border-color: var(--gold-dark); color: var(--ink-dim); box-shadow: none; font-weight: 500; font-size: 14px; padding: 7px 12px; }
+        .btn.ghost:hover:not(:disabled) { color: var(--ink); border-color: var(--gold); background: rgba(255,255,255,0.04); }
 
-        #modes { margin: 16px 0 8px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        #status { min-height: 1.4em; margin-bottom: 10px; color: #f3d9a4; text-shadow: 0 0 6px #000; }
-
-        #uploadContainer { display: none; margin: 16px auto; max-width: 420px; background: rgba(0,0,0,0.6); padding: 12px; border-radius: 10px; }
-
-        #searchContainer {
-            position: relative;
-            z-index: 2;
-            display: inline-flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 12px;
-        }
-        #searchWrap { position: relative; }
-        #searchInput {
-            padding: 10px;
-            width: min(300px, 80vw);
-            background: var(--navy);
-            border: 3px solid var(--gold);
-            border-radius: 10px;
-            color: white;
-            font-size: 16px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(199, 149, 59, 0.5);
-        }
-        #searchInput:disabled { opacity: 0.5; }
         #suggestions {
             position: absolute;
-            top: calc(100% + 4px);
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            border: 1px solid #555;
-            border-radius: 10px;
-            max-height: 220px;
+            top: calc(100% + 6px);
+            left: 0; right: 0;
+            background: var(--panel-solid);
+            border: 2px solid var(--gold);
+            border-radius: 6px;
+            max-height: 260px;
             overflow-y: auto;
             display: none;
-            text-align: left;
-            z-index: 3;
+            z-index: 5;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
-        #suggestions div { padding: 8px 10px; cursor: pointer; }
-        #suggestions div.sel, #suggestions div:hover { background: rgba(255, 215, 0, 0.25); }
-        #suggestions small { color: #b9a77e; font-weight: normal; }
-
-        #toolbar { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 8px; }
-
-        #toast {
-            position: fixed;
-            top: 16px; left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.9);
-            border: 2px solid var(--gold);
-            padding: 10px 16px;
-            border-radius: 10px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s;
-            z-index: 10;
+        #suggestions div {
+            padding: 9px 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 16px;
         }
-        #toast.show { opacity: 1; }
+        #suggestions div + div { border-top: 1px solid rgba(199,149,59,0.15); }
+        #suggestions div.sel, #suggestions div:hover { background: rgba(199,149,59,0.22); }
+        #suggestions small { color: var(--ink-dim); font-size: 12px; text-align: right; align-self: center; }
+        #suggestions mark { background: none; color: var(--gold-light); }
+
+        .actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 
         #hint {
             display: none;
-            max-width: 520px;
-            margin: 8px auto;
             padding: 10px 14px;
-            background: rgba(0,0,0,0.65);
-            border: 2px dashed var(--gold);
-            border-radius: 10px;
-            font-weight: normal;
-            font-style: italic;
+            background: rgba(243, 211, 138, 0.08);
+            border: 1px dashed var(--gold);
+            border-radius: 6px;
+            font-size: 15px;
+            line-height: 1.4;
+            color: var(--ink);
         }
+        #hint .label { display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 2px; }
 
-        #gameArea { margin-top: 10px; display: inline-block; position: relative; z-index: 1; }
-        .row { display: flex; justify-content: center; margin: 2px 0; }
-        .row .tile {
+        #resultBar {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 10px 14px;
+            border-radius: 6px;
+            background: rgba(82, 160, 70, 0.18);
+            border: 1px solid var(--good);
+            font-size: 16px;
+        }
+        #resultBar.lost { background: rgba(226, 52, 52, 0.15); border-color: var(--bad); }
+
+        /* ---------- Grille ---------- */
+        #board { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .row { display: flex; gap: 4px; }
+        #specHeader { display: none; }
+        #specHeader div {
+            width: var(--tile);
+            text-align: center;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            text-shadow: 0 1px 4px #000;
+            padding-bottom: 2px;
+            border-bottom: 2px solid var(--gold-dark);
+        }
+        .tile {
             width: var(--tile);
             height: var(--tile);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: clamp(5px, 1.5vw, 9px);
-            border-radius: 8px;
-            margin: 2px;
+            gap: 2px;
+            padding: clamp(6px, 1.6vw, 10px);
             background-size: 100% 100%;
             image-rendering: pixelated;
-            color: white;
-            font-size: clamp(9px, 2.5vw, 14px);
-            line-height: 1.15;
-            text-shadow: 1px 1px 0 #000, 0 0 3px #000;
+            text-align: center;
+            font-size: clamp(11px, 2.9vw, 15px);
+            font-weight: 500;
+            line-height: 1.1;
+            text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 0 0 3px #000;
             overflow-wrap: break-word;
             hyphens: auto;
-            opacity: 0;
-            animation: appear 0.6s ease forwards;
+            animation: flip 0.5s ease both;
         }
-        .row .tile:nth-child(2) { animation-delay: 0.15s; }
-        .row .tile:nth-child(3) { animation-delay: 0.3s; }
-        .row .tile:nth-child(4) { animation-delay: 0.45s; }
-        .tile .arrow { font-size: 1.6em; line-height: 1; }
-        @keyframes appear {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
+        .row .tile:nth-child(2) { animation-delay: 0.12s; }
+        .row .tile:nth-child(3) { animation-delay: 0.24s; }
+        .row .tile:nth-child(4) { animation-delay: 0.36s; }
+        .row.instant .tile { animation: none; }
+        .tile .arrow { font-size: 1.7em; line-height: 1; }
+        @keyframes flip {
+            0% { transform: rotateX(90deg); opacity: 0; }
+            60% { transform: rotateX(-12deg); opacity: 1; }
+            100% { transform: rotateX(0); opacity: 1; }
         }
-        #specHeader { display: none; }
-        #specHeader div {
-            width: var(--tile);
-            margin: 2px;
-            padding: 4px 0;
-            font-size: 14px;
-            text-shadow: 0 0 6px #000;
-        }
+        .row.win .tile { animation: flip 0.5s ease both, bounce 0.45s ease 0.9s; }
+        @keyframes bounce { 50% { transform: translateY(-8px); } }
         .correct { background-image: url('images/Green.png'); }
         .partial { background-image: url('images/Orange.png'); }
         .wrong { background-image: url('images/Red.png'); }
 
-        #victory { margin-top: 16px; font-size: clamp(16px, 4.5vw, 22px); color: gold; text-shadow: 0 0 8px #000; }
-        #victory.lost { color: #ff8a8a; }
-        #endActions { display: none; margin-top: 10px; gap: 10px; justify-content: center; flex-wrap: wrap; }
-
-        #legend {
-            margin: 24px auto 0;
-            max-width: 560px;
-            font-size: 13px;
-            font-weight: normal;
-            background: rgba(0,0,0,0.55);
-            padding: 10px 14px;
-            border-radius: 10px;
-            text-align: left;
+        .empty {
+            text-align: center;
+            color: var(--ink-dim);
+            font-size: 15px;
+            padding: 6px 0 2px;
         }
-        #legend summary { cursor: pointer; font-weight: bold; text-align: center; }
-        #legend .sw { display: inline-block; width: 14px; height: 14px; vertical-align: -2px; background-size: cover; margin-right: 4px; }
+
+        /* ---------- Fenêtres ---------- */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 3, 10, 0.72);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 20;
+        }
+        .overlay.open { display: flex; animation: fade 0.2s ease; }
+        @keyframes fade { from { opacity: 0; } }
+        .modal { background: var(--panel-solid); width: min(440px, 100%); max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal h2 { margin: 0; font-size: 24px; color: var(--gold-light); text-align: center; letter-spacing: 0.04em; }
+        .modal p { margin: 0; line-height: 1.45; font-size: 15px; }
+        .modal .close { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; font-size: 18px; }
+        .rule { display: grid; grid-template-columns: 40px 1fr; gap: 10px; align-items: center; font-size: 15px; }
+        .sw { width: 40px; height: 40px; background-size: 100% 100%; image-rendering: pixelated; display: grid; place-items: center; font-size: 18px; text-shadow: 1px 1px 0 #000; }
+
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; }
+        .stats div { background: rgba(0,0,0,0.35); border-radius: 6px; padding: 8px 2px; }
+        .stats b { display: block; font-size: 26px; color: var(--gold-light); font-variant-numeric: tabular-nums; }
+        .stats span { font-size: 11px; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+        #endTitle.lost { color: #ff9a8a; }
+        #endWeapon { text-align: center; font-size: 20px; }
+        #endWeapon small { display: block; font-size: 13px; color: var(--ink-dim); margin-top: 2px; }
+        #countdown { text-align: center; font-size: 14px; color: var(--ink-dim); }
+        #countdown b { color: var(--gold-light); font-size: 20px; font-variant-numeric: tabular-nums; display: block; }
+        #shareFallback {
+            display: none;
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+            color: var(--ink);
+            border: 1px solid var(--gold);
+            border-radius: 6px;
+            padding: 8px;
+            resize: none;
+            font-size: 14px;
+        }
+
+        #uploadContainer { display: none; font-size: 15px; text-align: center; }
+        #uploadContainer p { margin: 0 0 8px; }
+
+        #toast {
+            position: fixed;
+            top: calc(16px + env(safe-area-inset-top, 0px));
+            left: 50%;
+            transform: translate(-50%, -10px);
+            background: var(--panel-solid);
+            border: 2px solid var(--gold);
+            padding: 10px 16px;
+            border-radius: 6px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 30;
+            font-size: 16px;
+        }
+        #toast.show { opacity: 1; transform: translate(-50%, 0); }
+        .shake { animation: shake 0.3s; }
+        @keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
     </style>
 </head>
 <body>
-    <div id="logoContainer">
+<div class="wrap">
+    <header>
+        <button class="icon-btn" id="helpBtn" aria-label="Comment jouer" onclick="openModal('helpModal')">?</button>
         <img src="images/logo.png" alt="Vampire Survivordle">
-    </div>
+        <button class="icon-btn" id="statsBtn" aria-label="Statistiques" onclick="openEndModal()">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="9" width="3" height="6"/><rect x="6.5" y="5" width="3" height="10"/><rect x="12" y="1" width="3" height="14"/></svg>
+        </button>
+    </header>
 
-    <div id="modes">
-        <button class="btn small" id="modeDaily" onclick="startGame('daily')">Arme du jour</button>
-        <button class="btn small" id="modeFree" onclick="startGame('free')">Partie libre</button>
-    </div>
-    <div id="status">Chargement des armes…</div>
-
-    <div id="uploadContainer">
-        <p>Impossible de charger <code>data.csv</code> automatiquement (page ouverte en local ?). Sélectionne le fichier :</p>
-        <input type="file" id="fileInput" accept=".csv">
-    </div>
-
-    <div id="searchContainer" style="visibility:hidden">
-        <div id="searchWrap">
-            <input type="text" id="searchInput" placeholder="Entrez le nom d'une arme..." autocomplete="off">
-            <div id="suggestions"></div>
+    <main class="panel">
+        <div class="tabs" role="tablist">
+            <button class="tab" id="modeDaily" role="tab" onclick="startGame('daily')">Arme du jour</button>
+            <button class="tab" id="modeFree" role="tab" onclick="startGame('free')">Partie libre</button>
         </div>
-        <button class="btn" id="validateButton" onclick="searchItem()">Valider</button>
+
+        <div class="meta">
+            <span id="modeLabel">Chargement des armes…</span>
+            <span id="guessCount"></span>
+        </div>
+
+        <div id="uploadContainer">
+            <p>Impossible de charger <code>data.csv</code> automatiquement (page ouverte en local ?). Sélectionne le fichier :</p>
+            <input type="file" id="fileInput" accept=".csv">
+        </div>
+
+        <div class="search" id="searchContainer">
+            <input type="text" id="searchInput" placeholder="Nom d'une arme…" autocomplete="off" spellcheck="false" disabled>
+            <button class="btn primary" id="validateButton" onclick="searchItem()" disabled>Valider</button>
+            <div id="suggestions" role="listbox"></div>
+        </div>
+
+        <div class="actions" id="gameActions">
+            <button class="btn ghost" id="hintButton" onclick="showHint()" disabled>Indice</button>
+            <button class="btn ghost" id="giveUpButton" onclick="giveUp()" disabled>Abandonner</button>
+        </div>
+
+        <div id="hint"></div>
+
+        <div id="resultBar">
+            <span id="resultText"></span>
+            <button class="btn ghost" onclick="openEndModal()">Voir le résultat</button>
+        </div>
+
+        <div id="board">
+            <div id="specHeader" class="row"></div>
+            <div id="results" style="display:flex;flex-direction:column;gap:4px"></div>
+            <p class="empty" id="emptyState">Propose une arme pour révéler les premiers indices.</p>
+        </div>
+    </main>
+</div>
+
+<!-- Aide -->
+<div class="overlay" id="helpModal" onclick="if (event.target === this) closeModal('helpModal')">
+    <div class="panel modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+        <button class="icon-btn close" onclick="closeModal('helpModal')" aria-label="Fermer">×</button>
+        <h2 id="helpTitle">Comment jouer</h2>
+        <p>Trouve l'arme secrète de Vampire Survivors. Chaque proposition révèle des indices sur 4 caractéristiques : nom, tags, dégâts de base et source (jeu de base ou DLC).</p>
+        <div class="rule"><div class="sw correct"></div><span>Correct</span></div>
+        <div class="rule"><div class="sw partial"></div><span>Tags : au moins un tag en commun, mais pas tous</span></div>
+        <div class="rule"><div class="sw wrong"></div><span>Faux</span></div>
+        <div class="rule"><div class="sw wrong">▲</div><span>Dégâts : l'arme secrète en fait <b>plus</b> (▼ : moins)</span></div>
+        <p>Après <b id="hintThreshold"></b> essais, tu peux révéler la description de l'arme en indice.</p>
+        <p><b>Arme du jour</b> : la même pour tout le monde, nouvelle arme à minuit. <b>Partie libre</b> : une arme au hasard, autant de fois que tu veux.</p>
+        <button class="btn primary" onclick="closeModal('helpModal')">Jouer</button>
     </div>
+</div>
 
-    <div id="toolbar">
-        <button class="btn small" id="hintButton" onclick="showHint()" disabled>Indice</button>
-        <button class="btn small" id="giveUpButton" onclick="giveUp()" disabled>Abandonner</button>
+<!-- Résultat / statistiques -->
+<div class="overlay" id="endModal" onclick="if (event.target === this) closeModal('endModal')">
+    <div class="panel modal" role="dialog" aria-modal="true" aria-labelledby="endTitle">
+        <button class="icon-btn close" onclick="closeModal('endModal')" aria-label="Fermer">×</button>
+        <h2 id="endTitle">Statistiques</h2>
+        <div id="endWeapon"></div>
+        <div class="stats">
+            <div><b id="stPlayed">0</b><span>Jouées</span></div>
+            <div><b id="stWinPct">0</b><span>% victoires</span></div>
+            <div><b id="stStreak">0</b><span>Série</span></div>
+            <div><b id="stBest">0</b><span>Record</span></div>
+        </div>
+        <div id="countdown"></div>
+        <div class="actions">
+            <button class="btn primary" id="shareButton" onclick="shareResult()">Partager</button>
+            <button class="btn" onclick="closeModal('endModal'); startGame('free')">Partie libre</button>
+        </div>
+        <textarea id="shareFallback" readonly aria-label="Résultat à copier"></textarea>
     </div>
-    <div id="hint"></div>
+</div>
 
-    <div id="victory"></div>
-    <div id="endActions">
-        <button class="btn small" onclick="shareResult()">Partager</button>
-        <button class="btn small" onclick="startGame('free')">Nouvelle partie libre</button>
-    </div>
+<div id="toast" role="status"></div>
 
-    <div id="gameArea">
-        <div id="specHeader" class="row"></div>
-        <div id="results"></div>
-    </div>
+<script>
+    const HINT_AFTER = 6;
+    const COLUMNS = [
+        { key: 'Nom', label: 'Nom' },
+        { key: 'Tags', label: 'Tags' },
+        { key: 'Base Damage', label: 'Dégâts' },
+        { key: 'Source', label: 'Source' },
+    ];
 
-    <details id="legend">
-        <summary>Comment jouer ?</summary>
-        <p>Trouve l'arme secrète de Vampire Survivors. Chaque proposition révèle des indices :</p>
-        <p><span class="sw correct"></span> correct &nbsp;
-           <span class="sw partial"></span> partiel (au moins un tag en commun) &nbsp;
-           <span class="sw wrong"></span> faux</p>
-        <p><b>Dégâts</b> : ▲ l'arme secrète fait plus de dégâts, ▼ elle en fait moins.</p>
-        <p>Un indice (la description de l'arme) se débloque après <span id="hintThreshold"></span> essais.</p>
-        <p><b>Arme du jour</b> : la même pour tout le monde, change chaque jour. <b>Partie libre</b> : une arme au hasard, autant de fois que tu veux.</p>
-    </details>
+    let data = [];
+    let secretItem = null;
+    let mode = 'daily';
+    let guesses = [];
+    let rowStates = [];
+    let finished = false;
+    let won = false;
+    let suggestionIndex = -1;
+    let countdownTimer = null;
 
-    <div id="toast"></div>
+    const $ = id => document.getElementById(id);
+    $('hintThreshold').textContent = HINT_AFTER;
 
-    <script>
-        const HINT_AFTER = 6;
-        const COLUMNS = [
-            { key: 'Nom', label: 'Nom' },
-            { key: 'Tags', label: 'Tags' },
-            { key: 'Base Damage', label: 'Dégâts' },
-            { key: 'Source', label: 'Source' },
-        ];
+    // ---------- Utilitaires ----------
+    const normalize = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+    const splitTags = s => s.split(',').map(t => normalize(t)).filter(Boolean);
+    const plural = (n, word) => `${n} ${word}${n > 1 ? 's' : ''}`;
+    const storage = {
+        get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+        set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+    };
 
-        let data = [];
-        let secretItem = null;
-        let mode = 'daily';
-        let guesses = [];          // noms des armes proposées
-        let finished = false;
-        let suggestionIndex = -1;
+    function dateKey(d = new Date()) {
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+    const todayKey = () => dateKey();
+    function yesterdayKey() { const d = new Date(); d.setDate(d.getDate() - 1); return dateKey(d); }
 
-        const $ = id => document.getElementById(id);
-        document.getElementById('hintThreshold').textContent = HINT_AFTER;
+    // Hash déterministe (FNV-1a) pour choisir l'arme du jour.
+    function hash(str) {
+        let h = 2166136261;
+        for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+        return h >>> 0;
+    }
 
-        // ---------- Utilitaires ----------
-        const normalize = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
-        const splitTags = s => s.split(',').map(t => normalize(t)).filter(Boolean);
-        const storage = {
-            get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
-            set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+    let toastTimer;
+    function toast(msg) {
+        const t = $('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+    function shake(el) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+
+    function openModal(id) { $(id).classList.add('open'); }
+    function closeModal(id) { $(id).classList.remove('open'); if (id === 'endModal') clearInterval(countdownTimer); }
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') document.querySelectorAll('.overlay.open').forEach(o => closeModal(o.id));
+    });
+
+    // ---------- Chargement des données ----------
+    function parseCSV(text) {
+        const rows = [];
+        let row = [], field = '', inQuotes = false;
+        for (let i = 0; i < text.length; i++) {
+            const c = text[i];
+            if (inQuotes) {
+                if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
+                else if (c === '"') inQuotes = false;
+                else field += c;
+            } else if (c === '"') inQuotes = true;
+            else if (c === ',') { row.push(field); field = ''; }
+            else if (c === '\n' || c === '\r') {
+                if (c === '\r' && text[i + 1] === '\n') i++;
+                row.push(field); field = '';
+                if (row.some(v => v !== '')) rows.push(row);
+                row = [];
+            } else field += c;
+        }
+        row.push(field);
+        if (row.some(v => v !== '')) rows.push(row);
+
+        const headers = rows[0].map(h => h.replace(/^﻿/, '').trim());
+        return rows.slice(1).map(values => {
+            const obj = {};
+            headers.forEach((h, i) => obj[h] = (values[i] || '').trim());
+            return obj;
+        });
+    }
+
+    function onDataLoaded(text) {
+        data = parseCSV(text).filter(d => d['Nom']);
+        $('uploadContainer').style.display = 'none';
+        $('searchContainer').style.display = 'flex';
+        $('gameActions').style.display = 'flex';
+        startGame('daily');
+        if (!storage.get('vsdle-seen-help')) { openModal('helpModal'); storage.set('vsdle-seen-help', true); }
+    }
+
+    fetch('data.csv')
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(onDataLoaded)
+        .catch(() => {
+            $('modeLabel').textContent = '';
+            $('uploadContainer').style.display = 'block';
+            $('searchContainer').style.display = 'none';
+            $('gameActions').style.display = 'none';
+        });
+
+    $('fileInput').addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => onDataLoaded(ev.target.result);
+        reader.readAsText(file);
+    });
+
+    // ---------- Partie ----------
+    function startGame(newMode) {
+        if (!data.length) return;
+        mode = newMode;
+        guesses = [];
+        rowStates = [];
+        finished = false;
+        won = false;
+
+        if (mode === 'daily') {
+            secretItem = data[hash('vsdle-' + todayKey()) % data.length];
+        } else {
+            let next;
+            do { next = data[Math.floor(Math.random() * data.length)]; }
+            while (data.length > 1 && secretItem && next === secretItem);
+            secretItem = next;
+        }
+
+        $('modeDaily').classList.toggle('active', mode === 'daily');
+        $('modeFree').classList.toggle('active', mode === 'free');
+        $('modeDaily').setAttribute('aria-selected', mode === 'daily');
+        $('modeFree').setAttribute('aria-selected', mode === 'free');
+        $('results').innerHTML = '';
+        $('specHeader').style.display = 'none';
+        $('emptyState').style.display = 'block';
+        $('resultBar').style.display = 'none';
+        $('hint').style.display = 'none';
+        $('shareFallback').style.display = 'none';
+        $('searchInput').value = '';
+        setInputEnabled(true);
+        hideSuggestions();
+
+        if (mode === 'daily') {
+            const saved = storage.get('vsdle-daily');
+            if (saved && saved.date === todayKey()) {
+                saved.guesses.forEach(name => {
+                    const item = data.find(d => d['Nom'] === name);
+                    if (item) addGuess(item, false);
+                });
+                if (saved.gaveUp && !finished) endGame(false, false);
+                if (saved.hintShown && !finished) showHint();
+            }
+        }
+        updateStatus();
+        if (!finished && window.matchMedia('(hover: hover)').matches) $('searchInput').focus();
+    }
+
+    function saveDaily(extra = {}) {
+        if (mode !== 'daily') return;
+        const prev = storage.get('vsdle-daily');
+        const hintShown = prev && prev.date === todayKey() && prev.hintShown;
+        storage.set('vsdle-daily', { date: todayKey(), guesses, gaveUp: false, hintShown, ...extra });
+    }
+
+    function updateStatus() {
+        $('modeLabel').innerHTML = mode === 'daily'
+            ? `Arme du jour · <b>${new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</b>`
+            : 'Partie libre';
+        $('guessCount').innerHTML = `<b>${guesses.length}</b> essai${guesses.length > 1 ? 's' : ''}`;
+        const hintReady = guesses.length >= HINT_AFTER && !finished;
+        $('hintButton').disabled = !hintReady;
+        $('hintButton').textContent = hintReady || finished ? 'Révéler un indice' : `Indice dans ${HINT_AFTER - guesses.length} essai${HINT_AFTER - guesses.length > 1 ? 's' : ''}`;
+        $('giveUpButton').disabled = finished || guesses.length === 0;
+        $('gameActions').style.display = finished ? 'none' : 'flex';
+    }
+
+    function setInputEnabled(on) {
+        $('searchInput').disabled = !on;
+        $('validateButton').disabled = !on;
+        $('searchInput').placeholder = on ? 'Nom d\'une arme…' : 'Partie terminée';
+    }
+
+    // ---------- Comparaison ----------
+    function compareTags(guess, secret) {
+        const g = new Set(splitTags(guess));
+        const s = new Set(splitTags(secret));
+        const common = [...g].filter(t => s.has(t)).length;
+        if (common === s.size && common === g.size) return 'correct';
+        return common > 0 ? 'partial' : 'wrong';
+    }
+
+    function compareDamage(guess, secret) {
+        const g = parseFloat(guess), s = parseFloat(secret);
+        if (isNaN(g) || isNaN(s)) return { state: normalize(guess) === normalize(secret) ? 'correct' : 'wrong', arrow: '' };
+        if (g === s) return { state: 'correct', arrow: '' };
+        return { state: 'wrong', arrow: s > g ? '▲' : '▼' };
+    }
+
+    function evaluate(item) {
+        return COLUMNS.map(col => {
+            const value = item[col.key];
+            const target = secretItem[col.key];
+            if (col.key === 'Tags') return { value, state: compareTags(value, target) };
+            if (col.key === 'Base Damage') return { value, ...compareDamage(value, target) };
+            return { value, state: normalize(value) === normalize(target) ? 'correct' : 'wrong' };
+        });
+    }
+
+    // ---------- Proposition ----------
+    function searchItem() {
+        if (finished) return;
+        const input = normalize($('searchInput').value);
+        hideSuggestions();
+        if (!input) return;
+
+        const item = data.find(d => normalize(d['Nom']) === input);
+        if (!item) { toast('Aucune arme ne porte ce nom.'); shake($('searchInput')); return; }
+        if (guesses.includes(item['Nom'])) { toast('Tu as déjà proposé cette arme.'); shake($('searchInput')); return; }
+
+        addGuess(item, true);
+        $('searchInput').value = '';
+    }
+
+    function addGuess(item, live) {
+        guesses.push(item['Nom']);
+        $('emptyState').style.display = 'none';
+
+        const header = $('specHeader');
+        if (header.style.display === 'none') {
+            header.innerHTML = COLUMNS.map(c => `<div>${c.label}</div>`).join('');
+            header.style.display = 'flex';
+        }
+
+        const row = document.createElement('div');
+        row.className = 'row' + (live ? '' : ' instant');
+        const cells = evaluate(item);
+        cells.forEach(cell => {
+            const div = document.createElement('div');
+            div.className = 'tile ' + cell.state;
+            const span = document.createElement('span');
+            span.lang = 'en';
+            span.textContent = cell.value;
+            div.appendChild(span);
+            if (cell.arrow) {
+                const a = document.createElement('span');
+                a.className = 'arrow';
+                a.textContent = cell.arrow;
+                a.setAttribute('aria-label', cell.arrow === '▲' ? 'plus' : 'moins');
+                div.appendChild(a);
+            }
+            row.appendChild(div);
+        });
+        rowStates.push(cells.map(c => c.state));
+        $('results').prepend(row);
+
+        if (item === secretItem) {
+            if (live) row.classList.add('win');
+            endGame(true, live);
+        } else if (live) saveDaily();
+        updateStatus();
+    }
+
+    function recordStats(didWin) {
+        const s = storage.get('vsdle-stats') || { played: 0, won: 0, streak: 0, best: 0, lastWin: null };
+        s.played++;
+        if (didWin) {
+            s.won++;
+            s.streak = s.lastWin === yesterdayKey() ? s.streak + 1 : 1;
+            s.best = Math.max(s.best, s.streak);
+            s.lastWin = todayKey();
+        } else {
+            s.streak = 0;
+        }
+        storage.set('vsdle-stats', s);
+    }
+
+    function endGame(didWin, live) {
+        finished = true;
+        won = didWin;
+        setInputEnabled(false);
+        hideSuggestions();
+        const n = guesses.length;
+        $('resultText').textContent = didWin
+            ? `Trouvé en ${plural(n, 'essai')} : ${secretItem['Nom']}`
+            : `C'était ${secretItem['Nom']}`;
+        $('resultBar').classList.toggle('lost', !didWin);
+        $('resultBar').style.display = 'flex';
+        if (secretItem['Description']) showHint(true);
+        if (live) {
+            if (mode === 'daily') { saveDaily({ gaveUp: !didWin }); recordStats(didWin); }
+            setTimeout(openEndModal, didWin ? 1500 : 300);
+        }
+        updateStatus();
+    }
+
+    let giveUpTimer = null;
+    function giveUp() {
+        if (finished || !guesses.length) return;
+        const btn = $('giveUpButton');
+        if (!giveUpTimer) {
+            btn.textContent = 'Confirmer l\'abandon';
+            giveUpTimer = setTimeout(() => { giveUpTimer = null; btn.textContent = 'Abandonner'; }, 3000);
+            return;
+        }
+        clearTimeout(giveUpTimer);
+        giveUpTimer = null;
+        btn.textContent = 'Abandonner';
+        endGame(false, true);
+    }
+
+    function showHint(revealed = false) {
+        if (!secretItem['Description']) return;
+        if (!revealed && guesses.length < HINT_AFTER) return;
+        $('hint').innerHTML = `<span class="label">${revealed && finished ? 'Description' : 'Indice'}</span>`;
+        const t = document.createElement('span');
+        t.lang = 'en';
+        t.textContent = secretItem['Description'];
+        $('hint').appendChild(t);
+        $('hint').style.display = 'block';
+        if (!revealed && mode === 'daily') saveDaily({ hintShown: true });
+    }
+
+    // ---------- Fenêtre de résultat ----------
+    function openEndModal() {
+        const s = storage.get('vsdle-stats') || { played: 0, won: 0, streak: 0, best: 0 };
+        $('stPlayed').textContent = s.played;
+        $('stWinPct').textContent = s.played ? Math.round(100 * s.won / s.played) : 0;
+        $('stStreak').textContent = s.streak;
+        $('stBest').textContent = s.best;
+
+        const title = $('endTitle');
+        title.classList.remove('lost');
+        if (finished) {
+            title.textContent = won ? 'Victoire !' : 'Perdu…';
+            title.classList.toggle('lost', !won);
+            $('endWeapon').innerHTML = '';
+            const name = document.createElement('div');
+            name.textContent = secretItem['Nom'];
+            const sub = document.createElement('small');
+            sub.textContent = won ? `trouvée en ${plural(guesses.length, 'essai')}` : `après ${plural(guesses.length, 'essai')}`;
+            name.appendChild(sub);
+            $('endWeapon').appendChild(name);
+            $('endWeapon').style.display = 'block';
+            $('shareButton').style.display = '';
+        } else {
+            title.textContent = 'Statistiques';
+            $('endWeapon').style.display = 'none';
+            $('shareButton').style.display = 'none';
+        }
+        $('shareFallback').style.display = 'none';
+
+        clearInterval(countdownTimer);
+        const tick = () => {
+            const now = new Date();
+            const next = new Date(now); next.setHours(24, 0, 0, 0);
+            const diff = Math.max(0, next - now);
+            const h = String(Math.floor(diff / 3.6e6)).padStart(2, '0');
+            const m = String(Math.floor(diff / 6e4) % 60).padStart(2, '0');
+            const sec = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
+            $('countdown').innerHTML = `Prochaine arme du jour dans <b>${h}:${m}:${sec}</b>`;
         };
+        tick();
+        countdownTimer = setInterval(tick, 1000);
+        openModal('endModal');
+    }
 
-        function todayKey() {
-            const d = new Date();
-            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-        }
+    function shareResult() {
+        const emoji = { correct: '🟩', partial: '🟧', wrong: '🟥' };
+        const grid = rowStates.map(r => r.map(s => emoji[s]).join('')).join('\n');
+        const title = mode === 'daily' ? `Vampire Survivordle ${todayKey()}` : 'Vampire Survivordle (partie libre)';
+        const text = `${title} : ${won ? plural(guesses.length, 'essai') : 'perdu'}\n${grid}`;
+        const fallback = () => {
+            const box = $('shareFallback');
+            box.value = text;
+            box.rows = text.split('\n').length;
+            box.style.display = 'block';
+            box.focus();
+            box.select();
+            toast('Copie le texte sélectionné.');
+        };
+        if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => toast('Résultat copié !'), fallback);
+        else fallback();
+    }
 
-        // Hash déterministe (FNV-1a) pour choisir l'arme du jour.
-        function hash(str) {
-            let h = 2166136261;
-            for (let i = 0; i < str.length; i++) {
-                h ^= str.charCodeAt(i);
-                h = Math.imul(h, 16777619);
-            }
-            return h >>> 0;
-        }
+    // ---------- Suggestions ----------
+    function hideSuggestions() {
+        $('suggestions').style.display = 'none';
+        suggestionIndex = -1;
+    }
 
-        let toastTimer;
-        function toast(msg) {
-            const t = $('toast');
-            t.textContent = msg;
-            t.classList.add('show');
-            clearTimeout(toastTimer);
-            toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
-        }
+    function showSuggestions() {
+        const raw = $('searchInput').value;
+        const input = normalize(raw);
+        const box = $('suggestions');
+        box.innerHTML = '';
+        suggestionIndex = -1;
+        if (!input) { hideSuggestions(); return; }
 
-        // ---------- Chargement des données ----------
-        function parseCSV(text) {
-            const rows = [];
-            let row = [], field = '', inQuotes = false;
-            for (let i = 0; i < text.length; i++) {
-                const c = text[i];
-                if (inQuotes) {
-                    if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
-                    else if (c === '"') inQuotes = false;
-                    else field += c;
-                } else if (c === '"') inQuotes = true;
-                else if (c === ',') { row.push(field); field = ''; }
-                else if (c === '\n' || c === '\r') {
-                    if (c === '\r' && text[i + 1] === '\n') i++;
-                    row.push(field); field = '';
-                    if (row.some(v => v !== '')) rows.push(row);
-                    row = [];
-                } else field += c;
-            }
-            row.push(field);
-            if (row.some(v => v !== '')) rows.push(row);
+        const matches = data
+            .filter(d => !guesses.includes(d['Nom']) && normalize(d['Nom']).includes(input))
+            .sort((a, b) => normalize(b['Nom']).startsWith(input) - normalize(a['Nom']).startsWith(input)
+                || a['Nom'].localeCompare(b['Nom']));
 
-            const headers = rows[0].map(h => h.replace(/^﻿/, '').trim());
-            return rows.slice(1).map(values => {
-                const obj = {};
-                headers.forEach((h, i) => obj[h] = (values[i] || '').trim());
-                return obj;
-            });
-        }
-
-        function onDataLoaded(text) {
-            data = parseCSV(text).filter(d => d['Nom']);
-            $('uploadContainer').style.display = 'none';
-            $('searchContainer').style.visibility = 'visible';
-            startGame('daily');
-        }
-
-        fetch('data.csv')
-            .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
-            .then(onDataLoaded)
-            .catch(() => {
-                $('status').textContent = '';
-                $('uploadContainer').style.display = 'block';
-            });
-
-        $('fileInput').addEventListener('change', e => {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = ev => onDataLoaded(ev.target.result);
-            reader.readAsText(file);
-        });
-
-        // ---------- Partie ----------
-        function startGame(newMode) {
-            if (!data.length) return;
-            mode = newMode;
-            guesses = [];
-            finished = false;
-
-            if (mode === 'daily') {
-                secretItem = data[hash('vsdle-' + todayKey()) % data.length];
-            } else {
-                let next;
-                do { next = data[Math.floor(Math.random() * data.length)]; }
-                while (data.length > 1 && secretItem && next === secretItem);
-                secretItem = next;
-            }
-
-            $('modeDaily').classList.toggle('active', mode === 'daily');
-            $('modeFree').classList.toggle('active', mode === 'free');
-            $('results').innerHTML = '';
-            $('specHeader').style.display = 'none';
-            $('victory').textContent = '';
-            $('victory').classList.remove('lost');
-            $('endActions').style.display = 'none';
-            $('hint').style.display = 'none';
-            $('searchInput').value = '';
-            setInputEnabled(true);
-            hideSuggestions();
-
-            // Restaure la progression de l'arme du jour
-            if (mode === 'daily') {
-                const saved = storage.get('vsdle-daily');
-                if (saved && saved.date === todayKey()) {
-                    saved.guesses.forEach(name => {
-                        const item = data.find(d => d['Nom'] === name);
-                        if (item) addGuess(item, false);
-                    });
-                    if (saved.gaveUp) endGame(false, false);
-                }
-            }
-            updateStatus();
-            if (!finished) $('searchInput').focus();
-        }
-
-        function saveDaily(gaveUp = false) {
-            if (mode !== 'daily') return;
-            storage.set('vsdle-daily', { date: todayKey(), guesses, gaveUp });
-        }
-
-        function updateStatus() {
-            const label = mode === 'daily' ? `Arme du jour (${todayKey()})` : 'Partie libre';
-            const n = guesses.length;
-            $('status').textContent = `${label} · ${n} essai${n > 1 ? 's' : ''}`;
-            const hintReady = n >= HINT_AFTER && !finished;
-            $('hintButton').disabled = !hintReady;
-            $('hintButton').textContent = hintReady || finished ? 'Indice' : `Indice (dans ${HINT_AFTER - n})`;
-            $('giveUpButton').disabled = finished || n === 0;
-        }
-
-        function setInputEnabled(on) {
-            $('searchInput').disabled = !on;
-            $('validateButton').disabled = !on;
-        }
-
-        // ---------- Comparaison ----------
-        function compareTags(guess, secret) {
-            const g = new Set(splitTags(guess));
-            const s = new Set(splitTags(secret));
-            const common = [...g].filter(t => s.has(t)).length;
-            if (common === s.size && common === g.size) return 'correct';
-            return common > 0 ? 'partial' : 'wrong';
-        }
-
-        function compareDamage(guess, secret) {
-            const g = parseFloat(guess), s = parseFloat(secret);
-            if (isNaN(g) || isNaN(s)) {
-                return { state: normalize(guess) === normalize(secret) ? 'correct' : 'wrong', arrow: '' };
-            }
-            if (g === s) return { state: 'correct', arrow: '' };
-            return { state: 'wrong', arrow: s > g ? '▲' : '▼' };
-        }
-
-        function evaluate(item) {
-            return COLUMNS.map(col => {
-                const value = item[col.key];
-                const target = secretItem[col.key];
-                if (col.key === 'Tags') return { value, state: compareTags(value, target) };
-                if (col.key === 'Base Damage') return { value, ...compareDamage(value, target) };
-                return { value, state: normalize(value) === normalize(target) ? 'correct' : 'wrong' };
-            });
-        }
-
-        // ---------- Proposition ----------
-        function searchItem() {
-            if (finished) return;
-            const input = normalize($('searchInput').value);
-            hideSuggestions();
-            if (!input) return;
-
-            const item = data.find(d => normalize(d['Nom']) === input);
-            if (!item) { toast('Arme inconnue.'); return; }
-            if (guesses.includes(item['Nom'])) { toast('Tu as déjà proposé cette arme !'); return; }
-
-            addGuess(item, true);
-            $('searchInput').value = '';
-        }
-
-        function addGuess(item, live) {
-            guesses.push(item['Nom']);
-
-            const header = $('specHeader');
-            if (header.style.display === 'none') {
-                header.innerHTML = COLUMNS.map(c => `<div>${c.label}</div>`).join('');
-                header.style.display = 'flex';
-            }
-
-            const row = document.createElement('div');
-            row.className = 'row';
-            const cells = evaluate(item);
-            cells.forEach(cell => {
-                const div = document.createElement('div');
-                div.className = 'tile ' + cell.state;
-                const span = document.createElement('span');
-                span.lang = 'en';
-                span.textContent = cell.value;
-                div.appendChild(span);
-                if (cell.arrow) {
-                    const a = document.createElement('span');
-                    a.className = 'arrow';
-                    a.textContent = cell.arrow;
-                    div.appendChild(a);
-                }
-                if (!live) div.style.animationDelay = '0s';
-                row.appendChild(div);
-            });
-            row.dataset.states = cells.map(c => c.state).join(',');
-            $('results').prepend(row);
-
-            if (item === secretItem) endGame(true, live);
-            else if (live) saveDaily();
-            updateStatus();
-        }
-
-        function endGame(won, live) {
-            finished = true;
-            setInputEnabled(false);
-            hideSuggestions();
-            const n = guesses.length;
-            const v = $('victory');
-            if (won) {
-                v.textContent = `🎉 Bravo ! C'était ${secretItem['Nom']} — trouvé en ${n} essai${n > 1 ? 's' : ''}.`;
-            } else {
-                v.textContent = `L'arme secrète était : ${secretItem['Nom']}.`;
-                v.classList.add('lost');
-            }
-            $('hint').textContent = secretItem['Description'];
-            $('hint').style.display = secretItem['Description'] ? 'block' : 'none';
-            $('endActions').style.display = 'flex';
-            if (live) saveDaily(!won);
-            updateStatus();
-        }
-
-        function giveUp() {
-            if (finished || !guesses.length) return;
-            if (!confirm('Abandonner et révéler l\'arme secrète ?')) return;
-            endGame(false, true);
-        }
-
-        function showHint() {
-            if (guesses.length < HINT_AFTER || !secretItem['Description']) return;
-            $('hint').textContent = 'Indice : ' + secretItem['Description'];
-            $('hint').style.display = 'block';
-        }
-
-        function shareResult() {
-            const emoji = { correct: '🟩', partial: '🟧', wrong: '🟥' };
-            const rows = [...$('results').children].reverse()
-                .map(r => r.dataset.states.split(',').map(s => emoji[s]).join(''));
-            const won = guesses[guesses.length - 1] === secretItem['Nom'];
-            const title = mode === 'daily' ? `Vampire Survivordle ${todayKey()}` : 'Vampire Survivordle (partie libre)';
-            const text = `${title} — ${won ? guesses.length : 'X'} essai${guesses.length > 1 ? 's' : ''}\n${rows.join('\n')}`;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(() => toast('Résultat copié !'), () => prompt('Copie ton résultat :', text));
-            } else {
-                prompt('Copie ton résultat :', text);
-            }
-        }
-
-        // ---------- Suggestions ----------
-        function hideSuggestions() {
-            $('suggestions').style.display = 'none';
-            suggestionIndex = -1;
-        }
-
-        function showSuggestions() {
-            const input = normalize($('searchInput').value);
-            const box = $('suggestions');
-            box.innerHTML = '';
-            suggestionIndex = -1;
-            if (!input) { hideSuggestions(); return; }
-
-            const matches = data
-                .filter(d => !guesses.includes(d['Nom']) && normalize(d['Nom']).includes(input))
-                .sort((a, b) => normalize(b['Nom']).startsWith(input) - normalize(a['Nom']).startsWith(input)
-                    || a['Nom'].localeCompare(b['Nom']));
-
-            matches.forEach(match => {
-                const div = document.createElement('div');
-                div.textContent = match['Nom'] + ' ';
-                const src = document.createElement('small');
-                src.textContent = match['Source'];
-                div.appendChild(src);
-                div.onmousedown = e => {
-                    e.preventDefault();
-                    $('searchInput').value = match['Nom'];
-                    searchItem();
-                };
-                box.appendChild(div);
-            });
-            box.style.display = matches.length ? 'block' : 'none';
-        }
-
-        function moveSelection(delta) {
-            const items = $('suggestions').children;
-            if (!items.length) return;
-            if (suggestionIndex >= 0) items[suggestionIndex].classList.remove('sel');
-            suggestionIndex = (suggestionIndex + delta + items.length) % items.length;
-            items[suggestionIndex].classList.add('sel');
-            items[suggestionIndex].scrollIntoView({ block: 'nearest' });
-        }
-
-        $('searchInput').addEventListener('input', showSuggestions);
-        $('searchInput').addEventListener('blur', () => setTimeout(hideSuggestions, 100));
-        $('searchInput').addEventListener('keydown', e => {
-            const box = $('suggestions');
-            if (e.key === 'ArrowDown') { e.preventDefault(); moveSelection(1); }
-            else if (e.key === 'ArrowUp') { e.preventDefault(); moveSelection(-1); }
-            else if (e.key === 'Escape') hideSuggestions();
-            else if (e.key === 'Enter') {
+        matches.forEach(match => {
+            const div = document.createElement('div');
+            div.setAttribute('role', 'option');
+            div.dataset.name = match['Nom'];
+            const name = document.createElement('span');
+            const start = normalize(match['Nom']).indexOf(input);
+            // surligne la partie tapée (les noms normalisés gardent la même longueur pour ce jeu de données)
+            name.append(match['Nom'].slice(0, start));
+            const mark = document.createElement('mark');
+            mark.textContent = match['Nom'].slice(start, start + input.length);
+            name.append(mark, match['Nom'].slice(start + input.length));
+            const src = document.createElement('small');
+            src.textContent = match['Source'];
+            div.append(name, src);
+            div.onmousedown = e => {
                 e.preventDefault();
-                const items = box.children;
-                const exact = data.some(d => normalize(d['Nom']) === normalize($('searchInput').value));
-                if (box.style.display === 'block' && (suggestionIndex >= 0 || (!exact && items.length === 1))) {
-                    const idx = suggestionIndex >= 0 ? suggestionIndex : 0;
-                    $('searchInput').value = items[idx].firstChild.textContent.trim();
-                }
+                $('searchInput').value = match['Nom'];
                 searchItem();
-            }
+            };
+            box.appendChild(div);
         });
-    </script>
+        box.style.display = matches.length ? 'block' : 'none';
+    }
+
+    function moveSelection(delta) {
+        const items = $('suggestions').children;
+        if (!items.length) return;
+        if (suggestionIndex >= 0) items[suggestionIndex].classList.remove('sel');
+        suggestionIndex = (suggestionIndex + delta + items.length) % items.length;
+        items[suggestionIndex].classList.add('sel');
+        items[suggestionIndex].scrollIntoView({ block: 'nearest' });
+    }
+
+    $('searchInput').addEventListener('input', showSuggestions);
+    $('searchInput').addEventListener('blur', () => setTimeout(hideSuggestions, 100));
+    $('searchInput').addEventListener('keydown', e => {
+        const box = $('suggestions');
+        if (e.key === 'ArrowDown') { e.preventDefault(); moveSelection(1); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); moveSelection(-1); }
+        else if (e.key === 'Escape') hideSuggestions();
+        else if (e.key === 'Enter') {
+            e.preventDefault();
+            const items = box.children;
+            const exact = data.some(d => normalize(d['Nom']) === normalize($('searchInput').value));
+            if (box.style.display === 'block' && (suggestionIndex >= 0 || (!exact && items.length === 1))) {
+                $('searchInput').value = items[Math.max(0, suggestionIndex)].dataset.name;
+            }
+            searchItem();
+        }
+    });
+</script>
 </body>
 </html>
