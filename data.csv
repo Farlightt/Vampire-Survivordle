@@ -155,3 +155,33 @@ Sanguine Star,"Nearest, Blood","Stone Mask, Blood Rage tech",8,2025,Emerald Dior
 Glaive,"Directional, Stab",Divine Lancer tech,6,2025,Emerald Diorama,Feather Spear,Stabs in the faced direction. Can glimmer the 'Divine Lancer' tech.
 Spirit Rings,"Bonus, Trigger",Aucun,10,2025,Emerald Diorama,Rings of Calamity,"Triggers additional techs when Area, Speed, Duration, and/or Growth bonuses are at or above 155%."
 Emerald Rapture,"Teleport, Random",Crown,N/A,2025,Emerald Diorama,Emerald Wave,"Picks random enemies to teleport away, but they might not drop XP gems."
+Ammo Appalate,"Directional, Projectile",Bracer,5,2025,Jeu de base,Gunastrophe,Aims at an enemy in the faced direction. Stockpiles projectiles when enemies are out of range.
+Magi-Stone,Damage,Karoma's Mana,10,2025,Jeu de base,Kyra-Stones,Deals fixed damage based on Weapon Level.
+Anura,Summon,Aucun,10,2025,Ode to Castlevania,Aucune,Summons frogs that damage enemies as they jump.
+Celestial Booster,"Orbit, Damage",Outer Saboteur,10,2025,Ante Chamber,Negative Space,Planets orbit around you. Damage increases by amount of coins collected this run.
+Fibonacci Spritz,"Spin, Trigger",Outer Saboteur,15,2025,Ante Chamber,Royal Flush,Creates a spiral spray of fizzy water. Has a chance to fire another equipped weapon.
+Gros Michel,"Projectile, Critical, Explosive",Outer Saboteur,10,2025,Ante Chamber,Cavendish,Flings curving bananas. 1 in 6 chance to critically hit and explode.
+Infernolatro,"Directional, Area, Fire",Outer Saboteur,15,2025,Ante Chamber,NaneInferno,Creates a zone of flames in the faced direction. Empowered by enemy kills.
+Kaiser Knuckle,"Melee, Multi-hit",Aucun,20,2025,Ode to Castlevania,Aucune,Throws a flurry of close-range punches.
+Pocket Knife,"Directional, Projectile",Torrona's Box,6.5,2025,Ode to Castlevania,Claimh Solais,Throws a short-lived knife in the faced direction.
+Chaos Rune,"Speed, Duration",Spellbinder,10,2025,Jeu de base,Wicked Ruler,Speed and Duration affect the number of hit boxes instead.
+Tonno Subito,"Tuna, Speed",Aucun,10,2026,Jeu de base,Penshin Fatcha,Basic tuna. Level up bonuses focus on Speed.
+Tonnado,"Tuna, Duration",Aucun,10,2026,Jeu de base,Penshin Fatcha,Whipped tuna. Level up bonuses focus on Duration.
+Tonn'omoto,"Tuna, Cooldown",Aucun,10,2026,Jeu de base,Penshin Fatcha,Freshwater tuna. Level up bonuses focus on Cooldown.
+Tonn'oddeeo,"Tuna, Amount",Aucun,10,2026,Jeu de base,Penshin Fatcha,Heavenly tuna. Level up bonuses focus on Amount.
+Tonne,"Tuna, Area",Aucun,15,2026,Jeu de base,Penshin Fatcha,King-sized tuna. Level up bonuses focus on Area. Amount affects hit box frequency instead.
+Unsurpassed,"Tuna, Might",Aucun,10,2026,Jeu de base,Penshin Fatcha,Premium tuna. Level up bonuses focus on Might.
+Unearthly Bolt,"Critical, Area",Tirajisú,10,2026,Jeu de base,Spirit Disturbance,Critical hits generate damaging zones. Revivals affect damage of consecutive critical hits.
+Scarlet Needle,"Nearest, Projectile",Pummarola,1.5,2026,Legacy of the Bloodmoon,Cardinal Rain,Damaging needles pin the nearest enemy in place.
+Incineration,"Directional, Erase",Candelabrador,100,2026,Legacy of the Bloodmoon,Dust to Dust,Erases enemies in the faced direction.
+Ashella,Critical,Duplicator,10,2026,Legacy of the Bloodmoon,Bloodlust,Can deal critical hits.
+Screams from the Void,"Knockback, Retaliation",Attractorb,10,2026,Legacy of the Bloodmoon,Forbidden Siren,Unleash screams with high knockback. Retaliates.
+Blacken Firmament,"Random, Erase",Torrona's Box,10,2026,Legacy of the Bloodmoon,Damnation,"Erases a random enemy, occasionally leaving a damaging tear in reality."
+FireFall,"Strike, Might",Aucun,20,2026,Legacy of the Bloodmoon,Aucune,Strikes at the furthest enemy. Damage further multiplied by Might.
+FireBall,"Expanding, Area",Aucun,10,2026,Legacy of the Bloodmoon,Aucune,Generates an expanding damaging zone. Damage multiplied by Area.
+FireWall,"Directional, Area, Amount",Aucun,5,2026,Legacy of the Bloodmoon,Aucune,Generates a directional damaging zone. Greatly affected by Amount.
+LunarMight,"Area, Might",Aucun,5,2026,Legacy of Moonspell,Aucune,Generates a damaging zone that slightly increases Might.
+LunarBight,"Slow, Debuff",Aucun,10,2026,Legacy of Moonspell,Aucune,Has a chance to slow down enemies hit.
+LunarSight,"Area, Moving",Aucun,10,2026,Legacy of Moonspell,Aucune,Generates damaging zones that occasionally follow the character.
+Descent Into Misery,"Curse, Critical, Movement",Aucun,10,2026,Legacy of the Bloodmoon,Aucune,Cursed item. Amount affects Damage. Critical hits or changing movement direction ensure extra attacks.
+108 Responsive Prayers,"Bouncing, Projectile, Curse",Aucun,10,2026,Legacy of the Bloodmoon,Aucune,Actually it's just 16. Damage affected by the difference between Curse and Luck.

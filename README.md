@@ -14,8 +14,8 @@ Chaque proposition affiche son nom puis une case par caractéristique : 🟩 cor
 | Catégorie | Colonnes |
 |---|---|
 | **Armes** | Tags · Objet d'évolution · Dégâts de base · Année de sortie · Source |
-| **Personnages** | Arme de départ · Source · Secret · PV max · Stats modifiées (abrégées) · Date de sortie |
-| **Évolutions** | L'objet requis est donné. Type (évolution / union) · Armes de base · Source |
+| **Personnages** | Arme de départ (🟧 si un tag d'arme en commun) · Source · Type de déblocage · PV max · Stats modifiées (abrégées) · Date de sortie |
+| **Évolutions** | L'objet requis est donné. Armes de base · Tags de l'arme de base · Année de sortie · Source |
 | **Descriptions** | La description du jeu est donnée. Type (arme / personnage) · Source · Année de sortie |
 
 ## Règles
@@ -24,6 +24,9 @@ Chaque proposition affiche son nom puis une case par caractéristique : 🟩 cor
 - **Bonus croisé** : trouver l'arme du jour révèle la source du personnage du jour, et inversement.
 - **Partie libre** : au hasard, rejouable à volonté. Le **mode difficile** inclut aussi les éléments exclus du défi du jour.
 - **Indices progressifs** : un indice se débloque après 3, 5 puis 7 essais (première lettre, description ou forme du nom, puis évolution / condition de déblocage / arme de base). Ils sont comptés dans le partage (💡).
+- **Réponses indiscernables** : une proposition qui a exactement les mêmes caractéristiques que la réponse (ex. Peachone et Ebony Wings) compte comme gagnante.
+- **Archives** : rejouer les défis des 30 derniers jours (✓ / ✗ selon le résultat).
+- **Options** : mode difficile, essais limités à 8, liste des réponses encore compatibles avec les indices.
 - **Partager** : copie une grille d'emojis sans spoiler.
 
 ## Données
@@ -33,10 +36,13 @@ Extraites du [Vampire Survivors Wiki](https://vampire.survivors.wiki/) (infobox 
 | Fichier | Colonnes |
 |---|---|
 | `data.csv` | `Nom,Tags,Evolution Item,Base Damage,Release,Source,Evolution,Description` |
-| `characters.csv` | `Nom,Arme,Source,Secret,Max Health,Bonus,Release,Description,Unlock` |
-| `evolutions.csv` | `Nom,Type,Armes,Objets,Source` |
+| `characters.csv` | `Nom,Arme,Source,Secret,Max Health,Bonus,Release,Description,Unlock,Unlock Type,Weapon Tags` |
+| `evolutions.csv` | `Nom,Type,Armes,Objets,Source,Base Tags,Release` |
 
 - Les listes (tags, armes, objets, stats) sont séparées par des virgules, champ entre guillemets.
 - `Release` : année pour les armes, date `AAAA-MM-JJ` pour les personnages. L'année d'une arme vient de son historique sur le wiki ; à défaut, de la sortie du personnage qui la porte au départ, puis de son DLC.
 - `Bonus` liste les stats qu'un personnage modifie au départ, `Aucun` sinon.
+- `Unlock Type` est déduit du texte de déblocage (cercueil, évolution, ennemis vaincus, survie 20 min, boss, exploit, énigme…).
+- `Weapon Tags` / `Base Tags` : tags des armes de base (via `data.csv`, en remontant les évolutions) ; `Release` des évolutions = année de leur arme de base la plus récente.
+- Les tags des 30 armes ajoutées depuis le wiki (Bloodmoon, Ante Chamber, thons…) ont été rédigés d'après leur description en jeu.
 - Garder des tags cohérents : un même concept = un seul mot (ex. `Explosive`, pas `Explosion`/`Explosions`), sinon les indices partiels perdent leur intérêt.
