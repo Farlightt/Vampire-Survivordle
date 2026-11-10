@@ -16,17 +16,17 @@ Chaque proposition affiche son nom puis une case par caractéristique : 🟩 cor
 | **Armes** | Tags · Objet d'évolution · Dégâts de base · Année de sortie · Source |
 | **Personnages** | Arme de départ (🟧 si un tag d'arme en commun) · Source · Type de déblocage · PV max · Stats modifiées (abrégées) · Date de sortie |
 | **Évolutions** | L'objet requis est donné. Armes de base · Tags de l'arme de base · Année de sortie · Source |
-| **Descriptions** | La description du jeu est donnée. Type (arme / personnage) · Source · Année de sortie |
+| **Descriptions** | La description du jeu est donnée. Type (arme / personnage) · Tags de l'arme · Source · Année de sortie |
 
 ## Règles
 
-- **Défi du jour** : le même pour tout le monde, un par catégorie, renouvelé à minuit. Il exclut les éléments obscurs (armes « sélecteurs », personnages secrets, unions). La progression et les statistiques sont sauvegardées dans le navigateur.
+- **Défi du jour** : le même pour tout le monde, un par catégorie, renouvelé à minuit **heure de Paris** (quel que soit le fuseau du joueur). Les réponses sont fixées à l'avance dans `daily.json`. Il exclut les éléments obscurs (armes « sélecteurs », personnages secrets, unions). La progression et les statistiques sont sauvegardées dans le navigateur.
 - **Bonus croisé** : trouver l'arme du jour révèle la source du personnage du jour, et inversement.
 - **Partie libre** : au hasard, rejouable à volonté. Le **mode difficile** inclut aussi les éléments exclus du défi du jour.
 - **Indices progressifs** : un indice se débloque après 3, 5 puis 7 essais (première lettre, description ou forme du nom, puis évolution / condition de déblocage / arme de base). Ils sont comptés dans le partage (💡).
 - **Réponses indiscernables** : une proposition qui a exactement les mêmes caractéristiques que la réponse (ex. Peachone et Ebony Wings) compte comme gagnante.
 - **Archives** : rejouer les défis des 30 derniers jours (✓ / ✗ selon le résultat).
-- **Options** : mode difficile, essais limités à 8, liste des réponses encore compatibles avec les indices.
+- **Options** : mode difficile, essais limités à 8, liste des réponses encore compatibles avec les indices, **mode daltonien** (bleu / orange / gris + symboles ✓ ~ ✗), **transfert de progression** entre appareils (code à copier-coller, pas de serveur).
 - **Partager** : copie une grille d'emojis sans spoiler.
 
 ## Données
@@ -46,3 +46,17 @@ Extraites du [Vampire Survivors Wiki](https://vampire.survivors.wiki/) (infobox 
 - `Weapon Tags` / `Base Tags` : tags des armes de base (via `data.csv`, en remontant les évolutions) ; `Release` des évolutions = année de leur arme de base la plus récente.
 - Les tags des 30 armes ajoutées depuis le wiki (Bloodmoon, Ante Chamber, thons…) ont été rédigés d'après leur description en jeu.
 - Garder des tags cohérents : un même concept = un seul mot (ex. `Explosive`, pas `Explosion`/`Explosions`), sinon les indices partiels perdent leur intérêt.
+
+## Mettre à jour les données
+
+Quand le jeu sort du nouveau contenu :
+
+```
+python3 tools/update_data.py      # télécharge le wiki, ajoute les nouveautés, recalcule les colonnes déduites
+python3 tools/build_calendar.py   # prolonge le calendrier des défis sans toucher aux dates déjà prévues
+```
+
+- Les armes et personnages existants gardent leurs champs rédigés à la main ; les écarts avec le wiki sont listés (`--overwrite` pour les remplacer).
+- Les nouvelles armes arrivent avec le tag `À compléter` : remplir leur colonne `Tags` puis lancer `python3 tools/update_data.py --derive`.
+- `--dry-run` affiche le rapport sans rien écrire. Tests : `python3 tools/test_update_data.py`.
+- Relancer `build_calendar.py` au moins une fois par an (le calendrier couvre deux ans).

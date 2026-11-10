@@ -195,6 +195,12 @@
         .opt { display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .opt input { accent-color: var(--gold); width: 16px; height: 16px; flex-shrink: 0; }
         .opt small { font-size: 12px; }
+        .transfer { display: flex; flex-direction: column; gap: 6px; padding-top: 6px; border-top: 1px solid rgba(199,149,59,0.25); }
+        .transfer .actions { justify-content: flex-start; }
+        #transferBox {
+            width: 100%; resize: vertical; font-family: inherit; font-size: 12px;
+            background: rgba(0,0,0,0.45); color: var(--ink); border: 1px solid var(--gold-dark); border-radius: 6px; padding: 6px;
+        }
         #candidates { display: none; padding: 10px 12px; background: rgba(0,0,0,0.3); border-radius: 6px; }
         #candidates .label { display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 6px; }
         .chips { display: flex; flex-wrap: wrap; gap: 4px; max-height: 150px; overflow-y: auto; }
@@ -295,6 +301,8 @@
         .row .tile:nth-child(2) { animation-delay: 0.12s; }
         .row .tile:nth-child(3) { animation-delay: 0.24s; }
         .row .tile:nth-child(4) { animation-delay: 0.36s; }
+        .row .tile:nth-child(5) { animation-delay: 0.48s; }
+        .row .tile:nth-child(6) { animation-delay: 0.6s; }
 
         .tile.dense { font-size: clamp(8px, calc(var(--tile) * 0.105), 12px); }
         #results { display: flex; flex-direction: column; gap: 8px; }
@@ -309,6 +317,19 @@
         .correct { background-image: url('images/Green.png'); }
         .partial { background-image: url('images/Orange.png'); }
         .wrong { background-image: url('images/Red.png'); }
+        /* Mode daltonien : bleu / orange / gris + symbole dans chaque case */
+        body.cb .correct { background-image: url('images/Blue.png'); }
+        body.cb .wrong { background-image: url('images/Grey.png'); }
+        body.cb .tile, body.cb .sw { position: relative; }
+        body.cb .tile::after, body.cb .sw::after {
+            position: absolute; top: 3px; right: 5px;
+            font-size: 11px; font-weight: 700; line-height: 1; text-shadow: 0 0 3px #000;
+        }
+        body.cb .correct::after { content: '✓'; }
+        body.cb .partial::after { content: '~'; }
+        body.cb .wrong::after { content: '✗'; }
+        body.cb .guess-name { border-left-color: #8a8a96; }
+        body.cb .guess-name.correct-name { border-left-color: #3478d6; color: #a9cbff; }
 
         .empty {
             text-align: center;
@@ -349,6 +370,7 @@
         #endWeapon small { display: block; font-size: 13px; color: var(--ink-dim); margin-top: 2px; }
         #countdown { text-align: center; font-size: 14px; color: var(--ink-dim); }
         #countdown b { color: var(--gold-light); font-size: 20px; font-variant-numeric: tabular-nums; display: block; }
+        #countdown small { display: block; font-size: 12px; color: var(--ink-dim); }
         #shareFallback {
             display: none;
             width: 100%;
@@ -422,6 +444,15 @@
             <label class="opt"><input type="checkbox" id="hardMode" onchange="setHardMode(this.checked)"><span>Mode difficile en partie libre <small id="hardDetail"></small></span></label>
             <label class="opt"><input type="checkbox" id="limitMode" onchange="setOption('limit', this.checked)"><span>Essais limités (<span id="maxGuesses"></span>)</span></label>
             <label class="opt"><input type="checkbox" id="candMode" onchange="setOption('cands', this.checked)"><span>Afficher les réponses encore possibles</span></label>
+            <label class="opt"><input type="checkbox" id="cbMode" onchange="setOption('cb', this.checked)"><span>Mode daltonien (bleu / orange / gris + symboles)</span></label>
+            <div class="transfer">
+                <span>Changer d'appareil : copie ton code de progression ici, colle-le sur l'autre appareil.</span>
+                <div class="actions">
+                    <button class="btn ghost" type="button" onclick="exportProgress()">Copier mon code</button>
+                    <button class="btn ghost" type="button" onclick="importProgress()">Importer un code</button>
+                </div>
+                <textarea id="transferBox" rows="3" placeholder="Colle ici un code de progression" aria-label="Code de progression"></textarea>
+            </div>
         </details>
 
         <div class="meta">
@@ -477,7 +508,7 @@
             <div class="rule"><div class="sw wrong">▲</div><span>La réponse est plus haute ou plus récente (▼ : l'inverse).</span></div>
             <p><b>Évolutions</b> : l'objet requis est donné. <b>Descriptions</b> : le texte du jeu est donné.</p>
             <p>Un indice se débloque après <span id="hintSteps"></span> essais (compté 💡 dans le partage). Trouver l'arme du jour donne un bonus pour le personnage du jour, et inversement.</p>
-            <p><b>Défi du jour</b> : le même pour tous, sans les éléments obscurs. <b>Archives</b> : les 30 derniers jours. <b>Options</b> : mode difficile, essais limités, liste des réponses encore possibles.</p>
+            <p><b>Défi du jour</b> : le même pour tous, renouvelé à minuit (heure de Paris), sans les éléments obscurs. <b>Archives</b> : les 30 derniers jours. <b>Options</b> : mode difficile, essais limités, réponses encore possibles, mode daltonien, transfert de progression entre appareils.</p>
             <p class="abbr">Stats : Rec Recovery · Arm Armor · MS Move Speed · Mgt Might · Spd Speed · Dur Duration · CD Cooldown · Amt Amount · Rev Revival · Mag Magnet · Lck Luck · Grw Growth · Grd Greed · Crs Curse · Rrl Reroll · Skp Skip · Ban Banish</p>
             <p class="credit">Données : <a href="https://vampire.survivors.wiki/" target="_blank" rel="noopener">Vampire Survivors Wiki</a>. Certaines années de sortie d'armes sont déduites de leur personnage ou de leur DLC.</p>
         </div>
@@ -528,11 +559,19 @@
         get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
         set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
     };
-    function dateKey(d = new Date()) {
-        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    // Les défis suivent l'heure de Paris pour tout le monde : même défi au même moment, partout.
+    const PARIS = 'Europe/Paris';
+    const parisParts = (d = new Date()) => Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+        timeZone: PARIS, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23',
+    }).formatToParts(d).map(p => [p.type, p.value]));
+    const todayKey = () => { const p = parisParts(); return `${p.year}-${p.month}-${p.day}`; };
+    function shiftDay(key, days) {
+        const d = new Date(key + 'T12:00:00Z');
+        d.setUTCDate(d.getUTCDate() + days);
+        return d.toISOString().slice(0, 10);
     }
-    const todayKey = () => dateKey();
-    function yesterdayKey() { const d = new Date(); d.setDate(d.getDate() - 1); return dateKey(d); }
+    const yesterdayKey = () => shiftDay(todayKey(), -1);
+    const secondsToParisMidnight = () => { const p = parisParts(); return 86400 - (+p.hour * 3600 + +p.minute * 60 + +p.second); };
     function hash(str) {   // FNV-1a, pour choisir le défi du jour
         let h = 2166136261;
         for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
@@ -618,9 +657,9 @@
             shareTitle: 'Vampire Survivordle · Descriptions',
             build: ([weapons, chars]) => {
                 const all = [
-                    ...weapons.map(w => ({ 'Nom': w['Nom'], 'Type': 'Arme', 'Source': w['Source'], 'Release': w['Release'], 'Description': w['Description'], 'Extra': w['Evolution'] === 'Aucune' ? "N'a pas d'évolution classique." : `Évolue en ${w['Evolution']}.` })),
+                    ...weapons.map(w => ({ 'Nom': w['Nom'], 'Type': 'Arme', 'Source': w['Source'], 'Release': w['Release'], 'Tags': w['Tags'], 'Description': w['Description'], 'Extra': w['Evolution'] === 'Aucune' ? "N'a pas d'évolution classique." : `Évolue en ${w['Evolution']}.` })),
                     ...chars.filter(c => !weapons.some(w => w['Nom'] === c['Nom']))
-                        .map(c => ({ 'Nom': c['Nom'], 'Type': 'Personnage', 'Source': c['Source'], 'Release': (c['Release'] || '').slice(0, 4) || 'N/A', 'Description': c['Description'], 'Secret': c['Secret'], 'Extra': `Arme de départ : ${c['Arme']}.` })),
+                        .map(c => ({ 'Nom': c['Nom'], 'Type': 'Personnage', 'Source': c['Source'], 'Release': (c['Release'] || '').slice(0, 4) || 'N/A', 'Tags': c['Weapon Tags'], 'Description': c['Description'], 'Secret': c['Secret'], 'Extra': `Arme de départ : ${c['Arme']}.` })),
                 ];
                 // seule une description unique, qui ne cite pas le nom, peut être la réponse
                 const counts = {};
@@ -635,6 +674,7 @@
             prompt: d => ({ label: 'Description', text: d['Description'] }),
             columns: [
                 { key: 'Type', label: 'Type', type: 'exact' },
+                { key: 'Tags', label: 'Tags (arme)', type: 'set' },
                 { key: 'Source', label: 'Source', type: 'exact' },
                 { key: 'Release', label: 'Sortie', type: 'number' },
             ],
@@ -657,7 +697,7 @@
     let mode = 'daily';
     let hard = storage.get('vsdle-hard') === true;
     const MAX_GUESSES = 8;
-    const options = Object.assign({ limit: false, cands: false }, storage.get('vsdle-options') || {});
+    const options = Object.assign({ limit: false, cands: false, cb: false }, storage.get('vsdle-options') || {});
     let archiveDate = null;
     let guesses = [];
     let rowStates = [];
@@ -671,11 +711,14 @@
     $('hardMode').checked = hard;
     $('limitMode').checked = options.limit;
     $('candMode').checked = options.cands;
+    $('cbMode').checked = options.cb;
+    document.body.classList.toggle('cb', options.cb);
     $('maxGuesses').textContent = MAX_GUESSES;
 
     function setOption(key, value) {
         options[key] = value;
         storage.set('vsdle-options', options);
+        document.body.classList.toggle('cb', options.cb);
         renderCandidates();
         updateStatus();
     }
@@ -780,10 +823,10 @@
         });
         $('modeLabel').textContent = 'Chargement…';
         sizeTiles();
-        Promise.all(cfg.files.map(loadFile))
+        Promise.all([...cfg.files.map(loadFile), calendarReady])
             .then(lists => {
                 if (category !== cat) return;
-                data = builtCache[cat] || (builtCache[cat] = cfg.build(lists));
+                data = builtCache[cat] || (builtCache[cat] = cfg.build(lists.slice(0, cfg.files.length)));
                 $('uploadContainer').style.display = 'none';
                 $('searchContainer').style.display = 'flex';
                 secretItem = null;
@@ -804,7 +847,15 @@
     }
 
     // ---------- Partie ----------
+    // Calendrier figé (daily.json) ; à défaut, tirage déterministe sur la date.
+    let calendar = null;
+    const calendarReady = (window.VSDLE_INLINE_CALENDAR ? Promise.resolve(window.VSDLE_INLINE_CALENDAR)
+        : fetch('daily.json').then(r => r.ok ? r.json() : null)).then(c => { calendar = c; }).catch(() => {});
+
     function dailySecret(date) {
+        const planned = calendar && calendar[category] && calendar[category][date];
+        const item = planned && data.find(d => d['Nom'] === planned);
+        if (item) return item;
         const pool = easyPool();
         return pool[hash(cfg.seed + date) % pool.length];
     }
@@ -816,11 +867,11 @@
         const saved = storage.get(cfg.dailyKey + '-archive') || {};
         select.innerHTML = '';
         for (let i = 1; i <= 30; i++) {
-            const d = new Date(); d.setDate(d.getDate() - i);
-            const key = dateKey(d);
+            const key = shiftDay(todayKey(), -i);
             const st = saved[key];
-            const mark = !st ? '' : st.won ? ' ✓' : (st.gaveUp || (st.lost)) ? ' ✗' : ' …';
-            select.appendChild(el('option', { value: key, textContent: d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'long' }) + mark }));
+            const mark = !st ? '' : st.won ? ' ✓' : (st.gaveUp || st.lost) ? ' ✗' : ' …';
+            const label = new Date(key + 'T12:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC', weekday: 'short', day: 'numeric', month: 'long' });
+            select.appendChild(el('option', { value: key, textContent: label + mark }));
         }
         if (keep && [...select.options].some(o => o.value === keep)) select.value = keep;
     }
@@ -942,7 +993,7 @@
 
     function updateStatus() {
         $('modeLabel').innerHTML = '';
-        const longDate = d => new Date(d + 'T12:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+        const longDate = d => new Date(d + 'T12:00:00Z').toLocaleDateString('fr-FR', { timeZone: 'UTC', day: 'numeric', month: 'long' });
         $('modeLabel').append(
             mode === 'daily' ? `${cfg.label} · ` : mode === 'archive' ? 'Archives · ' : `Partie libre${hard ? ' (difficile)' : ''} · `,
             el('b', { textContent: mode === 'daily' ? longDate(todayKey())
@@ -1193,13 +1244,11 @@
 
         clearInterval(countdownTimer);
         const tick = () => {
-            const now = new Date();
-            const next = new Date(now); next.setHours(24, 0, 0, 0);
-            const diff = Math.max(0, next - now);
+            const diff = secondsToParisMidnight() * 1000;
             const h = String(Math.floor(diff / 3.6e6)).padStart(2, '0');
             const m = String(Math.floor(diff / 6e4) % 60).padStart(2, '0');
             const sec = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
-            $('countdown').innerHTML = `Prochain défi du jour dans <b>${h}:${m}:${sec}</b>`;
+            $('countdown').innerHTML = `Prochain défi du jour dans <b>${h}:${m}:${sec}</b><small>minuit, heure de Paris</small>`;
             $('countdown').style.display = mode === 'daily' ? 'block' : 'none';
         };
         tick();
@@ -1208,7 +1257,7 @@
     }
 
     function shareResult() {
-        const emoji = { correct: '🟩', partial: '🟧', wrong: '🟥' };
+        const emoji = options.cb ? { correct: '🟦', partial: '🟧', wrong: '⬛' } : { correct: '🟩', partial: '🟧', wrong: '🟥' };
         const grid = rowStates.map(r => r.map(s => emoji[s]).join('')).join('\n');
         const title = mode === 'daily' ? `${cfg.shareTitle} ${todayKey()}`
             : mode === 'archive' ? `${cfg.shareTitle} ${archiveDate} (archive)`
@@ -1290,6 +1339,55 @@
             searchItem();
         }
     });
+
+    let shownDay = todayKey();
+    setInterval(() => {
+        if (todayKey() !== shownDay) { shownDay = todayKey(); if (mode === 'daily' && data.length) startGame('daily'); }
+    }, 30000);
+
+    // ---------- Transfert de progression (pas de serveur : un code à copier-coller) ----------
+    function exportProgress() {
+        const all = {};
+        try {
+            for (let i = 0; i < localStorage.length; i++) {
+                const k = localStorage.key(i);
+                if (k.startsWith('vsdle-')) all[k] = localStorage.getItem(k);
+            }
+        } catch (e) { toast('Le stockage du navigateur est indisponible.'); return; }
+        const code = 'VSDLE1:' + btoa(unescape(encodeURIComponent(JSON.stringify(all))));
+        const box = $('transferBox');
+        box.value = code;
+        box.select();
+        if (navigator.clipboard) navigator.clipboard.writeText(code).then(() => toast('Code copié !'), () => toast('Copie le code sélectionné.'));
+        else toast('Copie le code sélectionné.');
+    }
+
+    let importArmed = false;
+    function importProgress() {
+        const code = $('transferBox').value.trim();
+        let all;
+        try {
+            if (!code.startsWith('VSDLE1:')) throw new Error();
+            all = JSON.parse(decodeURIComponent(escape(atob(code.slice(7)))));
+        } catch (e) { toast('Ce code de progression n\'est pas valide.'); return; }
+        if (!importArmed) {   // confirmation en deux clics : l'import remplace la progression de cet appareil
+            importArmed = true;
+            toast('Clique encore pour remplacer la progression de cet appareil.');
+            setTimeout(() => { importArmed = false; }, 4000);
+            return;
+        }
+        importArmed = false;
+        try {
+            Object.keys(localStorage).filter(k => k.startsWith('vsdle-')).forEach(k => localStorage.removeItem(k));
+            Object.entries(all).forEach(([k, v]) => { if (k.startsWith('vsdle-')) localStorage.setItem(k, v); });
+        } catch (e) { toast('Le stockage du navigateur est indisponible.'); return; }
+        toast('Progression importée.');
+        $('transferBox').value = '';
+        Object.assign(options, storage.get('vsdle-options') || {});
+        $('limitMode').checked = options.limit; $('candMode').checked = options.cands; $('cbMode').checked = options.cb;
+        document.body.classList.toggle('cb', options.cb);
+        switchCategory(category);
+    }
 
     // ---------- Démarrage ----------
     const savedCat = storage.get('vsdle-category');

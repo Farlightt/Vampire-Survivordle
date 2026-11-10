@@ -4,7 +4,7 @@ La Robba,"Bouncing, Projectile",Aucun,10,2022,Jeu de base,Aucune,Generates bounc
 Greatest Jubilee,"Area, Random",Aucun,10,2022,Jeu de base,Aucune,Has a chance to summon light sources. Ignores Speed.
 Candybox,Choice,Aucun,N/A,2022,Jeu de base,Aucune,Allows you to choose any unlocked base weapon.
 Victory Sword,"Melee, Retaliation",Aucun,5,2022,Jeu de base,Aucune,Strikes with a combo attack at the nearest enemy. Retaliates.
-Arma Dio,Choice,Aucun,N/A,2021,Jeu de base,Aucune,Allows you to choose an extra passive weapon.
+Arma Dio,Choice,Aucun,N/A,2024,Jeu de base,Aucune,Allows you to choose an extra passive weapon.
 108 Bocce,"Bouncing, Projectile",Aucun,12,2022,Legacy of Moonspell,Aucune,Actually it's just 8. Damage affected by the difference between Curse and Luck.
 Party Popper,"Bouncing, Projectile",Aucun,5,2023,Tides of the Foscari,Aucune,Throws bouncing projectiles. Scales with all stat bonuses.
 Hats,"Bouncing, Random",Aucun,10,2023,Emergency Meeting,Aucune,Throws cute bouncing projectiles with random properties.
@@ -33,7 +33,7 @@ Knife,"Directional, Fast",Bracer,6.5,2021,Jeu de base,Thousand Edge,Fires quickl
 Axe,"High Damage, Area",Candelabrador,20,2021,Jeu de base,Death Spiral,"High damage, high area scaling. Ignores Duration."
 Cross,"Boomerang, Homing",Clover,5,2021,Jeu de base,Heaven Sword,"Aims at the nearest enemy, has a boomerang effect. Ignores Duration."
 King Bible,"Orbit, Area",Spellbinder,10,2021,Jeu de base,Unholy Vespers,Orbits around the character. Scales with all stat bonuses.
-Fire Wand,"Random, Heavy",Spinach,20,2021,Jeu de base,Hellfire,"Fires at a random enemy, deals heavy damage. Ignores Duration."
+Fire Wand,"Random, High Damage",Spinach,20,2021,Jeu de base,Hellfire,"Fires at a random enemy, deals heavy damage. Ignores Duration."
 Garlic,"Aura, Area",Pummarola,5,2021,Jeu de base,Soul Eater,Damages nearby enemies. Reduces resistance to knockback and freeze.
 Santa Water,Area,Attractorb,10,2021,Jeu de base,La Borra,Generates damaging zones. Ignores Speed.
 Runetracer,"Bouncing, Pierce",Armor,10,2021,Jeu de base,NO FUTURE,"Passes through enemies, bounces around. Scales with all stat bonuses."
@@ -103,11 +103,11 @@ Curved Knife,"Random, Spin",Bracer,8,2024,Ode to Castlevania,Bwaka Knife,Fires a
 Javelin,"Pierce, Fixed",Spellbinder,10,2024,Ode to Castlevania,Long Inus,Fires a penetrating projectile in a fixed direction.
 Discus,"Defensive, Projectile",Parm Aegis,10,2024,Ode to Castlevania,Stellar Blade,Fires a defensive projectile.
 Iron Ball,"Armor, Projectile",Armor,20,2024,Ode to Castlevania,Wrecking Ball,Damage affected by Armor. Scales with Armor.
-Silver Revolver,"Powerful, Multi-shot",Karoma's Mana,30,2024,Ode to Castlevania,Jewel Gun,"Fires a powerful projectiles, six times."
+Silver Revolver,"High Damage, Multi-shot",Karoma's Mana,30,2024,Ode to Castlevania,Jewel Gun,"Fires a powerful projectiles, six times."
 Hand Grenade,"Explosive, Projectile",Candelabrador,10,2024,Ode to Castlevania,The RPG,Fires an exploding projectile.
 Wine Glass,"Explosive, Projectile",Tirajisú,10,2024,Ode to Castlevania,Meal Ticket,Throws an exploding projectile.
 Raging Fire,"Area, Explosive",Spinach,10,2024,Ode to Castlevania,Salamender,Generates an exploding damaging zone. Best with Cooldown and Duration.
-Ice Fang,"Straight, Area",Spellbinder,10,2024,Ode to Castlevania,Cocytus,Generates damaging zones in a straight line. Best with Cooldown and Duration.
+Ice Fang,"Linear, Area",Spellbinder,10,2024,Ode to Castlevania,Cocytus,Generates damaging zones in a straight line. Best with Cooldown and Duration.
 Gale Force,"Backward, Projectile",Bracer,3,2024,Ode to Castlevania,Pneuma Tempestas,Fires light-hitting projectiles backwards. Best with Cooldown and Duration.
 Rock Riot,"Fixed, Projectile",Stone Mask,10,2024,Ode to Castlevania,Gemma Torpor,Fires projectiles from a fixed location. Best with Cooldown and Duration.
 Fulgur,"Strike, Fixed",Duplicator,10,2024,Ode to Castlevania,Tenebris Tonitrus,Strikes at fixed locations. Best with Cooldown and Duration.
@@ -124,27 +124,27 @@ Tyrfing,"Boomerang, Critical",Spinach,10,2024,Ode to Castlevania,Rune Sword,"Has
 Alucart Sworb,"Homing, Melee",Aucun,5,2024,Ode to Castlevania,Alucard Swords,Allegedly strikes at the nearest enemy.
 Confodere,"Melee, Speed",Aucun,6,2024,Ode to Castlevania,Vol Confodere,Attack nearby enemies. Speed affects damage.
 Globus,"Bouncing, Duration",Empty Tome,5,2024,Ode to Castlevania,Nitesco,Fires two bouncing projectiles. Amount affects Duration.
-Optical Shot,"Pierce, Double",Karoma's Mana,10,2024,Ode to Castlevania,Acerbatus,Fires two penetrating projectiles. Ignores Duration.
+Optical Shot,"Pierce, Multi-shot",Karoma's Mana,10,2024,Ode to Castlevania,Acerbatus,Fires two penetrating projectiles. Ignores Duration.
 Dextro Custos,"Summon, Fire",Aucun,20,2024,Ode to Castlevania,Aucune,Summons Cerberus' fiery head in faced direction.
-Sinestro Custos,"Summon, Ice",Aucun,20,2024,Ode to Castlevania,Aucune,Summons Cerberus' icy head in faced direction.
+Sinestro Custos,"Summon, Freeze",Aucun,20,2024,Ode to Castlevania,Aucune,Summons Cerberus' icy head in faced direction.
 Centralis Custos,"Summon, Buff",Aucun,8,2024,Ode to Castlevania,Aucune,"Summons Cerberus' vengeful head. Boosts Armor, Recovery and Cooldown when damaged."
 Dominus Anger,"Pierce, Drain",Aucun,10,2024,Ode to Castlevania,Aucune,Fires a penetrating projectile. Drains health.
 Dominus Hatred,"Falling, Drain",Aucun,10,2024,Ode to Castlevania,Aucune,Fires projectiles from above. Drains health.
 Dominus Agony,"Buff, Drain",Aucun,N/A,2024,Ode to Castlevania,Aucune,"Increases Might, Speed, Duration, and Area. Drains Health."
 Sonic Dash,"Movement, Damage",Wings,5,2024,Ode to Castlevania,Rapidus Fio,Increases Move Speed by 10% per level and damages nearby enemies.
 Luminatio,"Spin, Light",Crown,10,2024,Ode to Castlevania,Vol Luminatio,Fires spinning projectiles made of light.
-Umbra,"Spin, Darkness",Attractorb,10,2024,Ode to Castlevania,Vol Umbra,Fires spinning projectiles made of darkness.
+Umbra,"Spin, Shadow",Attractorb,10,2024,Ode to Castlevania,Vol Umbra,Fires spinning projectiles made of darkness.
 Aura Blast,"Sideways, Explosive",Aucun,10,2024,Ode to Castlevania,Aucune,Generates explosive sideways. Ignores Speed and Duration.
 Endo Gears,"Clockwork, Amount",Aucun,10,2025,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
-Peri Pendulum,"Clockwork, Amount",Aucun,10,2024,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
-Myo Lift,"Clockwork, Amount",Aucun,10,2024,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
-Epi Head,"Clockwork, Amount",Aucun,10,2024,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
+Peri Pendulum,"Clockwork, Amount",Aucun,10,2025,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
+Myo Lift,"Clockwork, Amount",Aucun,10,2025,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
+Epi Head,"Clockwork, Amount",Aucun,10,2025,Ode to Castlevania,Aucune,Also triggers other clockwork weapons. Damage increased by Amount and currently found Orologions.
 Fleuret,"Speed, Glimmer",Crystalline Carve tech,6,2025,Emerald Diorama,Dress Sword,Speed affects damage. Can glimmer the 'Crystalline Carve' tech.
 Town Sword,"Directional, Glimmer",Swallow Slice tech,6.5,2025,Emerald Diorama,Lordstar,Strikes in the faced direction. Can glimmer the 'Swallow Slice' tech.
 Splashers,"Duration, Glimmer","Spellbinder, Dual Whirlwind tech",20,2025,Emerald Diorama,Pursuant Blades,Duration affects damage. Can glimmer the 'Dual Whirlwind' tech.
 Flamberge,"Upward, Spin",Bull Crush tech,20,2025,Emerald Diorama,Zweihander,Throws spinning swords upwards. Can glimmer the 'Bull Crush' tech.
 Punch,"Sideways, Melee",Raksha tech,6.5,2025,Emerald Diorama,Pressure Point,Attacks sideways. Can glimmer the 'Raksha' tech.
-Kick,"Full Health, Boost","Pummarola, Thunder Kick tech",10,2025,Emerald Diorama,Triangle Kick,Deal more damage when at full health. Can glimmer the 'Thunder Kick' tech.
+Kick,"Full Health, Buff","Pummarola, Thunder Kick tech",10,2025,Emerald Diorama,Triangle Kick,Deal more damage when at full health. Can glimmer the 'Thunder Kick' tech.
 Saber Machine Gun,"Directional, Glimmer",Shockwave tech,0.5,2025,Emerald Diorama,Hecaton Machine Gun,Fires in the faced direction. Can glimmer the 'Shockwave' tech.
 Super Missile,"Explosive, Glimmer",Ballistic Missiles tech,10,2025,Emerald Diorama,Hydra Cannon,Fires exploding projectiles. Can glimmer the 'Ballistic Missiles' tech.
 Eagle Gun,"Homing, Glimmer","Spinach, Falconfire tech",5,2025,Emerald Diorama,Pendragon,Fires at nearby enemies. Can glimmer the 'Falconfire' tech.
